@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Home</title>
+</head>
+
+<body>
+  <div class="students justify-align-center">
+    <template class="studentTemplate">
+
+      <div class="student">
+        <div class="mainStudentInfo">
+          <img src="./img/dog.jpg" alt="Student photo" class="imageOfAStudent j-self-center">
+          <h3 class="nameOftheStudent"></h3>
+          <h4 class="house"></h4>
+          <div class="numbers justify-align-center j-self-center">
+            <h4 class="number"></h4>
+          </div>
+        </div>
+        <div class="modal justify-align-center d-none" data-crest="ravenclaw">
+          <div class="slider">
+          </div>
+          <div class="modalConent ">
+            <div class="crest justify-align-self-centered"></div>
+            <h4 class="message justify-align-self-centered"><span class="textStudentName">Name</span> belongs to <span
+                class="textStudentHouse"></span> house </h4>
+
+            <label class="theme-changer justify-align-self-centered">
+              Move student to
+              <select class="theme">
+                <option value="gryffindor">Gryffindor house</option>
+                <option value="hufflepuff">Hufflepuff house</option>
+                <option value="ravenclaw">Ravenclaw house</option>
+                <option value="slytherin">Slytherin house</option>
+              </select>
+            </label>
+
+            <button class="close justify-align-self-centered">
+              <h4>Close</h4>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </template>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+
+</html>
