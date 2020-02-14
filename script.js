@@ -1,6 +1,7 @@
 const studentTemplate = document.querySelector(".studentTemplate").content;
 const students = document.querySelector(".students");
 
+
 window.addEventListener("DOMContentLoaded", init);
 
 const Student = {
@@ -16,7 +17,7 @@ function init() {
   fetch("students1991.json")
     .then(res => res.json())
     .then(data =>
-      console.log(data)
+      data.forEach(createStudentInfoCard)
       //   {
       //   data.forEach(student => {
       //     createStudentCards(student, data);
@@ -39,6 +40,16 @@ function init() {
       // }
     );
 }
+
+const studentsArr = [];
+
+function createStudentInfoCard(student) {
+  const studentCard = Object.create(Student);
+  studentCard.firstName = capitalise(findFirstName(student.fullname));
+  student.lastName = capitalise(lastName(student.fullname));
+  console.log(student.lastName);
+}
+
 
 function selectedHouse() {
   const selectedTheme = event.target;
