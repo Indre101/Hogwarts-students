@@ -3,29 +3,41 @@ const students = document.querySelector(".students");
 
 window.addEventListener("DOMContentLoaded", init);
 
+const Student = {
+  firstName: "",
+  lastName: "",
+  middleName: undefined,
+  nickName: undefined,
+  imgage: "",
+  house: ""
+}
+
 function init() {
   fetch("students1991.json")
     .then(res => res.json())
-    .then(data => {
-      data.forEach(student => {
-        createStudentCards(student, data);
-      });
-      return data;
-    })
-    .then(data => {
-      const themeOptions = document.querySelectorAll(".theme");
-      const themeOptionsArr = Array.from(themeOptions);
-      themeOptions.forEach(option => {
-        option.addEventListener("change", () => {
-          data[themeOptionsArr.indexOf(option)].house = selectedHouse();
-          const selectedStudentCard = document.querySelectorAll(".student")[
-            themeOptionsArr.indexOf(option)
-          ];
-          const selectedStudentObject = data[themeOptionsArr.indexOf(option)];
-          showStudentHouseAndModal(selectedStudentCard, selectedStudentObject);
-        });
-      });
-    });
+    .then(data =>
+      console.log(data)
+      //   {
+      //   data.forEach(student => {
+      //     createStudentCards(student, data);
+      //   });
+      //   return data;
+      // })
+      // .then(data => {
+      //   const themeOptions = document.querySelectorAll(".theme");
+      //   const themeOptionsArr = Array.from(themeOptions);
+      //   themeOptions.forEach(option => {
+      //     option.addEventListener("change", () => {
+      //       data[themeOptionsArr.indexOf(option)].house = selectedHouse();
+      //       const selectedStudentCard = document.querySelectorAll(".student")[
+      //         themeOptionsArr.indexOf(option)
+      //       ];
+      //       const selectedStudentObject = data[themeOptionsArr.indexOf(option)];
+      //       showStudentHouseAndModal(selectedStudentCard, selectedStudentObject);
+      //     });
+      //   });
+      // }
+    );
 }
 
 function selectedHouse() {
@@ -60,11 +72,11 @@ function showStudentHouseAndModal(clnStudent, student) {
   modal.dataset.crest = student.house.toLowerCase();
   clnStudent.querySelector(".textStudentHouse").textContent = student.house;
 
-  clnStudent.querySelector(".mainStudentInfo").onclick = function() {
+  clnStudent.querySelector(".mainStudentInfo").onclick = function () {
     showHideElement(modal, "d-flex", "d-none");
   };
 
-  clnStudent.querySelector(".close").onclick = function() {
+  clnStudent.querySelector(".close").onclick = function () {
     showHideElement(modal, "d-flex", "d-none");
   };
 }
