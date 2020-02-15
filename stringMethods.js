@@ -53,6 +53,10 @@ function capitaliseAfterGapsHyphen(element) {
   const arr = element.split(" ");
   const newSentence = [];
   arr.forEach(word => {
+    if (word.includes("-")) {
+      arr.splice(arr.indexOf(word), 1, word.split("-").map(capitalise).join("-"));
+    }
+
     if (word !== " " || word !== "-") {
       let capitalisedWord = word.charAt(0).toUpperCase() + word.substring(1, word.length);
       newSentence.push(capitalisedWord);
@@ -60,7 +64,6 @@ function capitaliseAfterGapsHyphen(element) {
       newSentence.push(word);
     }
   });
-
   const capitalisedSentence = newSentence.join(" ");
   return capitalisedSentence
 }

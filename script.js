@@ -9,7 +9,7 @@ const Student = {
   lastName: "",
   middleName: undefined,
   nickName: undefined,
-  imgage: "",
+  image: "",
   house: ""
 }
 
@@ -45,6 +45,7 @@ const studentsArr = [];
 
 function createStudentInfoCard(student) {
   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
+  // capitaliseAfterGapsHyphen(fullNameWithoutWhitespaces)
   const studentCard = Object.create(Student);
   // console.log(fullNameWithoutWhitespaces);
   studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
@@ -52,16 +53,11 @@ function createStudentInfoCard(student) {
 
   // console.log(fullNameWithoutWhitespaces.indexOf('"'));
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
-  console.log(getMiddleName(fullNameWithoutWhitespaces));
-
-  // student.middleName = getMiddleName(fullNameWithoutWhitespaces)
-  // console.log(getMiddleName(fullNameWithoutWhitespaces));
-  // getMiddleName(fullNameWithoutWhitespaces)
-  // console.log(fullNameWithoutWhitespaces.split(" "));
-
-  // console.log(student.middleName);
+  studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
+  studentsArr.push(studentCard)
 }
 
+console.log(studentsArr);
 
 
 function selectedHouse() {
