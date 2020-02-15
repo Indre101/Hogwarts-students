@@ -46,13 +46,10 @@ function init() {
 
 function createStudentInfoCard(student) {
   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
-  // capitaliseAfterGapsHyphen(fullNameWithoutWhitespaces)
   const studentCard = Object.create(Student);
-  // console.log(fullNameWithoutWhitespaces);
   studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
   studentCard.lastName = lastName(fullNameWithoutWhitespaces);
-
-  // console.log(fullNameWithoutWhitespaces.indexOf('"'));
+  studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
   studentsArr.push(studentCard)
@@ -64,10 +61,25 @@ function selectedHouse() {
   return selectedTheme.value;
 }
 
+function getNames(student) {
+  let fullName;
+  if (student.nickName && student.middleName) {
+    fullName = `${student.firstName} Middle name ${student.middleName} Nick name ${student.nickName} ${student.lastName}`
+  } else if (student.nickName) {
+    fullName = `${student.firstName} Nick name ${student.nickName} ${student.lastName}`
+  } else if (student.middleName) {
+    fullName = `${student.firstName} Middle name ${student.middleName} ${student.lastName}`
+  } else {
+    fullName = `${student.firstName} ${student.lastName}`
+  }
+  return fullName;
+
+}
+
 function createStudentCards(student, data) {
   const clnStudent = studentTemplate.cloneNode(true);
-  clnStudent.querySelector(".nameOftheStudent").textContent = student.fullname;
-  clnStudent.querySelector(".textStudentName").textContent = student.fullname;
+  clnStudent.querySelector(".nameOftheStudent").textContent = `${student.firstName} ${student.lastName}`;
+  clnStudent.querySelector(".textStudentName").textContent = getNames(student);
   clnStudent.querySelector(".number").textContent = data.indexOf(student) + 1;
 
   showStudentHouseAndModal(clnStudent, student);
