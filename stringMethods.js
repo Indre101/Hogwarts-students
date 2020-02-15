@@ -1,8 +1,10 @@
+const removeWhiteSpaces = (element) => {
+  return element = element.trimStart().trimEnd();
+}
 const capitalise = (element) => {
   return `${element.charAt(0).toUpperCase()}${element.substring(1, element.length)}`
 }
 const findFirstName = (element) => {
-  element = element.trimStart()
   if (element.indexOf(" ") == -1) {
     return element
   } else {
@@ -16,13 +18,17 @@ const findFirstName = (element) => {
 const getLengthOfName = element => findFirstName(element).length;
 
 
-function getMiddleName(element) {
+const getNickname = (element) => element.indexOf('"') ? element.substring(element.indexOf('"') + 1, element.lastIndexOf('"')) : null;
+const getMiddleName = (element) => {
   const names = element.split(" ");
+  // console.log(names.length);
   let middleName
-  if (names.length >= 2 && names[2].length >= 2) {
+  if (getNickname(element)) {
+    names.splice(getNickname(element));
+  } else if (names.length >= 2 && names[1].length >= 2) {
     middleName = names.slice(1, names.length - 1).join(" ");
   } else {
-    middleName = "Middle name not found"
+    middleName = undefined
   }
   return middleName
 }
@@ -43,7 +49,6 @@ function hidePassword(element) {
 }
 
 
-
 function capitaliseAfterGapsHyphen(element) {
   const arr = element.split(" ");
   const newSentence = [];
@@ -60,10 +65,12 @@ function capitaliseAfterGapsHyphen(element) {
   return capitalisedSentence
 }
 
+
+
+
+
 const lastName = (element) => {
   element = element.trimEnd()
   const arr = element.split(" ");
   return arr[arr.length - 1]
-
-
 }

@@ -44,11 +44,24 @@ function init() {
 const studentsArr = [];
 
 function createStudentInfoCard(student) {
+  const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
   const studentCard = Object.create(Student);
-  studentCard.firstName = capitalise(findFirstName(student.fullname));
-  student.lastName = capitalise(lastName(student.fullname));
-  console.log(student.lastName);
+  // console.log(fullNameWithoutWhitespaces);
+  studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
+  studentCard.lastName = lastName(fullNameWithoutWhitespaces);
+
+  // console.log(fullNameWithoutWhitespaces.indexOf('"'));
+  studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
+  console.log(getMiddleName(fullNameWithoutWhitespaces));
+
+  // student.middleName = getMiddleName(fullNameWithoutWhitespaces)
+  // console.log(getMiddleName(fullNameWithoutWhitespaces));
+  // getMiddleName(fullNameWithoutWhitespaces)
+  // console.log(fullNameWithoutWhitespaces.split(" "));
+
+  // console.log(student.middleName);
 }
+
 
 
 function selectedHouse() {
