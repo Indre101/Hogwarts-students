@@ -12,36 +12,37 @@ const Student = {
   image: "",
   house: ""
 }
+const studentsArr = [];
+
 
 function init() {
   fetch("students1991.json")
     .then(res => res.json())
     .then(data =>
       data.forEach(createStudentInfoCard)
-      //   {
-      //   data.forEach(student => {
-      //     createStudentCards(student, data);
-      //   });
-      //   return data;
-      // })
-      // .then(data => {
-      //   const themeOptions = document.querySelectorAll(".theme");
-      //   const themeOptionsArr = Array.from(themeOptions);
-      //   themeOptions.forEach(option => {
-      //     option.addEventListener("change", () => {
-      //       data[themeOptionsArr.indexOf(option)].house = selectedHouse();
-      //       const selectedStudentCard = document.querySelectorAll(".student")[
-      //         themeOptionsArr.indexOf(option)
-      //       ];
-      //       const selectedStudentObject = data[themeOptionsArr.indexOf(option)];
-      //       showStudentHouseAndModal(selectedStudentCard, selectedStudentObject);
-      //     });
-      //   });
-      // }
-    );
-}
+    ).then(() => {
+      studentsArr.forEach(student => {
+        createStudentCards(student, studentsArr);
+      });
+    })
+    .then(() => {
+      const themeOptions = document.querySelectorAll(".theme");
+      const themeOptionsArr = Array.from(themeOptions);
+      themeOptions.forEach(option => {
+        option.addEventListener("change", () => {
+          studentsArr[themeOptionsArr.indexOf(option)].house = selectedHouse();
+          const selectedStudentCard = document.querySelectorAll(".student")[
+            themeOptionsArr.indexOf(option)
+          ];
+          const selectedStudentObject = studentsArr[themeOptionsArr.indexOf(option)];
+          showStudentHouseAndModal(selectedStudentCard, selectedStudentObject);
+        });
+      });
+    })
 
-const studentsArr = [];
+};
+
+
 
 function createStudentInfoCard(student) {
   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
@@ -56,8 +57,6 @@ function createStudentInfoCard(student) {
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
   studentsArr.push(studentCard)
 }
-
-console.log(studentsArr);
 
 
 function selectedHouse() {
