@@ -16,7 +16,7 @@ const studentsArr = [];
 
 
 function init() {
-  fetch("students1991.json")
+  fetch("https://petlatkea.dk/2020/hogwarts/students.json")
     .then(res => res.json())
     .then(data =>
       data.forEach(createStudentInfoCard)
