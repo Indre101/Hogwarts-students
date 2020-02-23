@@ -18,18 +18,28 @@
 body {
   height: 100vh;
   background-color: #ccc;
-  overflow: hidden;
 }
 
 .mainContainer {
   display: grid;
-  grid-template-columns: 30vw 80vw;
+  grid-template-columns: 30vw 70vw;
+}
+
+header {
+  display: flex;
+  align-items: center;
+
 }
 
 h1 {
-  margin: 3vw;
-  text-align: center;
+  font-size: 2vw;
 }
+
+.schoolLogo {
+  height: 6vw;
+  margin: 1vw;
+}
+
 
 .student {
   display: grid;
@@ -70,6 +80,8 @@ h3 {
   transform: skew(2deg, 2deg);
   z-index: -1;
 }
+
+
 
 
 /* 
