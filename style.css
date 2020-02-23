@@ -62,24 +62,20 @@ h3 {
 }
 
 .student::before {
+  --modal-color: #372e29f6;
+  --modal-color-1: #372e29;
   content: "";
-  width: 50%;
-  height: 3vw;
+  width: 56%;
+  height: 4.5vw;
   position: absolute;
-  background-color: green;
-  transform: skew(2deg, 2deg);
+  transform: skew(15deg) rotate(2deg);
   z-index: -1;
+  background: #FC354C;
+  background: -webkit-linear-gradient(to right, var(--modal-color), yellow);
+  background: linear-gradient(to right, var(--modal-color), yellow);
 }
 
-.student::after {
-  content: "";
-  width: 50%;
-  height: 3vw;
-  position: absolute;
-  background-color: green;
-  transform: skew(2deg, 2deg);
-  z-index: -1;
-}
+
 
 input[type="radio"] {
   display: none;
