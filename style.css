@@ -94,9 +94,27 @@ label:before {
   margin: 0 5px 0 0;
   width: 20px;
   height: 20px;
+  background-image: url(./icons/non-color.svg);
+  background-size: contain;
   border-radius: 11px;
-  border: 2px solid orange;
-  background-color: transparent;
+  transition: background-image 0.5s linear;
+}
+
+label:hover:before {
+  background-image: url(./icons/borders.svg);
+}
+
+input:checked label:before {
+  background-image: url(./icons/borders-2.svg);
+}
+
+.smallContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: end;
+  width: 50%;
+  justify-self: flex-end;
 }
 
 
