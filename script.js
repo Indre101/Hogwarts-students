@@ -43,30 +43,26 @@ function init() {
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
 }
 
-function changeLabelsImages(arr, studentsArr) {
-
-  arr.forEach(label => label.addEventListener("click", () => {
-
+function changeLabelsImages(inputLabels, studentsArr) {
+  inputLabels.forEach(label => label.addEventListener("click", () => {
     label = event.target;
-    arr.forEach(label => label.dataset.status = " ");
+    inputLabels.forEach(label => label.dataset.status = " ");
     label.dataset.status = "checked";
-
     doFilterOrSort(label, studentsArr)
-    // displayNewOrder(newArr);
-
-    // doFilterOrSort(label, newArr)
   }))
 }
+
 
 let filterArr;
 
 function doFilterOrSort(label, studentsArr) {
   const ceckedInput = getCheckedInputValue(label);
-
-  if (label.dataset.action === "sort") {
+  if (filterArr && label.dataset.action === "sort") {
+    studentsArr = sortStudents(filterArr, ceckedInput)
+  } else if (label.dataset.action === "sort") {
     studentsArr = sortStudents(studentsArr, ceckedInput)
   } else if (label.dataset.action === "filter") {
-    let filterArr = filterStudent(studentsArr, ceckedInput)
+    filterArr = filterStudent(studentsArr, ceckedInput)
     studentsArr = filterArr;
   }
   displayNewOrder(studentsArr);
@@ -94,12 +90,11 @@ function sortStudents(studentsArray, ceckedInput) {
 
 function filterStudent(studentsArray, ceckedInput) {
   let filteredStudent = studentsArray;
-  // if (ceckedInput.property === "all") {
-  //   filteredStudent = studentsArray;
-  // } else 
-  // {
-  filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true);
-  // }
+  if (ceckedInput.property === "all") {
+    filteredStudent = studentsArray;
+  } else {
+    filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true);
+  }
   return filteredStudent;
 }
 
