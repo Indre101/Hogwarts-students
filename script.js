@@ -1,24 +1,88 @@
 window.addEventListener("DOMContentLoaded", init)
 
-const labelsForSorting = document.querySelectorAll(".sorting label");
-const labelsForFiltering = document.querySelectorAll(".filtering label");
-
-changeInputsImages(labelsForSorting)
-changeInputsImages(labelsForFiltering)
-
-function changeInputsImages(arr) {
-  arr.forEach(label => label.addEventListener("click", () => {
-    label = event.target
-    arr.forEach(label => label.dataset.status = " ")
-    label.dataset.status = "checked"
-  }))
-}
 
 
 const HTML = {}
 
-function init() {}
+const Student = {
+  firstName: "",
+  lastName: "",
+  middleName: undefined,
+  nickName: undefined,
+  image: "",
+  house: "",
+  bloodStatus: ""
+}
 
+const studentsArr = []
+
+function selectHTMLelements() {
+  HTML.labelsForSorting = document.querySelectorAll(".sorting label");
+  HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
+  HTML.studentTemplate = document.querySelector(".studentItem").content;
+
+
+}
+
+function init() {
+  selectHTMLelements()
+  changeLabelsImages(HTML.labelsForSorting)
+  changeLabelsImages(HTML.labelsForFiltering)
+  getStudentData()
+  fetchBloodData()
+}
+
+
+function changeLabelsImages(arr) {
+  arr.forEach(label => label.addEventListener("click", () => {
+    label = event.target;
+    arr.forEach(label => label.dataset.status = " ");
+    label.dataset.status = "checked";
+  }))
+}
+
+
+function getStudentData() {
+  fetch("https://petlatkea.dk/2020/hogwarts/students.json")
+    .then(res => res.json())
+    .then(data => data).then((data) => {
+      data.forEach(assignValuesToStudentObject);
+    })
+}
+
+
+
+
+function fetchBloodData() {
+  fetch("https://petlatkea.dk/2020/hogwarts/families.json").then(res =>
+    res.json()).then(data => {
+    assignBlodStatus(data.half, studentsArr)
+  })
+}
+
+function assignBlodStatus(bloodStatuses, students) {
+  students.forEach(student => {
+    if (bloodStatuses.includes(student.lastName)) {
+      student.bloodStatus = "half"
+    } else {
+      student.bloodStatus = "pure"
+    }
+  })
+}
+
+
+
+
+function assignValuesToStudentObject(student) {
+  const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
+  const studentCard = Object.create(Student);
+  studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
+  studentCard.lastName = lastName(fullNameWithoutWhitespaces);
+  studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
+  studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
+  studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
+  studentsArr.push(studentCard)
+}
 
 
 // const studentTemplate = document.querySelector(".studentTemplate").content;
