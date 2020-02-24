@@ -60,6 +60,7 @@ function changeLabelsImages(arr, studentsArr) {
 
 function doFilterOrSort(label, studentsArr) {
   const ceckedInput = getCheckedInputValue(label);
+
   if (label.dataset.action === "sort") {
     studentsArr = sortStudents(studentsArr, ceckedInput)
   } else if (label.dataset.action === "filter") {
@@ -70,14 +71,7 @@ function doFilterOrSort(label, studentsArr) {
 
 }
 
-function checkIfChecked(array) {
 
-  array.forEach(element => {
-    if (element.checked = true) {
-      console.log(element);
-    }
-  })
-}
 
 function getCheckedInputValue(label) {
   const inputField = label.previousElementSibling
@@ -97,9 +91,13 @@ function sortStudents(studentsArray, ceckedInput) {
 
 
 function filterStudent(studentsArray, ceckedInput) {
-  const filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true);
+  let filteredStudent = studentsArray;
+  if (ceckedInput.property === "all") {
+    filteredStudent = studentsArray;
+  } else {
+    filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true);
+  }
   return filteredStudent;
-  // displayNewOrder(filteredStudent)
 }
 
 
@@ -119,10 +117,10 @@ function setSortingDirection(inputField) {
 function displayNewOrder(array) {
   const allStudentsHTML = document.querySelectorAll(".student");
   if (allStudentsHTML.length === array.length) {
-
-
     for (let index = 0; index < allStudentsHTML.length; index++) {
       addStudentProperties(allStudentsHTML[index], array[index]);
+      allStudentsHTML[index].style.display = "block";
+
     }
   } else if (allStudentsHTML.length > array.length) {
     let difference = allStudentsHTML.length - array.length - 1;
