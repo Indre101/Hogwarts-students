@@ -11,79 +11,157 @@ const Student = {
   nickName: undefined,
   image: "",
   house: "",
-  bloodStatus: ""
+  bloodStatus: "",
+  isPerfect: false,
+  isInInquisitionalSquad: false,
+  isExpelled: false,
+  isSlytherin: false,
+  isHufflepuff: false,
+  isGryffindor: false,
+  isRavenclaw: false
+
+
 }
 
-const studentsArr = []
 
-function selectHTMLelements() {
+function selectHTMLelements(studentsArr) {
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
   HTML.students = document.querySelector(".studentsList")
-
+  changeLabelsImages(HTML.labelsForSorting, studentsArr)
+  changeLabelsImages(HTML.labelsForFiltering, studentsArr)
 }
+
+
 
 function init() {
-  selectHTMLelements()
-  changeLabelsImages(HTML.labelsForSorting)
-  changeLabelsImages(HTML.labelsForFiltering)
-  getStudentData()
-  fetchBloodData()
+  const studentsArr = [];
+  getStudentData(studentsArr)
+  fetchBloodData(studentsArr)
+  selectHTMLelements(studentsArr)
+
 }
 
-
-function changeLabelsImages(arr) {
+function changeLabelsImages(arr, studentsArr) {
   arr.forEach(label => label.addEventListener("click", () => {
     label = event.target;
     arr.forEach(label => label.dataset.status = " ");
     label.dataset.status = "checked";
-    getCheckedInputValue(label, studentsArr);
+
+    doFilterOrSort(label, studentsArr)
+    // displayNewOrder(newArr);
+
+    // doFilterOrSort(label, newArr)
   }))
 }
 
+let filterArr;
+let sortArray;
 
-function getCheckedInputValue(label, studentsArr) {
-  const inputField = label.previousElementSibling
-  sortArray(studentsArr, inputField.dataset.sort)
+function doFilterOrSort(label, studentsArr) {
+  const ceckedInput = getCheckedInputValue(label);
+  if (filterArr && label.dataset.action === "sort") {
+    studentsArr = sortStudents(filterArr, ceckedInput)
+    displayNewOrder(studentsArr);
+  } else if (sortArray && label.dataset.action === "filter") {
+    filterArr = filterStudent(sortArray, ceckedInput)
+    displayNewOrder(filterArr);
+
+  } else if (label.dataset.action === "sort") {
+    sortArray = sortStudents(studentsArr, ceckedInput)
+    displayNewOrder(sortArray);
+  } else if (label.dataset.action === "filter") {
+    filterArr = filterStudent(studentsArr, ceckedInput)
+    console.log(filterArr);
+
+    displayNewOrder(filterArr);
+  }
 }
 
-function sortArray(studentsArr, sortBy) {
-  studentsArr.sort((a, b) => {
+function getCheckedInputValue(label) {
+  const inputField = label.previousElementSibling
+  return inputField.dataset
+}
+
+function sortStudents(studentsArray, ceckedInput) {
+  const sortBy = ceckedInput.property;
+  const sortDirection = setSortingDirection(ceckedInput)
+  const newArr = studentsArray.sort((a, b) => {
     const x = a[sortBy].toLowerCase();
     const y = b[sortBy].toLowerCase();
-    return x < y ? -1 : 1;
+    return x < y ? -1 * sortDirection : 1 * sortDirection;
   })
+  return newArr;
+}
 
-  displayNewOrder(studentsArr)
+
+function filterStudent(studentsArray, ceckedInput) {
+  const filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true);
+  return filteredStudent;
+  // displayNewOrder(filteredStudent)
+}
+
+
+function setSortingDirection(inputField) {
+  let directionValue;
+  if (inputField.sortDirection === "asc") {
+    inputField.sortDirection = "desc"
+    directionValue = 1;
+  } else if (inputField.sortDirection === "desc") {
+    inputField.sortDirection = "asc"
+    directionValue = -1;
+  }
+  return directionValue;
 }
 
 
 function displayNewOrder(array) {
   const allStudentsHTML = document.querySelectorAll(".student");
-  for (let index = 0; index < allStudentsHTML.length; index++) {
-    for (let j = 0; j < array.length; j++) {
-      if (allStudentsHTML[index].querySelector(".studentName").textContent === array[j].firstName) {
-        allStudentsHTML[index].style.order = array.indexOf(array[j]);
-      }
+  if (allStudentsHTML.length === array.length) {
+
+
+    for (let index = 0; index < allStudentsHTML.length; index++) {
+      addStudentProperties(allStudentsHTML[index], array[index]);
+    }
+  } else if (allStudentsHTML.length > array.length) {
+    let difference = allStudentsHTML.length - array.length - 1;
+    while (difference >= 0) {
+      const elementIndex = array.length + difference
+      allStudentsHTML[elementIndex].style.display = "none";
+      difference--
     }
 
+
+    for (let index = 0; index < array.length; index++) {
+      addStudentProperties(allStudentsHTML[index], array[index]);
+    }
   }
+
 }
 
-function getStudentData() {
+
+
+// for (let index = 0; index < allStudentsHTML.length; index++) {
+//   for (let j = 0; j < array.length; j++) {
+//     if (allStudentsHTML[index].querySelector(".studentName").textContent === array[j].firstName) {
+//       allStudentsHTML[index].style.order = array.indexOf(array[j]);
+//     }
+//   }
+// }
+// }
+
+function getStudentData(studentsArr) {
   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
     .then(res => res.json())
     .then(data => data).then((data) => {
-      data.forEach(assignValuesToStudentObject);
+      data.forEach((student) => assignValuesToStudentObject(student, studentsArr));
       studentsArr.forEach(displayStudentListItems)
     })
 }
 
 
-
-
-function fetchBloodData() {
+function fetchBloodData(studentsArr) {
   fetch("https://petlatkea.dk/2020/hogwarts/families.json").then(res =>
     res.json()).then(data => {
     assignBlodStatus(data.half, studentsArr)
@@ -102,9 +180,7 @@ function assignBlodStatus(bloodStatuses, students) {
 }
 
 
-
-
-function assignValuesToStudentObject(student) {
+function assignValuesToStudentObject(student, studentsArr) {
   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
   const studentCard = Object.create(Student);
   studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
@@ -112,13 +188,23 @@ function assignValuesToStudentObject(student) {
   studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
+  if (studentCard.firstName.includes("t")) {
+    studentCard.isPerfect = true;
+  }
+
+  if (studentCard.firstName.includes("h")) {
+    studentCard.isInInquisitionalSquad = true;
+  } else {
+    studentCard.isInInquisitionalSquad = false;
+
+  }
+
   studentsArr.push(studentCard)
 }
 
 
 function addStudentProperties(element, student) {
   element.querySelector(".listNumber").textContent = 32;
-
   element.querySelector(".studentName").textContent = student.firstName;
   element.querySelector(".studentLastName").textContent = student.lastName;
   element.querySelector(".studentHouse").textContent = student.house;
@@ -127,10 +213,11 @@ function addStudentProperties(element, student) {
 
 function displayStudentListItems(student) {
   const cln = HTML.studentTemplate.cloneNode(true);
-  cln.querySelector(".studentName").textContent = student.firstName;
+  cln.querySelector(".student").dataset.house = (student.house)
   addStudentProperties(cln, student)
   HTML.students.appendChild(cln);
 }
+
 
 // const studentTemplate = document.querySelector(".studentTemplate").content;
 // const students = document.querySelector(".students");

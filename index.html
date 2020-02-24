@@ -63,36 +63,58 @@
       <div class="sorting">
         <h4>Sort by</h4>
         <div class="inputContainer">
-          <input type="radio" name="sorting" value="First name" data-sort="firstName" unchecked>
-          <label for="First name" data-status="">First name</label>
+          <input type="radio" name="sorting" data-sort-direction="asc" value="First name" data-property="firstName"
+            unchecked>
+          <label for="First name" data-status="" data-action="sort">First name</label>
         </div>
 
         <div class="inputContainer">
-          <input type="radio" name="sorting" value="last name" data-sort="lastName" unchecked>
-          <label for="last name" data-status="">Last name</label>
+          <input type="radio" name="sorting" value="last name" data-sort-direction="asc" data-property="lastName"
+            unchecked>
+          <label for="last name" data-status="" data-action="sort">Last name</label>
         </div>
         <div class="inputContainer">
-          <input type="radio" name="sorting" value="House" unchecked>
-          <label for="House" data-status="">House</label>
+          <input type="radio" name="sorting" data-sort-direction="asc" value="House" data-property="house" unchecked>
+          <label for="House" data-status="" data-action="sort">House</label>
         </div>
       </div>
       <div class="filtering">
         <h4>Filter by</h4>
         <div class="inputContainer">
-          <input type="radio" name="filter" value="Perfects" unchecked>
-          <label for="Perfects" data-status="">Perfects</label>
+          <input type="radio" name="filter" value="Perfects" data-property="isPerfect" unchecked>
+          <label for="Perfects" data-action="filter">Perfects</label>
         </div>
         <div class="inputContainer">
-          <input type="radio" name="filter" value="Inquisitional squad" unchecked>
-          <label for="Inquisitional squad">Inquisitional squad</label>
+          <input type="radio" name="filter" value="Inquisitional squad" data-property="isInInquisitionalSquad"
+            unchecked>
+          <label for="Inquisitional squad" data-action="filter">Inquisitional squad</label>
+        </div>
+
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="Expelled" data-property="isExpelled" unchecked>
+          <label for="Expelled" data-action="filter">Expelled</label>
         </div>
         <div class="inputContainer">
-          <input type="radio" name="filter" value="House" unchecked>
-          <label for="House">House</label>
+          <input type="radio" name="filter" value="Expelled" data-property="all" unchecked>
+          <label for="Expelled" data-action="filter">All</label>
+        </div>
+        <h4>Filter by houses</h4>
+
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="House" data-property="isSlytherin" unchecked>
+          <label for="Slytherin" data-action="filter">Slytherin</label>
         </div>
         <div class="inputContainer">
-          <input type="radio" name="filter" value="Expelled" unchecked>
-          <label for="Expelled">Expelled</label>
+          <input type="radio" name="filter" value="House" data-property="isHufflepuff" unchecked>
+          <label for="isHufflepuff" data-action="filter">Hufflepuff</label>
+        </div>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="House" data-property="isGryffindor" unchecked>
+          <label for="isGryffindor" data-action="filter">Gryffindor</label>
+        </div>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="House" data-property="isRavenclaw" unchecked>
+          <label for="isRavenclaw" data-action="filter">Ravenclaw</label>
         </div>
       </div>
     </div>
