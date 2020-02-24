@@ -1,9 +1,5 @@
 window.addEventListener("DOMContentLoaded", init)
 
-
-
-
-
 const Student = {
   firstName: "",
   lastName: "",
@@ -40,14 +36,11 @@ function showSchoolStatistics() {
 
 function init() {
   const studentsArr = [];
-  const HTMLelements = selectHTMLelements()
-  changeLabelsImages(HTMLelements.labelsForSorting, studentsArr)
-  changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr)
-
-  getStudentData(studentsArr)
-  fetchBloodData(studentsArr)
-  selectHTMLelements(studentsArr)
-
+  const HTMLelements = selectHTMLelements();
+  getStudentData(studentsArr);
+  fetchBloodData(studentsArr);
+  changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
+  changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
 }
 
 function changeLabelsImages(arr, studentsArr) {
@@ -65,6 +58,7 @@ function changeLabelsImages(arr, studentsArr) {
   }))
 }
 
+let filterArr;
 
 function doFilterOrSort(label, studentsArr) {
   const ceckedInput = getCheckedInputValue(label);
@@ -72,7 +66,7 @@ function doFilterOrSort(label, studentsArr) {
   if (label.dataset.action === "sort") {
     studentsArr = sortStudents(studentsArr, ceckedInput)
   } else if (label.dataset.action === "filter") {
-    filterArr = filterStudent(studentsArr, ceckedInput)
+    let filterArr = filterStudent(studentsArr, ceckedInput)
     studentsArr = filterArr;
   }
   displayNewOrder(studentsArr);
@@ -100,11 +94,12 @@ function sortStudents(studentsArray, ceckedInput) {
 
 function filterStudent(studentsArray, ceckedInput) {
   let filteredStudent = studentsArray;
-  if (ceckedInput.property === "all") {
-    filteredStudent = studentsArray;
-  } else {
-    filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true);
-  }
+  // if (ceckedInput.property === "all") {
+  //   filteredStudent = studentsArray;
+  // } else 
+  // {
+  filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true);
+  // }
   return filteredStudent;
 }
 
@@ -128,7 +123,6 @@ function displayNewOrder(array) {
     for (let index = 0; index < allStudentsHTML.length; index++) {
       addStudentProperties(allStudentsHTML[index], array[index]);
       allStudentsHTML[index].style.display = "block";
-
     }
   } else if (allStudentsHTML.length > array.length) {
     let difference = allStudentsHTML.length - array.length - 1;
@@ -223,7 +217,6 @@ function addStudentProperties(element, student) {
 
 function displayStudentListItems(student) {
   const cln = selectHTMLelements().studentTemplate.cloneNode(true);
-  cln.querySelector(".student").dataset.house = (student.house)
   addStudentProperties(cln, student)
   selectHTMLelements().students.appendChild(cln);
 }
