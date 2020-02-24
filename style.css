@@ -42,10 +42,15 @@ h1 {
 
 
 .student {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
+  width: 80%;
+  --modal-color: #372e29f6;
+  --modal-color-1: #372e29;
+  transform: skew(25deg) rotate(2deg);
+  background: #FC354C;
+  background: -webkit-linear-gradient(to right, var(--modal-color), yellow);
+  background: linear-gradient(to right, var(--modal-color), yellow);
+  margin: 1.5vw 0;
+  height: 5.5vw;
 }
 
 h3 {
@@ -54,25 +59,24 @@ h3 {
   align-items: center;
 }
 
-.student {
-  background-color: black;
+.studentsList {
   color: white;
   margin: 1rem 0;
-  width: 80%;
+  /* width: 80%; */
+  height: 60vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.student::before {
-  --modal-color: #372e29f6;
-  --modal-color-1: #372e29;
-  content: "";
-  width: 56%;
-  height: 4.5vw;
-  position: absolute;
-  transform: skew(15deg) rotate(2deg);
-  z-index: -1;
-  background: #FC354C;
-  background: -webkit-linear-gradient(to right, var(--modal-color), yellow);
-  background: linear-gradient(to right, var(--modal-color), yellow);
+.student .before {
+  transform: skew(-25deg) rotate(-2deg);
+  background-color: black;
+  display: grid;
+  grid-template-columns: 10% repeat(3, 1fr);
+  grid-gap: 1vw;
+  align-items: center;
 }
 
 
@@ -105,7 +109,10 @@ label:hover:before {
   background-image: url(./icons/borders.svg);
 }
 
+.listNumber {
+  justify-self: flex-end;
 
+}
 
 .smallContainer {
   display: flex;

@@ -20,7 +20,7 @@ function selectHTMLelements() {
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
-  HTML.students = document.querySelector(".students")
+  HTML.students = document.querySelector(".studentsList")
 
 
 }
@@ -89,9 +89,11 @@ function assignValuesToStudentObject(student) {
 
 
 function addStudentProperties(element, student) {
+  element.querySelector(".listNumber").textContent = 32;
+
   element.querySelector(".studentName").textContent = student.firstName;
   element.querySelector(".studentLastName").textContent = student.lastName;
-  element.querySelector(".studentLastName").house = student.house;
+  element.querySelector(".studentHouse").textContent = student.house;
 
 }
 
