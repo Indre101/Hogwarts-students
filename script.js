@@ -20,6 +20,7 @@ function selectHTMLelements() {
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
+  HTML.students = document.querySelector(".students")
 
 
 }
@@ -47,6 +48,7 @@ function getStudentData() {
     .then(res => res.json())
     .then(data => data).then((data) => {
       data.forEach(assignValuesToStudentObject);
+      studentsArr.forEach(displayStudentListItems)
     })
 }
 
@@ -57,6 +59,7 @@ function fetchBloodData() {
   fetch("https://petlatkea.dk/2020/hogwarts/families.json").then(res =>
     res.json()).then(data => {
     assignBlodStatus(data.half, studentsArr)
+
   })
 }
 
@@ -84,6 +87,20 @@ function assignValuesToStudentObject(student) {
   studentsArr.push(studentCard)
 }
 
+
+function addStudentProperties(element, student) {
+  element.querySelector(".studentName").textContent = student.firstName;
+  element.querySelector(".studentLastName").textContent = student.lastName;
+  element.querySelector(".studentLastName").house = student.house;
+
+}
+
+function displayStudentListItems(student) {
+  const cln = HTML.studentTemplate.cloneNode(true);
+  cln.querySelector(".studentName").textContent = student.firstName;
+  addStudentProperties(cln, student)
+  HTML.students.appendChild(cln);
+}
 
 // const studentTemplate = document.querySelector(".studentTemplate").content;
 // const students = document.querySelector(".students");
