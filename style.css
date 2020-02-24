@@ -81,6 +81,10 @@ input[type="radio"] {
   display: none;
 }
 
+.inputContainer label[data-status="checked"]:before {
+  background-image: url(./icons/borders-2.svg);
+}
+
 label:before {
   /*styles outer circle*/
   content: " ";
@@ -96,13 +100,12 @@ label:before {
   transition: background-image 0.5s linear;
 }
 
+
 label:hover:before {
   background-image: url(./icons/borders.svg);
 }
 
-input:checked label:before {
-  background-image: url(./icons/borders-2.svg);
-}
+
 
 .smallContainer {
   display: flex;

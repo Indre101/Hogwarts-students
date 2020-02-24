@@ -60,27 +60,27 @@
   </header>
   <div class="mainContainer">
     <div class="smallContainer">
-      <div class="theme">
+      <div class="sorting">
         <h4>Sort by</h4>
         <div class="inputContainer">
           <input type="radio" name="sorting" value="First name" unchecked>
-          <label for="First name">First name</label>
+          <label for="First name" data-status="">First name</label>
         </div>
 
         <div class="inputContainer">
           <input type="radio" name="sorting" value="last name" unchecked>
-          <label for="last name">Last name</label>
+          <label for="last name" data-status="">Last name</label>
         </div>
         <div class="inputContainer">
           <input type="radio" name="sorting" value="House" unchecked>
-          <label for="House">House</label>
+          <label for="House" data-status="">House</label>
         </div>
       </div>
-      <div class="theme">
+      <div class="filtering">
         <h4>Filter by</h4>
         <div class="inputContainer">
           <input type="radio" name="filter" value="Perfects" unchecked>
-          <label for="Perfects">Perfects</label>
+          <label for="Perfects" data-status="">Perfects</label>
         </div>
         <div class="inputContainer">
           <input type="radio" name="filter" value="Inquisitional squad" unchecked>
@@ -100,46 +100,13 @@
 
     <div class="mediumContainer studentList">
       <div class="students innerContainer">
-        <div class="student">
-          <h3><span>32</span> Name</h3>
-          <h3>Last Name</h3>
-          <h3>House</h3>
-        </div>
-        <div class="student">
-          <h3>Name</h3>
-          <h3>Last Name</h3>
-          <h3>House</h3>
-        </div>
-        <div class="student">
-          <h3>Name</h3>
-          <h3>Last Name</h3>
-          <h3>House</h3>
-        </div>
-        <div class="student">
-          <h3>Name</h3>
-          <h3>Last Name</h3>
-          <h3>House</h3>
-        </div>
-        <div class="student">
-          <h3>Name</h3>
-          <h3>Last Name</h3>
-          <h3>House</h3>
-        </div>
-        <div class="student">
-          <h3>Name</h3>
-          <h3>Last Name</h3>
-          <h3>House</h3>
-        </div>
-        <div class="student">
-          <h3>Name</h3>
-          <h3>Last Name</h3>
-          <h3>House</h3>
-        </div>
-        <div class="student">
-          <h3>Name</h3>
-          <h3>Last Name</h3>
-          <h3>House</h3>
-        </div>
+        <template class="studentItem">
+          <div class="student">
+            <h3><span>32</span> Name</h3>
+            <h3>Last Name</h3>
+            <h3>House</h3>
+          </div>
+        </template>
 
 
       </div>
@@ -158,6 +125,8 @@
 
   </div>
 
+
+  <script src="script.js"></script>
 </body>
 
 </html>
