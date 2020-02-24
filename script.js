@@ -183,6 +183,7 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
+  studentCard.image = `${studentCard.lastName.toLowerCase()}_${studentCard.firstName[0].toLowerCase()}.png`;
   if (studentCard.firstName.includes("t")) {
     studentCard.isPerfect = true;
   }
@@ -193,6 +194,7 @@ function assignValuesToStudentObject(student, studentsArr) {
     studentCard.isInInquisitionalSquad = false;
 
   }
+  console.log(studentCard);
   setHouseValue(studentCard);
   studentsArr.push(studentCard)
 }
