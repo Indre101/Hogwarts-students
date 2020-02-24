@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", init)
 
 
 
-const HTML = {}
+
 
 const Student = {
   firstName: "",
@@ -22,20 +22,28 @@ const Student = {
 }
 
 
-function selectHTMLelements(studentsArr) {
+function selectHTMLelements() {
+  const HTML = {}
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
   HTML.students = document.querySelector(".studentsList")
+  HTML.totalStudents = document.querySelector(".totalStudents")
 
-  changeLabelsImages(HTML.labelsForSorting, studentsArr)
-  changeLabelsImages(HTML.labelsForFiltering, studentsArr)
+  return HTML;
 }
 
+function showSchoolStatistics() {
+
+}
 
 
 function init() {
   const studentsArr = [];
+  const HTMLelements = selectHTMLelements()
+  changeLabelsImages(HTMLelements.labelsForSorting, studentsArr)
+  changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr)
+
   getStudentData(studentsArr)
   fetchBloodData(studentsArr)
   selectHTMLelements(studentsArr)
@@ -214,10 +222,10 @@ function addStudentProperties(element, student) {
 }
 
 function displayStudentListItems(student) {
-  const cln = HTML.studentTemplate.cloneNode(true);
+  const cln = selectHTMLelements().studentTemplate.cloneNode(true);
   cln.querySelector(".student").dataset.house = (student.house)
   addStudentProperties(cln, student)
-  HTML.students.appendChild(cln);
+  selectHTMLelements().students.appendChild(cln);
 }
 
 
