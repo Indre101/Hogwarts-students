@@ -22,7 +22,6 @@ function selectHTMLelements() {
   HTML.studentTemplate = document.querySelector(".studentItem").content;
   HTML.students = document.querySelector(".studentsList")
 
-
 }
 
 function init() {
@@ -39,9 +38,38 @@ function changeLabelsImages(arr) {
     label = event.target;
     arr.forEach(label => label.dataset.status = " ");
     label.dataset.status = "checked";
+    getCheckedInputValue(label, studentsArr);
   }))
 }
 
+
+function getCheckedInputValue(label, studentsArr) {
+  const inputField = label.previousElementSibling
+  sortArray(studentsArr, inputField.dataset.sort)
+}
+
+function sortArray(studentsArr, sortBy) {
+  studentsArr.sort((a, b) => {
+    const x = a[sortBy].toLowerCase();
+    const y = b[sortBy].toLowerCase();
+    return x < y ? -1 : 1;
+  })
+
+  displayNewOrder(studentsArr)
+}
+
+
+function displayNewOrder(array) {
+  const allStudentsHTML = document.querySelectorAll(".student");
+  for (let index = 0; index < allStudentsHTML.length; index++) {
+    for (let j = 0; j < array.length; j++) {
+      if (allStudentsHTML[index].querySelector(".studentName").textContent === array[j].firstName) {
+        allStudentsHTML[index].style.order = array.indexOf(array[j]);
+      }
+    }
+
+  }
+}
 
 function getStudentData() {
   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
