@@ -19,8 +19,6 @@ const Student = {
   isHufflepuff: false,
   isGryffindor: false,
   isRavenclaw: false
-
-
 }
 
 
@@ -29,6 +27,7 @@ function selectHTMLelements(studentsArr) {
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
   HTML.students = document.querySelector(".studentsList")
+
   changeLabelsImages(HTML.labelsForSorting, studentsArr)
   changeLabelsImages(HTML.labelsForFiltering, studentsArr)
 }
@@ -44,7 +43,9 @@ function init() {
 }
 
 function changeLabelsImages(arr, studentsArr) {
+
   arr.forEach(label => label.addEventListener("click", () => {
+
     label = event.target;
     arr.forEach(label => label.dataset.status = " ");
     label.dataset.status = "checked";
@@ -56,27 +57,26 @@ function changeLabelsImages(arr, studentsArr) {
   }))
 }
 
-let filterArr;
-let sortArray;
 
 function doFilterOrSort(label, studentsArr) {
   const ceckedInput = getCheckedInputValue(label);
-  if (filterArr && label.dataset.action === "sort") {
-    studentsArr = sortStudents(filterArr, ceckedInput)
-    displayNewOrder(studentsArr);
-  } else if (sortArray && label.dataset.action === "filter") {
-    filterArr = filterStudent(sortArray, ceckedInput)
-    displayNewOrder(filterArr);
-
-  } else if (label.dataset.action === "sort") {
-    sortArray = sortStudents(studentsArr, ceckedInput)
-    displayNewOrder(sortArray);
+  if (label.dataset.action === "sort") {
+    studentsArr = sortStudents(studentsArr, ceckedInput)
   } else if (label.dataset.action === "filter") {
     filterArr = filterStudent(studentsArr, ceckedInput)
-    console.log(filterArr);
-
-    displayNewOrder(filterArr);
+    studentsArr = filterArr;
   }
+  displayNewOrder(studentsArr);
+
+}
+
+function checkIfChecked(array) {
+
+  array.forEach(element => {
+    if (element.checked = true) {
+      console.log(element);
+    }
+  })
 }
 
 function getCheckedInputValue(label) {
@@ -198,10 +198,14 @@ function assignValuesToStudentObject(student, studentsArr) {
     studentCard.isInInquisitionalSquad = false;
 
   }
-
+  setHouseValue(studentCard);
   studentsArr.push(studentCard)
 }
 
+
+function setHouseValue(studentCard) {
+  studentCard["is" + studentCard.house] = true;
+}
 
 function addStudentProperties(element, student) {
   element.querySelector(".listNumber").textContent = 32;
