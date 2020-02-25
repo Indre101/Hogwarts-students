@@ -35,7 +35,13 @@ function selectHTMLelements() {
 
 // Starting the website
 function openHogwarts(startBtn, overlay) {
-  startBtn.addEventListener("click", () => overlay.dataset.opened = "open");
+  startBtn.addEventListener("click", () => {
+    overlay.dataset.opened = "open"
+    setTimeout(() => {
+      overlay.dataset.closed = "close"
+    }, 2000);
+
+  });
 }
 
 
