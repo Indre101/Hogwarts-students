@@ -10,49 +10,6 @@
 </head>
 
 <body>
-  <!-- <div class="students justify-align-center">
-    <template class="studentTemplate">
-
-      <div class="student">
-        <div class="mainStudentInfo">
-          <img src="./img/dog.jpg" alt="Student photo" class="imageOfAStudent j-self-center">
-          <h3 class="nameOftheStudent"></h3>
-          <h4 class="house"></h4>
-          <div class="numbers justify-align-center j-self-center">
-            <h4 class="number"></h4>
-          </div>
-        </div>
-        <div class="modal justify-align-center d-none" data-crest="ravenclaw">
-          <div class="slider">
-          </div>
-          <div class="modalConent ">
-            <div class="crest justify-align-self-centered"></div>
-            <h4 class="message justify-align-self-centered"><span class="textStudentName">Name</span> belongs to <span
-                class="textStudentHouse"></span> house </h4>
-
-            <label class="theme-changer justify-align-self-centered">
-              Move student to
-              <select class="theme">
-                <option value="gryffindor">Gryffindor house</option>
-                <option value="hufflepuff">Hufflepuff house</option>
-                <option value="ravenclaw">Ravenclaw house</option>
-                <option value="slytherin">Slytherin house</option>
-              </select>
-            </label>
-
-            <button class="close justify-align-self-centered">
-              <h4>Close</h4>
-            </button>
-          </div>
-        </div>
-      </div>
-    </template>
-    
-  </div> -->
-
-  <!-- <script src="script.js"></script> -->
-  <!-- <script src="stringMethods.js"></script> -->
-
   <header>
     <img class="schoolLogo" src="./img/hogwarts.png" alt="School logo" />
     <h1>Hogwarts School of Witchcraft and Wizardry</h1>
@@ -119,19 +76,23 @@
 
     <div class="mediumContainer studentList">
       <div class="studentsList innerContainer">
-        <template class="studentItem">
-          <div class="student">
-            <div class="before">
-              <h3 class="listNumber">number</h3>
-              <h3 class="studentName">Name</h3>
-              <h3 class="studentLastName">Last Name</h3>
-              <h3 class="studentHouse">House</h3>
-            </div>
+        <!-- <template class="studentItem"> -->
+        <div class="student">
+          <div class="before">
+            <h3 class="listNumber">number</h3>
+            <h3 class="studentName">Name</h3>
+            <h3 class="studentLastName">Last Name</h3>
+            <h3 class="studentHouse">House</h3>
           </div>
-        </template>
+
+        </div>
+        <!-- </template> -->
       </div>
       <h4>Page next</h4>
     </div>
+
+
+
     <footer>
       <ul>
         <li class="totalStudents">Number of students total:</li>
@@ -144,8 +105,34 @@
     </footer>
   </div>
 
-  <script src="script.js"></script>
-  <script src="stringMethods.js"></script>
+  <div class="modalContainer">
+    <div class="modal">
+      <div class="modalImage">
+        <img src="./img/images/bones_s.png" alt="Student image">
+        <div class="badges">
+          <img class="badge crest" src="./img/griff.png" alt="Badge of the house">
+          <img class="badge crest" src="./img/griff.png" alt="Badge of the house">
+        </div>
+      </div>
+
+      <div class="detailedInfo">
+        <h3 class="studentName">Harry</h3>
+        <h3 class="middleName">Bilius</h3>
+        <h3 class="nickName">Har</h3>
+        <h3 class="studentLastName">Potter</h3>
+        <h3 class="house">Gryffindorr</h3>
+        <h3 class="inquisitionalSquad">Member of inquisitional squad: Yes</h3>
+      </div>
+      <div class="actions">
+        <div class="explell">Expell</div>
+        <div class="setAsPerfect">Set as perfect</div>
+        <div class="setAsPerfect">Add to inquisitional squad</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="script.js"></script> -->
+  <!-- <script src="stringMethods.js"></script> -->
 </body>
 
 </html>
