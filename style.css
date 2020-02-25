@@ -9,6 +9,7 @@
   --primary-text-color: white;
   --secondary-text-color: black;
   --width: 80vw;
+  --accent-color: #757575;
 
 }
 
@@ -177,6 +178,8 @@ body {
   width: var(--width);
   display: grid;
   grid-template-columns: 30% 70%;
+  align-items: center;
+  height: 100%;
 }
 
 header {
@@ -185,7 +188,7 @@ header {
   align-items: center;
   font-family: 'Yeon Sung', sans-serif;
   color: white;
-  background-color: black;
+  background-color: var(--accent-color);
   box-shadow: 1px 1px 1px 2px grey;
 
 }
@@ -386,6 +389,9 @@ footer {
   justify-content: center;
   align-items: center;
   height: 11vh;
+  background-color: var(--accent-color);
+  color: white;
+
 }
 
 ul {

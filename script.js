@@ -137,10 +137,11 @@ function setSortingDirection(inputField) {
 
 function displayNewOrder(array) {
   const allStudentsHTML = document.querySelectorAll(".student");
+  console.log(allStudentsHTML);
   if (allStudentsHTML.length === array.length) {
     for (let index = 0; index < allStudentsHTML.length; index++) {
       addStudentProperties(allStudentsHTML[index], array[index]);
-      allStudentsHTML[index].style.display = "block";
+      allStudentsHTML[index].style.display = "grid";
     }
   } else if (allStudentsHTML.length > array.length) {
     let difference = allStudentsHTML.length - array.length - 1;
