@@ -36,6 +36,8 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   z-index: 1;
+  padding: 2vw;
+
 }
 
 .bg {
@@ -58,11 +60,60 @@ body {
 
 }
 
+.maincrestContainer {
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px lightgrey;
+
+  z-index: 1;
+  padding: 1vw;
+  border-radius: 30px;
+  cursor: pointer;
+  animation: pulse 0.5s ease-in-out infinite alternate;
+}
+
+
+@keyframes pulse {
+  100% {
+    box-shadow: 1px 1px 5px 5px lightgrey;
+
+  }
+
+  /* 0% {
+    box-shadow: 1px 1px 5px 5px rgba(0, 128, 0, 0.39);
+
+  }
+
+  40% {
+    box-shadow: 1px 1px 5px 5px rgba(255, 230, 0, 0.164);
+
+  }
+
+  80% {
+    box-shadow: 1px 1px 5px 5px rgba(255, 0, 0, 0.192);
+
+  }
+
+  100% {
+    box-shadow: 1px 1px 5px 5px rgba(0, 0, 255, 0.329);
+
+  } */
+}
+
+.mainCrest {
+  height: 15vw;
+  object-fit: contain;
+
+}
+
+
 .bg-3 {
   grid-area: 1/1/ span 2/ span 2;
-  background-image: url(./img/crests/.png);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffffa1;
+  z-index: 3;
 
-  height: 15vw;
 }
 
 .bg-4 {
