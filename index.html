@@ -10,6 +10,15 @@
 </head>
 
 <body>
+
+  <div class="overlay">
+    <div class="bg bg-1"></div>
+    <div class="bg bg-2"></div>
+    <div class="bg bg-3"></div>
+    <div class="bg bg-4"></div>
+    <div class="bg bg-5"></div>
+
+  </div>
   <header>
     <img class="schoolLogo" src="./img/hogwarts.png" alt="School logo" />
     <h1>Hogwarts School of Witchcraft and Wizardry</h1>
@@ -76,17 +85,17 @@
 
     <div class="mediumContainer studentList">
       <div class="studentsList innerContainer">
-        <!-- <template class="studentItem"> -->
-        <div class="student">
-          <div class="before">
-            <h3 class="listNumber">number</h3>
-            <h3 class="studentName">Name</h3>
-            <h3 class="studentLastName">Last Name</h3>
-            <h3 class="studentHouse">House</h3>
-          </div>
+        <template class="studentItem">
+          <div class="student">
+            <div class="before">
+              <h3 class="listNumber">number</h3>
+              <h3 class="studentName">Name</h3>
+              <h3 class="studentLastName">Last Name</h3>
+              <h3 class="studentHouse">House</h3>
+            </div>
 
-        </div>
-        <!-- </template> -->
+          </div>
+        </template>
       </div>
       <h4>Page next</h4>
     </div>
@@ -108,11 +117,12 @@
   <div class="modalContainer">
     <div class="modal">
       <div class="modalImage">
-        <img src="./img/images/bones_s.png" alt="Student image">
         <div class="badges">
           <img class="badge crest" src="./img/griff.png" alt="Badge of the house">
           <img class="badge crest" src="./img/griff.png" alt="Badge of the house">
         </div>
+        <img src="./img/images/bones_s.png" alt="Student image">
+
       </div>
 
       <div class="detailedInfo">
@@ -124,9 +134,9 @@
         <h3 class="inquisitionalSquad">Member of inquisitional squad: Yes</h3>
       </div>
       <div class="actions">
-        <div class="explell">Expell</div>
-        <div class="setAsPerfect">Set as perfect</div>
-        <div class="setAsPerfect">Add to inquisitional squad</div>
+        <div class="actionBtn expell">Expell</div>
+        <div class="actionBtn setAsPerfect">Set as perfect</div>
+        <div class="actionBtn inquisitionaSquad">Add to inquisitional squad</div>
       </div>
     </div>
   </div>

@@ -3,6 +3,7 @@
   --modal-color-1: rgba(255, 255, 255, 1);
   --primary-text-color: white;
   --secondary-text-color: black;
+  --width: 80vw;
 
 }
 
@@ -17,17 +18,77 @@
 
 body {
   height: 100vh;
-  background-color: #ccc;
+  background-color: #232222;
+  color: #ded1d1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
 
-.mainContainer {
+
+.overlay {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: white;
   display: grid;
-  grid-template-columns: 30vw 70vw;
+  grid-template-columns: repeat(2, 1fr);
+  z-index: 1;
+}
+
+.bg {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-self: center;
+  height: 100%;
+}
+
+.bg-1 {
+  grid-area: 1/1/ span 1/ span 1;
+
+  background-image: url(./img/crests/griff-1.png);
+}
+
+.bg-2 {
+  grid-area: 2/1/ span 1/ span 1;
+  background-image: url(./img/crests/huff-1.png);
+
+}
+
+.bg-3 {
+  grid-area: 1/1/ span 2/ span 2;
+  background-image: url(./img/crests/.png);
+
+  height: 15vw;
+}
+
+.bg-4 {
+  grid-area: 1/2/ span 1/ span 1;
+  background-image: url(./img/crests/rav-1.png);
+
+}
+
+.bg-5 {
+  grid-area: 2/2/ span 1/ span 1;
+  background-image: url(./img/crests/sly-1.png);
+
+}
+
+
+.mainContainer {
+  width: var(--width);
+  display: grid;
+  grid-template-columns: 30% 70%;
 }
 
 header {
   display: flex;
   align-items: center;
+  width: var(--width);
+
 
 }
 
@@ -101,7 +162,7 @@ label:before {
   margin: 0 5px 0 0;
   width: 20px;
   height: 20px;
-  background-image: url(./icons/non-color.svg);
+  background-image: url(./icons/white-color.svg);
   background-size: contain;
   border-radius: 11px;
   transition: background-image 0.5s linear;
@@ -136,16 +197,18 @@ label:hover:before {
   align-items: center;
   top: 0;
   background-color: #a9a9a9d1;
+  display: none;
+
 }
 
 .modal {
   display: grid;
   grid-template-columns: 20% 40% 40%;
   grid-gap: 2vw;
-  width: 60vw;
-  background-color: #353434;
+  background-color: black;
   color: white;
   padding: 3vw;
+  padding: 1vw 3vw 3vw 3vw;
 }
 
 img {
@@ -165,6 +228,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3vw;
 }
 
 .badge {
@@ -172,14 +236,57 @@ img {
   object-fit: contain;
 }
 
+
+.detailedInfo {
+  align-self: flex-end;
+}
+
 .detailedInfo h3 {
-  font-size: 1.5vw;
-  height: fit-content;
-  margin: 1vw 0;
-  font-size: 1.5vw;
+  font-size: 1vw;
   height: fit-content;
   margin: 1vw 0;
   border-bottom: 1px solid white;
+}
+
+
+.actions {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+
+.actionBtn {
+  width: 80%;
+  height: 3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1vw;
+  margin: 3vw 0 0 0;
+}
+
+.expell {
+  background-color: #7b0505;
+}
+
+.setAsPerfect {
+  background-color: #024e47;
+}
+
+
+
+.inquisitionaSquad {
+  background-color: #5a195a;
+
+}
+
+
+footer {
+  width: var(--width);
+
 }
 
 /* 
