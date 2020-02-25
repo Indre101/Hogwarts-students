@@ -32,11 +32,9 @@ body {
   top: 0;
   height: 100vh;
   width: 100%;
-  background-color: white;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   z-index: 1;
-  padding: 2vw;
 
 }
 
@@ -48,14 +46,47 @@ body {
   height: 100%;
 }
 
+.bg-container {
+  padding: 2vw;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: white;
+}
+
+.bg-container-1-2 {
+  grid-area: 1/1/span 1/ span 1;
+}
+
+.overlay[data-opened="open"] .bg-container-1-2 {
+  animation: moveLeft 1.5s ease-in-out forwards 1;
+}
+
+.overlay[data-opened="open"] .bg-container-4-5 {
+  animation: moveright 1.5s ease-in-out forwards 1;
+}
+
+
+.overlay[data-opened="open"] .bg-3 {
+  animation: moveDown 1.5s 0.5s ease-in-out forwards 1;
+}
+
+
+@keyframes moveLeft {
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
 .bg-1 {
-  grid-area: 1/1/ span 1/ span 1;
+  /* grid-area: 1/1/ span 1/ span 1; */
 
   background-image: url(./img/crests/griff-1.png);
 }
 
 .bg-2 {
-  grid-area: 2/1/ span 1/ span 1;
+  /* grid-area: 2/1/ span 1/ span 1; */
   background-image: url(./img/crests/huff-1.png);
 
 }
@@ -78,25 +109,6 @@ body {
 
   }
 
-  /* 0% {
-    box-shadow: 1px 1px 5px 5px rgba(0, 128, 0, 0.39);
-
-  }
-
-  40% {
-    box-shadow: 1px 1px 5px 5px rgba(255, 230, 0, 0.164);
-
-  }
-
-  80% {
-    box-shadow: 1px 1px 5px 5px rgba(255, 0, 0, 0.192);
-
-  }
-
-  100% {
-    box-shadow: 1px 1px 5px 5px rgba(0, 0, 255, 0.329);
-
-  } */
 }
 
 .mainCrest {
@@ -107,23 +119,42 @@ body {
 
 
 .bg-3 {
-  grid-area: 1/1/ span 2/ span 2;
+  grid-area: 1/1/ span 1/ span 2;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #ffffffa1;
   z-index: 3;
+}
+
+
+@keyframes moveDown {
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+
+.bg-container-4-5 {
+  grid-area: 1/2/span 1/ span 1;
 
 }
 
+@keyframes moveright {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .bg-4 {
-  grid-area: 1/2/ span 1/ span 1;
+  /* grid-area: 1/2/ span 1/ span 1; */
   background-image: url(./img/crests/rav-1.png);
 
 }
 
 .bg-5 {
-  grid-area: 2/2/ span 1/ span 1;
+  /* grid-area: 2/2/ span 1/ span 1; */
   background-image: url(./img/crests/sly-1.png);
 
 }

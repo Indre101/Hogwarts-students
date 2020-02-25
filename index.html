@@ -11,16 +11,21 @@
 
 <body>
 
-  <div class="overlay">
-    <div class="bg bg-1"></div>
-    <div class="bg bg-2"></div>
-    <div class="bg bg-3">
+  <div class="overlay" data-opened="none">
+    <div class="bg-container bg-container-1-2">
+      <div class="bg bg-1"></div>
+      <div class="bg bg-2"></div>
+    </div>
+    <div class="bg bg-3 startBtn">
       <div class="maincrestContainer">
         <img class="mainCrest" src="./img/crests/hogwarts.png" alt="hogwarts crest">
       </div>
     </div>
-    <div class="bg bg-4"></div>
-    <div class="bg bg-5"></div>
+
+    <div class="bg-container bg-container-4-5">
+      <div class="bg bg-4"></div>
+      <div class="bg bg-5"></div>
+    </div>
 
   </div>
   <header>
@@ -145,8 +150,8 @@
     </div>
   </div>
 
-  <!-- <script src="script.js"></script> -->
-  <!-- <script src="stringMethods.js"></script> -->
+  <script src="script.js"></script>
+  <script src="stringMethods.js"></script>
 </body>
 
 </html>

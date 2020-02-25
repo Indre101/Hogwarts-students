@@ -20,14 +20,25 @@ const Student = {
 
 function selectHTMLelements() {
   const HTML = {}
+
+
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
   HTML.students = document.querySelector(".studentsList");
   HTML.totalStudents = document.querySelector(".totalStudents");
   HTML.searchFieldInput = document.querySelector(".search");
+  HTML.overlay = document.querySelector(".overlay");
+  HTML.startBtn = document.querySelector(".startBtn");
   return HTML;
 }
+
+// Starting the website
+function openHogwarts(startBtn, overlay) {
+  startBtn.addEventListener("click", () => overlay.dataset.opened = "open");
+}
+
+
 
 function searchStudent(element, array) {
   element.addEventListener("input", (event) => {
@@ -40,6 +51,7 @@ function searchStudent(element, array) {
 function init() {
   const studentsArr = [];
   const HTMLelements = selectHTMLelements();
+  openHogwarts(HTMLelements.startBtn, HTMLelements.overlay)
   searchStudent(HTMLelements.searchFieldInput, studentsArr)
   getStudentData(studentsArr);
   fetchBloodData(studentsArr);
