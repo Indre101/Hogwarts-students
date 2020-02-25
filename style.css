@@ -223,8 +223,8 @@ h3 {
   width: 80%;
   --modal-color: #372e29f6;
   --modal-color-1: #372e29;
-  margin: 1.5vw 0;
-  height: 5.5vw;
+  margin: 1vw 0;
+  height: 5vw;
   background-color: white;
   display: grid;
   grid-template-columns: 10% repeat(3, 1fr);
@@ -257,7 +257,7 @@ label:before {
   margin: 0 5px 0 0;
   width: 20px;
   height: 20px;
-  background-image: url(./icons/white-color.svg);
+  background-image: url(./icons/non-color.svg);
   background-size: contain;
   border-radius: 11px;
   transition: background-image 0.5s linear;
