@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap');
+
+
 :root {
   --modal-color: rgba(255, 255, 255, 0.9);
   --modal-color-1: rgba(255, 255, 255, 1);
@@ -23,11 +26,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Yeon Sung', sans-serif;
 
 }
 
 
 .overlay {
+  display: none;
   position: fixed;
   top: 0;
   height: 100vh;
