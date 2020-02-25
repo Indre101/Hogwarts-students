@@ -21,6 +21,13 @@ const Student = {
 function selectHTMLelements() {
   const HTML = {}
 
+  // HTML.totalStudents = document.querySelector(".totalStudents")
+  // HTML.expelledStudents = document.querySelector(".expelledStudents")
+  // HTML.gryffindor = document.querySelector(".gryffindor")
+  // HTML.ravenclaw = document.querySelector(".ravenclaw")
+  // HTML.hufflepuff = document.querySelector(".hufflepuff")
+  // HTML.slytherin = document.querySelector(".slytherin")
+  HTML.allStatistics = document.querySelectorAll(".li");
 
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
@@ -45,6 +52,9 @@ function openHogwarts(startBtn, overlay) {
 }
 
 
+// 
+
+
 
 function searchStudent(element, array) {
   element.addEventListener("input", (event) => {
@@ -63,6 +73,22 @@ function init() {
   fetchBloodData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
+  setSchoolStatistics(HTMLelements, studentsArr)
+
+}
+
+
+
+function setSchoolStatistics(HTML, studentsArr) {
+  console.log(studentsArr);
+  studentsArr.forEach(e => {
+    console.log(e);
+  })
+  HTML.allStatistics.forEach(fact => {
+    let filtereedNumberResult = studentsArr.filter(student => student.isGryffindor)
+    document.querySelector(`[data-value="${fact.dataset.value}"]`).textContent += filtereedNumberResult.length
+  })
+
 }
 
 function changeLabelsImages(inputLabels, studentsArr) {
