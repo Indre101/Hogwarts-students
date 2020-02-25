@@ -14,21 +14,14 @@ const Student = {
   isSlytherin: false,
   isHufflepuff: false,
   isGryffindor: false,
-  isRavenclaw: false
+  isRavenclaw: false,
+  isStudent: true
 }
 
 
 function selectHTMLelements() {
   const HTML = {}
-
-  // HTML.totalStudents = document.querySelector(".totalStudents")
-  // HTML.expelledStudents = document.querySelector(".expelledStudents")
-  // HTML.gryffindor = document.querySelector(".gryffindor")
-  // HTML.ravenclaw = document.querySelector(".ravenclaw")
-  // HTML.hufflepuff = document.querySelector(".hufflepuff")
-  // HTML.slytherin = document.querySelector(".slytherin")
   HTML.allStatistics = document.querySelectorAll(".li");
-
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
@@ -41,8 +34,10 @@ function selectHTMLelements() {
 }
 
 // Starting the website
-function openHogwarts(startBtn, overlay) {
+function openHogwarts(startBtn, overlay, statisticsFacts, studentsArr) {
   startBtn.addEventListener("click", () => {
+
+    setSchoolStatistics(statisticsFacts, studentsArr)
     overlay.dataset.opened = "open"
     setTimeout(() => {
       overlay.dataset.closed = "close"
@@ -53,6 +48,13 @@ function openHogwarts(startBtn, overlay) {
 
 
 // 
+function setSchoolStatistics(element, studentsArr) {
+  element.forEach(fact => {
+    let filtereedNumberResult = studentsArr.filter(student => student[fact.dataset.value])
+    document.querySelector(`[data-value="${fact.dataset.value}"]`).textContent += filtereedNumberResult.length
+  })
+
+}
 
 
 
@@ -67,31 +69,19 @@ function searchStudent(element, array) {
 function init() {
   const studentsArr = [];
   const HTMLelements = selectHTMLelements();
-  openHogwarts(HTMLelements.startBtn, HTMLelements.overlay)
+  openHogwarts(HTMLelements.startBtn, HTMLelements.overlay, HTMLelements.allStatistics, studentsArr)
   searchStudent(HTMLelements.searchFieldInput, studentsArr)
   getStudentData(studentsArr);
   fetchBloodData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
-  setSchoolStatistics(HTMLelements, studentsArr)
 
 }
 
 
-
-function setSchoolStatistics(HTML, studentsArr) {
-  console.log(studentsArr);
-  studentsArr.forEach(e => {
-    console.log(e);
-  })
-  HTML.allStatistics.forEach(fact => {
-    let filtereedNumberResult = studentsArr.filter(student => student.isGryffindor)
-    document.querySelector(`[data-value="${fact.dataset.value}"]`).textContent += filtereedNumberResult.length
-  })
-
-}
 
 function changeLabelsImages(inputLabels, studentsArr) {
+
   inputLabels.forEach(label => label.addEventListener("click", () => {
     label = event.target;
     inputLabels.forEach(label => label.dataset.status = " ");
