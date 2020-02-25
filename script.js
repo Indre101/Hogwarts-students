@@ -33,7 +33,8 @@ function selectHTMLelements() {
 
 function searchStudent(element, array) {
   element.addEventListener("input", (event) => {
-    const searchResult = array.filter(element => element.firstName.toLowerCase().includes(event.target.value))
+    const searchResult = array.filter(element => (element.firstName + element.lastName).toLowerCase().includes(event.target.value))
+    displayNewOrder(searchResult);
   })
 }
 
