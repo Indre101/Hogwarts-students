@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Hogwarts</title>
-  </head>
 
-  <body>
-    <!-- <div class="students justify-align-center">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Hogwarts</title>
+</head>
+
+<body>
+  <!-- <div class="students justify-align-center">
     <template class="studentTemplate">
 
       <div class="student">
@@ -49,163 +50,102 @@
     
   </div> -->
 
-    <!-- <script src="script.js"></script> -->
-    <!-- <script src="stringMethods.js"></script> -->
+  <!-- <script src="script.js"></script> -->
+  <!-- <script src="stringMethods.js"></script> -->
 
-    <header>
-      <img class="schoolLogo" src="./img/hogwarts.png" alt="School logo" />
-      <h1>Hogwarts School of Witchcraft and Wizardry</h1>
-    </header>
-    <div class="mainContainer">
-      <div class="smallContainer">
-<input class="search" type="text" placeholder="Search...">
+  <header>
+    <img class="schoolLogo" src="./img/hogwarts.png" alt="School logo" />
+    <h1>Hogwarts School of Witchcraft and Wizardry</h1>
+  </header>
+  <div class="mainContainer">
+    <div class="smallContainer">
+      <input class="search" type="text" placeholder="Search...">
 
-        <div class="sorting">
-          <h4>Sort by</h4>
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="sorting"
-              data-sort-direction="asc"
-              value="Firstname"
-              data-property="firstName"/>
-            <label data-status="asc" data-action="sort" >First name</label
-            >
-          </div>
-
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="sorting"
-              value="last name"
-              data-sort-direction="asc"
-              data-property="lastName"
-            />
-            <label for="last name" data-status="" data-action="sort"
-              >Last name</label
-            >
-          </div>
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="sorting"
-              data-sort-direction="asc"
-              value="House"
-              data-property="house"
-            />
-            <label for="House" data-status="" data-action="sort">House</label>
-          </div>
+      <div class="sorting">
+        <h4>Sort by</h4>
+        <div class="inputContainer">
+          <input type="radio" name="sorting" data-sort-direction="asc" value="Firstname" data-property="firstName" />
+          <label data-status="asc" data-action="sort">First name</label>
         </div>
-        <div class="filtering">
-          <h4>Filter by</h4>
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="filter"
-              value="Perfects"
-              data-property="isPerfect"
-            />
-            <label for="Perfects" data-action="filter">Perfects</label>
-          </div>
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="filter"
-              value="Inquisitional squad"
-              data-property="isInInquisitionalSquad"
-            />
-            <label for="Inquisitional squad" data-action="filter"
-              >Inquisitional squad</label
-            >
-          </div>
 
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="filter"
-              value="Expelled"
-              data-property="isExpelled"
-            />
-            <label for="Expelled" data-action="filter">Expelled</label>
-          </div>
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="filter"
-              value="Expelled"
-              data-property="all"
-            />
-            <label for="Expelled" data-action="filter">All</label>
-          </div>
-          <h4>Filter by houses</h4>
-
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="filter"
-              value="House"
-              data-property="isSlytherin"
-            />
-            <label for="Slytherin" data-action="filter">Slytherin</label>
-          </div>
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="filter"
-              value="House"
-              data-property="isHufflepuff"
-            />
-            <label for="isHufflepuff" data-action="filter">Hufflepuff</label>
-          </div>
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="filter"
-              value="House"
-              data-property="isGryffindor"
-            />
-            <label for="isGryffindor" data-action="filter">Gryffindor</label>
-          </div>
-          <div class="inputContainer">
-            <input
-              type="radio"
-              name="filter"
-              value="House"
-              data-property="isRavenclaw"
-            />
-            <label for="isRavenclaw" data-action="filter">Ravenclaw</label>
-          </div>
+        <div class="inputContainer">
+          <input type="radio" name="sorting" value="last name" data-sort-direction="asc" data-property="lastName" />
+          <label data-status="asc" data-action="sort">Last name</label>
+        </div>
+        <div class="inputContainer">
+          <input type="radio" name="sorting" data-sort-direction="asc" value="House" data-property="house" />
+          <label data-status="asc" data-action="sort">House</label>
         </div>
       </div>
-
-      <div class="mediumContainer studentList">
-        <div class="studentsList innerContainer">
-          <template class="studentItem">
-            <div class="student">
-              <div class="before">
-                <h3 class="listNumber">number</h3>
-                <h3 class="studentName">Name</h3>
-                <h3 class="studentLastName">Last Name</h3>
-                <h3 class="studentHouse">House</h3>
-              </div>
-            </div>
-          </template>
+      <div class="filtering">
+        <h4>Filter by</h4>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="Perfects" data-property="isPerfect" />
+          <label data-action="filter">Perfects</label>
         </div>
-        <h4>Page next</h4>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="Inquisitional squad" data-property="isInInquisitionalSquad" />
+          <label data-action="filter">Inquisitional squad</label>
+        </div>
+
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="Expelled" data-property="isExpelled" />
+          <label data-action="filter">Expelled</label>
+        </div>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="Expelled" data-property="all" />
+          <label data-action="filter">All</label>
+        </div>
+        <h4>Filter by houses</h4>
+
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="House" data-property="isSlytherin" />
+          <label data-action="filter">Slytherin</label>
+        </div>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="House" data-property="isHufflepuff" />
+          <label data-action="filter">Hufflepuff</label>
+        </div>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="House" data-property="isGryffindor" />
+          <label data-action="filter">Gryffindor</label>
+        </div>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="House" data-property="isRavenclaw" />
+          <label data-action="filter">Ravenclaw</label>
+        </div>
       </div>
-      <footer>
-        <ul>
-          <li class="totalStudents">Number of students total:</li>
-          <li>Number of expledd</li>
-          <li>Grifindor: student count</li>
-          <li>Grifindor: student count</li>
-          <li>Grifindor: student count</li>
-          <li>Grifindor: student count</li>
-        </ul>
-      </footer>
     </div>
 
-    <script src="script.js"></script>
-    <script src="stringMethods.js"></script>
-  </body>
+    <div class="mediumContainer studentList">
+      <div class="studentsList innerContainer">
+        <template class="studentItem">
+          <div class="student">
+            <div class="before">
+              <h3 class="listNumber">number</h3>
+              <h3 class="studentName">Name</h3>
+              <h3 class="studentLastName">Last Name</h3>
+              <h3 class="studentHouse">House</h3>
+            </div>
+          </div>
+        </template>
+      </div>
+      <h4>Page next</h4>
+    </div>
+    <footer>
+      <ul>
+        <li class="totalStudents">Number of students total:</li>
+        <li>Number of expledd</li>
+        <li>Grifindor: student count</li>
+        <li>Grifindor: student count</li>
+        <li>Grifindor: student count</li>
+        <li>Grifindor: student count</li>
+      </ul>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="stringMethods.js"></script>
+</body>
+
 </html>
