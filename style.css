@@ -9,7 +9,7 @@
   --primary-text-color: white;
   --secondary-text-color: black;
   --width: 80vw;
-  --accent-color: #757575;
+  --accent-color: none;
 
 }
 
@@ -24,6 +24,7 @@
   /* border-radius: 15px; */
   font-family: 'Yeon Sung';
 
+
 }
 
 body {
@@ -31,7 +32,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* background-image: url(./img/crests/hogwarts-school-1.png); */
+  background-image: linear-gradient(to bottom, #ffffffb8, #000), url(./img/crests/hogwarts-school-1.png);
 
+  background-position: center;
+  background-repeat: no-repeat;
 
 }
 
@@ -190,7 +195,7 @@ header {
   color: white;
   background-color: var(--accent-color);
   box-shadow: 1px 1px 1px 2px grey;
-
+  color: black;
 }
 
 h1 {
@@ -391,7 +396,7 @@ footer {
   height: 11vh;
   background-color: var(--accent-color);
   color: white;
-
+  box-shadow: 1px 1px 11px 2px lightgrey;
 }
 
 ul {
