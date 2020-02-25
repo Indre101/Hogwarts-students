@@ -23,20 +23,25 @@ function selectHTMLelements() {
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
-  HTML.students = document.querySelector(".studentsList")
-  HTML.totalStudents = document.querySelector(".totalStudents")
-
+  HTML.students = document.querySelector(".studentsList");
+  HTML.totalStudents = document.querySelector(".totalStudents");
+  HTML.searchFieldInput = document.querySelector(".search");
   return HTML;
 }
 
-function showSchoolStatistics() {
 
+
+function searchStudent(element, array) {
+  element.addEventListener("input", (event) => {
+    const searchResult = array.filter(element => element.firstName.toLowerCase().includes(event.target.value))
+  })
 }
 
 
 function init() {
   const studentsArr = [];
   const HTMLelements = selectHTMLelements();
+  searchStudent(HTMLelements.searchFieldInput, studentsArr)
   getStudentData(studentsArr);
   fetchBloodData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
@@ -68,6 +73,7 @@ function doFilterOrSort(label, studentsArr) {
   displayNewOrder(studentsArr);
 
 }
+
 
 
 
@@ -184,7 +190,6 @@ function assignValuesToStudentObject(student, studentsArr) {
     studentCard.isInInquisitionalSquad = false;
 
   }
-  console.log(studentCard);
   setHouseValue(studentCard);
   studentsArr.push(studentCard)
 }
