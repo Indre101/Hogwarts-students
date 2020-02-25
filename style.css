@@ -1,5 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap');
-
+@font-face {
+  font-family: 'Yeon Sung';
+  src: url(./YeonSung-Regular.ttf);
+}
 
 :root {
   --modal-color: rgba(255, 255, 255, 0.9);
@@ -10,6 +12,8 @@
 
 }
 
+
+
 * {
   margin: 0;
   padding: 0;
@@ -17,16 +21,16 @@
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
   /* border-radius: 15px; */
+  font-family: 'Yeon Sung';
+
 }
 
 body {
   height: 100vh;
-  background-color: #232222;
-  color: #ded1d1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Yeon Sung', sans-serif;
+
 
 }
 
@@ -176,34 +180,27 @@ body {
 }
 
 header {
+  width: 100%;
   display: flex;
   align-items: center;
-  width: var(--width);
-
+  font-family: 'Yeon Sung', sans-serif;
+  color: white;
+  background-color: black;
+  box-shadow: 1px 1px 1px 2px grey;
 
 }
 
 h1 {
-  font-size: 2vw;
+  font-size: 1vw;
 }
 
 .schoolLogo {
-  height: 6vw;
+  height: 2vw;
   margin: 1vw;
 }
 
 
-.student {
-  width: 80%;
-  --modal-color: #372e29f6;
-  --modal-color-1: #372e29;
-  transform: skew(25deg) rotate(2deg);
-  background: #FC354C;
-  background: -webkit-linear-gradient(to right, var(--modal-color), yellow);
-  background: linear-gradient(to right, var(--modal-color), yellow);
-  margin: 1.5vw 0;
-  height: 5.5vw;
-}
+
 
 h3 {
   height: 5vw;
@@ -222,13 +219,20 @@ h3 {
   align-items: center;
 }
 
-.student .before {
-  transform: skew(-25deg) rotate(-2deg);
-  background-color: black;
+.student {
+  width: 80%;
+  --modal-color: #372e29f6;
+  --modal-color-1: #372e29;
+  margin: 1.5vw 0;
+  height: 5.5vw;
+  background-color: white;
   display: grid;
   grid-template-columns: 10% repeat(3, 1fr);
+  border-radius: 10px;
   grid-gap: 1vw;
   align-items: center;
+  color: black;
+  box-shadow: 1px 1px 1px 1px grey;
 }
 
 .search {
@@ -376,8 +380,21 @@ img {
 
 
 footer {
-  width: var(--width);
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 11vh;
+}
 
+ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+  flex-wrap: wrap;
 }
 
 /* 

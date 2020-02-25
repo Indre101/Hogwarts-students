@@ -11,7 +11,7 @@
 
 <body>
 
-  <div class="overlay" data-opened="none">
+  <div class="overlay" data-opened="none" data-closed="close">
     <div class="bg-container bg-container-1-2">
       <div class="bg bg-1"></div>
       <div class="bg bg-2"></div>
@@ -32,6 +32,7 @@
     <img class="schoolLogo" src="./img/crests/hogwarts.png" alt="School logo" />
     <h1>Hogwarts School of Witchcraft and Wizardry</h1>
   </header>
+
   <div class="mainContainer">
     <div class="smallContainer">
       <input class="search" type="text" placeholder="Search...">
@@ -96,13 +97,10 @@
       <div class="studentsList innerContainer">
         <template class="studentItem">
           <div class="student">
-            <div class="before">
-              <h3 class="listNumber">number</h3>
-              <h3 class="studentName">Name</h3>
-              <h3 class="studentLastName">Last Name</h3>
-              <h3 class="studentHouse">House</h3>
-            </div>
-
+            <h3 class="listNumber">number</h3>
+            <h3 class="studentName">Name</h3>
+            <h3 class="studentLastName">Last Name</h3>
+            <h3 class="studentHouse">House</h3>
           </div>
         </template>
       </div>
@@ -111,17 +109,18 @@
 
 
 
-    <footer>
-      <ul>
-        <li class="totalStudents">Number of students total:</li>
-        <li>Number of expledd</li>
-        <li>Grifindor: student count</li>
-        <li>Grifindor: student count</li>
-        <li>Grifindor: student count</li>
-        <li>Grifindor: student count</li>
-      </ul>
-    </footer>
+
   </div>
+  <footer>
+    <ul>
+      <li class="totalStudents">Number of students total:</li>
+      <li>Number of expledd</li>
+      <li>Grifindor: student count</li>
+      <li>Grifindor: student count</li>
+      <li>Grifindor: student count</li>
+      <li>Grifindor: student count</li>
+    </ul>
+  </footer>
 
   <div class="modalContainer">
     <div class="modal">
