@@ -136,16 +136,6 @@ function displayNewOrder(array) {
 }
 
 
-
-// for (let index = 0; index < allStudentsHTML.length; index++) {
-//   for (let j = 0; j < array.length; j++) {
-//     if (allStudentsHTML[index].querySelector(".studentName").textContent === array[j].firstName) {
-//       allStudentsHTML[index].style.order = array.indexOf(array[j]);
-//     }
-//   }
-// }
-// }
-
 function getStudentData(studentsArr) {
   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
     .then(res => res.json())
