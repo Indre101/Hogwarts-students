@@ -70,8 +70,14 @@ function setSchoolStatistics(element, studentsArr) {
 
 function searchStudent(element, array) {
   element.addEventListener("input", (event) => {
-    const searchResult = array.filter(element => (element.firstName + element.lastName).toLowerCase().includes(event.target.value))
-    displayNewOrder(searchResult);
+    const displayedStudents = document.querySelectorAll(".student");
+    displayedStudents.forEach(student => {
+      if (student.textContent.includes(event.target.value)) {
+        student.dataset.show = "show"
+      } else {
+        student.dataset.show = "noshow"
+      }
+    });
   })
 }
 
@@ -177,65 +183,6 @@ function setSortingDirection(inputField) {
   return directionValue;
 }
 
-// function displayNewOrder(array) {
-//   const studentList = selectHTMLelements().students;
-//   studentList.innerHTML = " ";
-
-//   array.forEach()
-
-// }
-
-
-// function displayNewOrder(array) {
-//   const allStudentsHTML = document.querySelectorAll(".student");
-//   if (allStudentsHTML.length === array.length) {
-//     for (let index = 0; index < allStudentsHTML.length; index++) {
-//       for (let j = 0; j < array.length; j++) {
-//         if (allStudentsHTML[index].querySelector(".studentName").textContent.toLowerCase() === array[j].firstName.toLowerCase()) {
-//           allStudentsHTML[index].style.order = j
-//           allStudentsHTML[index].dataset.show = "show";
-//         }
-//       }
-
-//       // allStudentsHTML[index].
-//       // addStudentProperties(allStudentsHTML[index], array[index]);
-//       // allStudentsHTML[index].style.display = "grid";
-//     }
-//   } else if (allStudentsHTML.length > array.length) {
-//     // let difference = allStudentsHTML.length - array.length - 1;
-//     // while (difference >= 0) {
-//     //   const elementIndex = array.length + difference
-//     //   allStudentsHTML[elementIndex].style.display = "none";
-//     //   difference--
-//     // }
-//     let studentsToShow = [];
-//     for (let index = 0; index < allStudentsHTML.length; index++) {
-//       for (let j = 0; j < array.length; j++) {
-//         if (allStudentsHTML[index].querySelector(".studentName").textContent.toLowerCase() === array[j].firstName.toLowerCase()) {
-//           allStudentsHTML[index].style.order = j
-
-//           // studentsToShow.push(allStudentsHTML[index])
-//         } else {
-//           allStudentsHTML[index].style.order = 32;
-//         }
-//       }
-
-
-//       // allStudentsHTML[index].
-//       // addStudentProperties(allStudentsHTML[index], array[index]);
-//       // allStudentsHTML[index].style.display = "grid";
-//     }
-
-//     // studentsToShow.forEach(s => {
-//     //   s.dataset.show = "show"
-//     // });
-
-
-//     // for (let index = 0; index < array.length; index++) {
-//     //   addStudentProperties(allStudentsHTML[index], array[index]);
-//     // }
-//   }
-// }
 
 
 function getStudentData(studentsArr) {
@@ -350,9 +297,6 @@ function setstudentAsAperfect(modalStyle, student) {
     return true;
   }
 }
-
-
-
 
 
 
