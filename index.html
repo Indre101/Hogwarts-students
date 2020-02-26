@@ -11,7 +11,7 @@
 
 <body>
 
-  <div class="overlay" data-opened="none" data-closed="none">
+  <div class="overlay" data-opened="none" data-closed="close">
     <div class="bg-container bg-container-1-2">
       <div class="bg bg-1"></div>
       <div class="bg bg-2"></div>
@@ -34,10 +34,9 @@
   </header>
 
   <div class="mainContainer">
+    <img class="filterBtn" src="./icons/filter.svg" alt="Filter icon">
     <div class="smallContainer">
-      <input class="search" type="text" placeholder="Search...">
-
-      <div class="sorting">
+      <div class="sorting part">
         <h4>Sort by</h4>
         <div class="inputContainer">
           <input type="radio" name="sorting" data-sort-direction="asc" value="Firstname" data-property="firstName" />
@@ -53,7 +52,7 @@
           <label data-status="asc" data-action="sort">House</label>
         </div>
       </div>
-      <div class="filtering">
+      <div class="filtering part">
         <h4>Filter by</h4>
         <div class="inputContainer">
           <input type="radio" name="filter" value="Perfects" data-property="isPerfect" />
@@ -73,7 +72,6 @@
           <label data-action="filter">All</label>
         </div>
         <h4>Filter by houses</h4>
-
         <div class="inputContainer">
           <input type="radio" name="filter" value="House" data-property="isSlytherin" />
           <label data-action="filter">Slytherin</label>
@@ -93,7 +91,10 @@
       </div>
     </div>
 
-    <div class="mediumContainer studentList">
+    <div class="mediumContainer ">
+      <div class="searchFieldContainer">
+        <input class="search" type="text" placeholder="Search...">
+      </div>
       <div class="studentsList innerContainer">
         <template class="studentItem">
           <div class="student">
