@@ -260,17 +260,22 @@ function displayStudentListItems(student) {
 function showModal(student) {
   console.log(student);
   const modal = selectHTMLelements().modalContainer;
+  modal.addEventListener("click", hideModal)
   modal.dataset.crest = student.house.toLowerCase();
   modal.querySelector(".studentImg").src = `./img/studentImages/${student.image}`;
-  modal.querySelector(".studentName").textContent += student.firstName;
-  modal.querySelector(".middleName").textContent += student.middleName;
-  modal.querySelector(".nickName").textContent += student.nickName;
-  modal.querySelector(".studentLastName").textContent += student.lastName;
-  modal.querySelector(".house").textContent += student.house;
-  modal.querySelector(".inquisitionalSquad").textContent += student.isInInquisitionalSquad;
+  modal.querySelector(".studentName").textContent = `First name: ${student.firstName}`;
+  modal.querySelector(".middleName").textContent = `Middle name: ${student.middleName ? student.middleName : "none"}`;
+  modal.querySelector(".nickName").textContent = `Nick name: ${student.nickName ? student.nickName : "none"}`;
+  modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
+  modal.querySelector(".house").textContent = `House: ${student.house}`;
+  modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
+}
 
+function hideModal(event) {
+  event.target.dataset.crest = "none";
 
 }
+
 
 
 

@@ -21,7 +21,6 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
-  /* border-radius: 15px; */
   font-family: 'Yeon Sung';
 
 
@@ -49,7 +48,7 @@ body {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  z-index: 1;
+  z-index: 20;
 
 }
 
@@ -116,7 +115,7 @@ body {
 
   z-index: 1;
   padding: 1vw;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   cursor: pointer;
   animation: pulse 0.5s ease-in-out infinite alternate;
 }
@@ -251,7 +250,7 @@ h3 {
   background-color: white;
   display: grid;
   grid-template-columns: 10% repeat(3, 1fr);
-  border-radius: 10px;
+  /* border-radius: 10px; */
   grid-gap: 1vw;
   align-items: center;
   color: black;
@@ -260,7 +259,7 @@ h3 {
 
 .search {
   font-size: 1.5vw;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   padding: 0 1vw;
 }
 
@@ -283,7 +282,7 @@ label:before {
   height: 20px;
   background-image: url(./icons/non-color.svg);
   background-size: contain;
-  border-radius: 11px;
+  /* border-radius: 11px; */
   transition: background-image 0.5s linear;
 }
 
@@ -304,10 +303,10 @@ label:hover:before {
   height: 5vh;
   width: 5vh;
   position: fixed;
-  left: 10vw;
+  left: 1vw;
   margin: 2vw;
   transition: background-image 0.3s ease-in-out;
-  z-index: 100;
+  z-index: 10;
 }
 
 .filterBtn:hover {
@@ -321,14 +320,13 @@ label:hover:before {
 
 .smallContainer {
   display: none;
-  padding: 0 4vw;
+  padding: 8vh 3vw;
   height: 83vh;
   justify-self: flex-end;
   flex-direction: column;
   justify-content: flex-start;
   position: fixed;
   left: 0;
-  padding-top: 7vw;
   box-shadow: 1px 0px 0px 0px lightgrey;
 }
 
@@ -344,11 +342,11 @@ label:hover:before {
 }
 
 .part {
-  margin: 2vw 0;
+  margin: 1.5vw 0;
 }
 
 .part div {
-  margin: 1.5vw 0;
+  margin: 1vw 0;
 }
 
 
