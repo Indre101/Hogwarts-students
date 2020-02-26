@@ -440,6 +440,15 @@ img {
 }
 
 
+.student[data-show="show"] {
+  display: grid;
+}
+
+
+.student[data-show="noshow"] {
+  display: none;
+}
+
 
 .badges {
   display: flex;

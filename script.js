@@ -94,10 +94,15 @@ function init() {
 function changeLabelsImages(inputLabels, studentsArr) {
 
   inputLabels.forEach(label => label.addEventListener("click", () => {
+    const studentList = selectHTMLelements().students;
+    console.log(studentList);
+    studentList.innerHTML = " ";
     label = event.target;
     inputLabels.forEach(label => label.dataset.status = " ");
+
     label.dataset.status = "checked";
     doFilterOrSort(label, studentsArr)
+
   }))
 }
 
@@ -108,16 +113,27 @@ function doFilterOrSort(label, studentsArr) {
   const ceckedInput = getCheckedInputValue(label);
   if (filterArr && label.dataset.action === "sort") {
     studentsArr = sortStudents(filterArr, ceckedInput)
-  } else if (label.dataset.action === "sort") {
+  } else
+  if (label.dataset.action === "sort") {
     studentsArr = sortStudents(studentsArr, ceckedInput)
   } else if (label.dataset.action === "filter") {
     filterArr = filterStudent(studentsArr, ceckedInput)
     studentsArr = filterArr;
   }
-  displayNewOrder(studentsArr);
+  studentsArr.forEach(stud => {
+    displayStudentListItems(stud)
+  });
 
 }
 
+
+
+
+
+//   array.forEach()
+
+// }
+// displayStudentListItems(student) 
 
 
 
@@ -161,26 +177,65 @@ function setSortingDirection(inputField) {
   return directionValue;
 }
 
+// function displayNewOrder(array) {
+//   const studentList = selectHTMLelements().students;
+//   studentList.innerHTML = " ";
 
-function displayNewOrder(array) {
-  const allStudentsHTML = document.querySelectorAll(".student");
-  if (allStudentsHTML.length === array.length) {
-    for (let index = 0; index < allStudentsHTML.length; index++) {
-      addStudentProperties(allStudentsHTML[index], array[index]);
-      allStudentsHTML[index].style.display = "grid";
-    }
-  } else if (allStudentsHTML.length > array.length) {
-    let difference = allStudentsHTML.length - array.length - 1;
-    while (difference >= 0) {
-      const elementIndex = array.length + difference
-      allStudentsHTML[elementIndex].style.display = "none";
-      difference--
-    }
-    for (let index = 0; index < array.length; index++) {
-      addStudentProperties(allStudentsHTML[index], array[index]);
-    }
-  }
-}
+//   array.forEach()
+
+// }
+
+
+// function displayNewOrder(array) {
+//   const allStudentsHTML = document.querySelectorAll(".student");
+//   if (allStudentsHTML.length === array.length) {
+//     for (let index = 0; index < allStudentsHTML.length; index++) {
+//       for (let j = 0; j < array.length; j++) {
+//         if (allStudentsHTML[index].querySelector(".studentName").textContent.toLowerCase() === array[j].firstName.toLowerCase()) {
+//           allStudentsHTML[index].style.order = j
+//           allStudentsHTML[index].dataset.show = "show";
+//         }
+//       }
+
+//       // allStudentsHTML[index].
+//       // addStudentProperties(allStudentsHTML[index], array[index]);
+//       // allStudentsHTML[index].style.display = "grid";
+//     }
+//   } else if (allStudentsHTML.length > array.length) {
+//     // let difference = allStudentsHTML.length - array.length - 1;
+//     // while (difference >= 0) {
+//     //   const elementIndex = array.length + difference
+//     //   allStudentsHTML[elementIndex].style.display = "none";
+//     //   difference--
+//     // }
+//     let studentsToShow = [];
+//     for (let index = 0; index < allStudentsHTML.length; index++) {
+//       for (let j = 0; j < array.length; j++) {
+//         if (allStudentsHTML[index].querySelector(".studentName").textContent.toLowerCase() === array[j].firstName.toLowerCase()) {
+//           allStudentsHTML[index].style.order = j
+
+//           // studentsToShow.push(allStudentsHTML[index])
+//         } else {
+//           allStudentsHTML[index].style.order = 32;
+//         }
+//       }
+
+
+//       // allStudentsHTML[index].
+//       // addStudentProperties(allStudentsHTML[index], array[index]);
+//       // allStudentsHTML[index].style.display = "grid";
+//     }
+
+//     // studentsToShow.forEach(s => {
+//     //   s.dataset.show = "show"
+//     // });
+
+
+//     // for (let index = 0; index < array.length; index++) {
+//     //   addStudentProperties(allStudentsHTML[index], array[index]);
+//     // }
+//   }
+// }
 
 
 function getStudentData(studentsArr) {
@@ -221,8 +276,11 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
   studentCard.image = `${studentCard.lastName.toLowerCase()}_${studentCard.firstName[0].toLowerCase()}.png`;
+
   if (studentCard.firstName.includes("t")) {
     studentCard.isPerfect = true;
+  } else {
+    studentCard.isPerfect = false;
   }
 
   if (studentCard.firstName.includes("h")) {
@@ -250,31 +308,50 @@ function addStudentProperties(element, student) {
 
 function displayStudentListItems(student) {
   const cln = selectHTMLelements().studentTemplate.cloneNode(true);
+
+  addStudentProperties(cln, student)
+
   cln.querySelector(".student").onclick = function () {
     showModal(student)
   }
-  addStudentProperties(cln, student)
+
   selectHTMLelements().students.appendChild(cln);
+
 }
 
+
+
 function showModal(student) {
-  console.log(student);
   const modal = selectHTMLelements().modalContainer;
   modal.addEventListener("click", hideModal)
   modal.dataset.crest = student.house.toLowerCase();
   modal.querySelector(".studentImg").src = `./img/studentImages/${student.image}`;
-  modal.querySelector(".studentName").textContent = `First name: ${student.firstName}`;
+  modal.querySelector(".studentName").textContent = student.firstName;
   modal.querySelector(".middleName").textContent = `Middle name: ${student.middleName ? student.middleName : "none"}`;
   modal.querySelector(".nickName").textContent = `Nick name: ${student.nickName ? student.nickName : "none"}`;
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
+  setstudentAsAperfect(modal, student)
+
 }
 
 function hideModal(event) {
   event.target.dataset.crest = "none";
 
 }
+
+function setstudentAsAperfect(modalStyle, student) {
+  // console.log(modalStyle.getPropertyValue('--perfect-bg-image'));
+  if (!student.isPerfect) {
+    modalStyle.style.setProperty('--perfect-bg-image', "none");
+  } else {
+
+    return true;
+  }
+}
+
+
 
 
 
