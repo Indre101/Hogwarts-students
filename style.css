@@ -241,6 +241,7 @@ h3 {
 
 }
 
+
 .student {
   width: 80%;
   --modal-color: #372e29f6;
@@ -260,6 +261,7 @@ h3 {
 .search {
   font-size: 1.5vw;
   border-radius: 15px;
+  padding: 0 1vw;
 }
 
 input[type="radio"] {
@@ -351,6 +353,13 @@ label:hover:before {
 
 
 
+.bgStudentModal {
+  padding: 0.5vw;
+  transform: skew(10deg, 10deg);
+  background: linear-gradient(0.45turn, var(--modal-color), var(--secondary-text-color));
+
+}
+
 
 .modalContainer {
   position: fixed;
@@ -362,16 +371,61 @@ label:hover:before {
   align-items: center;
   top: 0;
   background-color: #a9a9a9d1;
-  display: none;
+  /* display: none; */
+  z-index: 100;
+}
+
+.crest {
+  background-image: var(--crest-bg-image);
+}
+
+.perfect {
+  background-image: var(--perfect-bg-image);
+}
+
+.modalContainer[data-crest="slytherin"] {
+  --modal-color: #5d5d5d;
+  --secondary-text-color: #1a472a;
+  --crest-bg-image: url(./img/crests/sly.png);
+  --perfect-bg-image: url(./img/perfects/perfects-sly.png);
+}
+
+.modalContainer[data-crest="gryffindor"] {
+  --modal-color: #d3a625f6;
+  --secondary-text-color: #740001;
+  --crest-bg-image: url(./img/crests/griff.png);
+  --perfect-bg-image: url(./img/perfects/perfects-gryff.png);
+}
+
+.modalContainer[data-crest="ravenclaw"] {
+  --modal-color: #222f5bf6;
+  --secondary-text-color: #946b2d;
+  --crest-bg-image: url(./img/crests/rav.png);
+  --perfect-bg-image: url(./img/perfects/perfects-rave.png);
 
 }
 
+
+.modalContainer[data-crest="hufflepuff"] {
+  --modal-color: #372e29f6;
+  --secondary-text-color: #ecb939;
+  --crest-bg-image: url(./img/crests/huff.png);
+  --perfect-bg-image: url(./img/perfects/perfetcs-huff.png);
+
+}
+
+
+
+
+
+
 .modal {
+  transform: skew(-10deg, -10deg);
   display: grid;
   grid-template-columns: 20% 40% 40%;
   grid-gap: 2vw;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 3vw;
   padding: 1vw 3vw 3vw 3vw;
 }
@@ -389,6 +443,7 @@ img {
 }
 
 
+
 .badges {
   display: flex;
   justify-content: center;
@@ -397,9 +452,14 @@ img {
 }
 
 .badge {
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 6vh;
   height: 6vw;
-  object-fit: contain;
 }
+
+
+
 
 
 .detailedInfo {
@@ -410,7 +470,7 @@ img {
   font-size: 1vw;
   height: fit-content;
   margin: 1vw 0;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
 }
 
 
@@ -419,32 +479,32 @@ img {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 
-.actionBtn {
-  width: 80%;
-  height: 3vw;
+.actions .actionBtn {
+  width: 75%;
+  height: 5vw;
+  text-align: center;
+  font-size: 1.5vw;
+  box-shadow: 1px 1px 1px 1px grey;
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-size: 1vw;
-  margin: 3vw 0 0 0;
 }
 
 .expell {
-  background-color: #7b0505;
+  color: #7b0505;
 }
 
 .setAsPerfect {
-  background-color: #024e47;
+  color: #024e47;
 }
 
 
 
 .inquisitionaSquad {
-  background-color: #5a195a;
+  color: #5a195a;
 
 }
 
