@@ -31,33 +31,28 @@ function selectHTMLelements() {
   HTML.overlay = document.querySelector(".overlay");
   HTML.startBtn = document.querySelector(".startBtn");
   HTML.filterBtn = document.querySelector(".filterBtn");
+  HTML.modalContainer = document.querySelector(".modalContainer");
   return HTML;
 }
 
 // Starting the website
 function openHogwarts(startBtn, overlay, statisticsFacts, studentsArr) {
   startBtn.addEventListener("click", () => {
-
     setSchoolStatistics(statisticsFacts, studentsArr)
     overlay.dataset.opened = "open"
     setTimeout(() => {
       overlay.dataset.closed = "close"
     }, 2000);
-
   });
 }
 
 
 function showFilterSortOptions(btn) {
   btn.addEventListener("click", (event) => {
-    console.log("object");
-    console.log(event.target.dataset);
-
     if ((event.target).dataset.active === "active") {
       (event.target).dataset.active = "none";
     } else {
       (event.target).dataset.active = "active";
-
     }
   })
 }
@@ -255,6 +250,30 @@ function addStudentProperties(element, student) {
 
 function displayStudentListItems(student) {
   const cln = selectHTMLelements().studentTemplate.cloneNode(true);
+  cln.querySelector(".student").onclick = function () {
+    showModal(student)
+  }
   addStudentProperties(cln, student)
   selectHTMLelements().students.appendChild(cln);
+}
+
+function showModal(student) {
+  console.log(student);
+  const modal = selectHTMLelements().modalContainer;
+  modal.dataset.crest = student.house.toLowerCase();
+  modal.querySelector(".studentImg").src = `./img/studentImages/${student.image}`;
+  modal.querySelector(".studentName").textContent += student.firstName;
+  modal.querySelector(".middleName").textContent += student.middleName;
+  modal.querySelector(".nickName").textContent += student.nickName;
+  modal.querySelector(".studentLastName").textContent += student.lastName;
+  modal.querySelector(".house").textContent += student.house;
+  modal.querySelector(".inquisitionalSquad").textContent += student.isInInquisitionalSquad;
+
+
+}
+
+
+
+function assignValuesToModal(student, modal) {
+  modal.dataset.crest = student.house.toLowerCase();
 }

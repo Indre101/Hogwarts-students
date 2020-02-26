@@ -370,8 +370,8 @@ label:hover:before {
   justify-content: center;
   align-items: center;
   top: 0;
-  background-color: #a9a9a9d1;
-  /* display: none; */
+  background-color: #c3c3c3d1;
+  display: none;
   z-index: 100;
 }
 
@@ -384,6 +384,7 @@ label:hover:before {
 }
 
 .modalContainer[data-crest="slytherin"] {
+  display: flex;
   --modal-color: #5d5d5d;
   --secondary-text-color: #1a472a;
   --crest-bg-image: url(./img/crests/sly.png);
@@ -391,6 +392,7 @@ label:hover:before {
 }
 
 .modalContainer[data-crest="gryffindor"] {
+  display: flex;
   --modal-color: #d3a625f6;
   --secondary-text-color: #740001;
   --crest-bg-image: url(./img/crests/griff.png);
@@ -398,6 +400,7 @@ label:hover:before {
 }
 
 .modalContainer[data-crest="ravenclaw"] {
+  display: flex;
   --modal-color: #222f5bf6;
   --secondary-text-color: #946b2d;
   --crest-bg-image: url(./img/crests/rav.png);
@@ -407,16 +410,12 @@ label:hover:before {
 
 
 .modalContainer[data-crest="hufflepuff"] {
+  display: flex;
   --modal-color: #372e29f6;
   --secondary-text-color: #ecb939;
   --crest-bg-image: url(./img/crests/huff.png);
   --perfect-bg-image: url(./img/perfects/perfetcs-huff.png);
-
 }
-
-
-
-
 
 
 .modal {
