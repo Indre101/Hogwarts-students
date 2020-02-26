@@ -34,7 +34,7 @@
   </header>
 
   <div class="mainContainer">
-    <img class="filterBtn" src="./icons/filter.svg" alt="Filter icon">
+    <div class="filterBtn"></div>
     <div class="smallContainer">
       <div class="sorting part">
         <h4>Sort by</h4>
@@ -67,11 +67,7 @@
           <input type="radio" name="filter" value="Expelled" data-property="isExpelled" />
           <label data-action="filter">Expelled</label>
         </div>
-        <div class="inputContainer">
-          <input type="radio" name="filter" value="Expelled" data-property="all" />
-          <label data-action="filter">All</label>
-        </div>
-        <h4>Filter by houses</h4>
+
         <div class="inputContainer">
           <input type="radio" name="filter" value="House" data-property="isSlytherin" />
           <label data-action="filter">Slytherin</label>
@@ -87,6 +83,10 @@
         <div class="inputContainer">
           <input type="radio" name="filter" value="House" data-property="isRavenclaw" />
           <label data-action="filter">Ravenclaw</label>
+        </div>
+        <div class="inputContainer">
+          <input type="radio" name="filter" value="Expelled" data-property="all" />
+          <label data-action="filter">All</label>
         </div>
       </div>
     </div>

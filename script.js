@@ -30,6 +30,7 @@ function selectHTMLelements() {
   HTML.searchFieldInput = document.querySelector(".search");
   HTML.overlay = document.querySelector(".overlay");
   HTML.startBtn = document.querySelector(".startBtn");
+  HTML.filterBtn = document.querySelector(".filterBtn");
   return HTML;
 }
 
@@ -46,6 +47,20 @@ function openHogwarts(startBtn, overlay, statisticsFacts, studentsArr) {
   });
 }
 
+
+function showFilterSortOptions(btn) {
+  btn.addEventListener("click", (event) => {
+    console.log("object");
+    console.log(event.target.dataset);
+
+    if ((event.target).dataset.active === "active") {
+      (event.target).dataset.active = "none";
+    } else {
+      (event.target).dataset.active = "active";
+
+    }
+  })
+}
 
 // 
 function setSchoolStatistics(element, studentsArr) {
@@ -75,6 +90,7 @@ function init() {
   fetchBloodData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
+  showFilterSortOptions(HTMLelements.filterBtn)
 
 }
 
