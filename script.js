@@ -8,6 +8,7 @@ const Student = {
   image: "",
   house: "",
   bloodStatus: "",
+  gender: "",
   isPrefect: false,
   isInInquisitionalSquad: false,
   isExpelled: false,
@@ -221,6 +222,7 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
   studentCard.image = `${studentCard.firstName.toLowerCase()}_${studentCard.lastName[0].toLowerCase()}.png`;
+  studentCard.gender = student.gender;
   setHouseValue(studentCard);
   studentsArr.push(studentCard)
 }
@@ -263,9 +265,9 @@ function showModal(student, studentsArr) {
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
   modal.querySelector(".setAsPrefect").onclick = function () {
+    checkIfEligibleForPrefect(student, studentsArr, modal)
 
-    setAsPrefect(student, modal)
-    checkIfEligibleForPrefect(student, studentsArr)
+    // setAsPrefect(student, modal)
   }
 
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
@@ -301,13 +303,57 @@ function showAsAPrefect(student, modal) {
 
 
 
-function checkIfEligibleForPrefect(student, studentsArr) {
-  const prefects = studentsArr.filter(student => student.isPrefect === true);
-  console.log(prefects);
-  if (prefects.some(perfect => perfect.house === student.house)) {
-    console.log("true");
+function checkIfEligibleForPrefect(student, studentsArr, modal) {
+  setAsPrefect(student, modal)
+
+
+  const prefects = studentsArr.filter(prefect => prefect.isPrefect === true);
+  const prefectSamehouse = prefects.filter(prefect => prefect.house === student.house);
+  const sameGender = prefectSamehouse.filter(prefect => prefect.gender === student.gender);
+
+  if (sameGender.length === 2) {
+    console.log(sameGender);
+
+    console.log("prefectSamehouse", prefectSamehouse);
   }
 
+  // for (let index = 0; index < prefects.length - 1; index++) {
+  //   if (prefects[index].house === student.house && prefects[index].gender !== student.gender) {
+  //     console.log("can be studne");
+  //   } else if (prefects[index].house === student.house && prefects[index].gender === student.gender) {
+  //     console.log("can*t");
+  //   }
+
+  // }
+
+  // const prefectsSameHouse = prefects.filter(prefect => prefect.house === student.house);
+  // const boys = prefectsSameHouse.filter(prefect => prefect.gender === "boy");
+  // const girls = prefectsSameHouse.filter(prefect => prefect.gender === "girl");
+  // console.log(girls);
+  // console.log(boys);
+
+  // // console.log(prefectsSameHouse);
+  // if (prefectsSameHouse.length === 2) {
+  //   console.log("object");
+
+  //   if (boys.length === 2 || girls.length === 2) {
+  //     console.log("samehouse gender");
+  //   }
+  // }
+
+}
+
+function changePrefectIfSameGender(student) {
+
+
+}
+
+function prefects(prefectsArr) {
+  prefectsArr.forEach(prefect => {
+    const prefectItem = document.createElement("h3")
+    prefectItem.textContent = prefect.name + prefect.lastName
+    document.querySelector(".prefectOptions").appendChild(prefectItem);
+  })
 }
 
 
