@@ -32,6 +32,7 @@ function selectHTMLelements() {
   HTML.startBtn = document.querySelector(".startBtn");
   HTML.filterBtn = document.querySelector(".filterBtn");
   HTML.modalContainer = document.querySelector(".modalContainer");
+  HTML.expellBtn = document.querySelector(".expell");
   return HTML;
 }
 
@@ -133,13 +134,6 @@ function doFilterOrSort(label, studentsArr) {
 }
 
 
-
-
-
-//   array.forEach()
-
-// }
-// displayStudentListItems(student) 
 
 
 
@@ -279,9 +273,18 @@ function showModal(student) {
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
-  setstudentAsAperfect(modal, student)
+  modal.querySelector(".expell").onclick = function () {
+    expellStudent(student);
+  }
 
+  setstudentAsAperfect(modal, student)
 }
+
+
+function expellStudent(student) {
+  student.isExpelled = true;
+}
+
 
 function hideModal(event) {
   event.target.dataset.crest = "none";

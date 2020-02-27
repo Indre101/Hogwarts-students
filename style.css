@@ -445,8 +445,8 @@ img {
 }
 
 
-.student[data-show="noshow"] {
-  display: none;
+.student[data-show="show"] {
+  display: grid;
 }
 
 
