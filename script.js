@@ -63,6 +63,9 @@ function showFilterSortOptions(btn) {
   })
 }
 
+
+
+
 // 
 function setSchoolStatistics(statisticsFacts, studentsArr) {
   statisticsFacts.forEach(fact => {
@@ -271,6 +274,7 @@ function showModal(student, studentsArr) {
   modal.querySelector(".setAsPrefect").onclick = function () {
     // givePerfectPin(student, modal, studentsArr)
     checkIfEligibleForPrefect(student, studentsArr, modal)
+
   }
 
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
@@ -298,10 +302,9 @@ function setAsPrefect(student, modal) {
 }
 
 function givePerfectPin(student, modal) {
-
+  console.log(student);
   modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
   modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
-
 }
 
 
@@ -313,21 +316,29 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
   const sameGender = sameHousePrefects.filter(prefect => prefect.gender === student.gender);
 
   if (sameGender.length === 2 || sameHousePrefects.length > 2) {
+    sameGender[sameGender.length - 1].isPrefect = false;
     showPrefectMessage(selectHTMLelements(), sameGender);
+    // prefects.pop();
   }
+
+  HTML = selectHTMLelements()
+  hidePrefectChoiceMessage(HTML, studentsArr, modal)
 
 }
 
 
 function showPrefectMessage(HTML, sameHousePrefects) {
   HTML.prefectsMessageContainer.dataset.show = "show";
-  hidePrefectChoiceMessage(HTML);
   appedPrefectsOptions(sameHousePrefects)
 }
 
-function hidePrefectChoiceMessage(HTML) {
+function hidePrefectChoiceMessage(btn, studentsArr, modal) {
+
   HTML.confirmPrefectChoice.onclick = function () {
     HTML.prefectsMessageContainer.dataset.show = "none";
+    studentsArr.forEach(student => {
+      givePerfectPin(student, modal)
+    })
   }
 }
 
@@ -335,23 +346,25 @@ function hidePrefectChoiceMessage(HTML) {
 function appedPrefectsOptions(prefectsArr) {
   document.querySelector(".prefectOptions").innerHTML = " ";
   const prefectInput = selectHTMLelements().prefectInput;
-
   prefectsArr.forEach(prefect => {
     const prefectItem = prefectInput.cloneNode(true);
     const inputOption = prefectItem.querySelector(".prefectInputContainer");
     prefectItem.querySelector(".prefectLabel").textContent = `${prefect.firstName} ${prefect.lastName}`
-    prefectItem.querySelector(".prefectInputContainer").onclick = function () {
-      document.querySelectorAll(".prefectInputContainer").forEach(a => a.dataset.status = "none");
+    changeTheLabelicons(inputOption, prefect)
+    inputOption.onclick = function () {
+      const prefectInputs = document.querySelectorAll(".prefectInputContainer");
 
       prefectsArr.forEach(prefect => {
         prefect.isPrefect = false;
-        changeTheLabelicons(inputOption, prefect)
+        prefectInputs.forEach(o => o.dataset.status = "none");
       })
 
+
       prefect.isPrefect = true;
-      prefectsArr.forEach(prefect => {
-        changeTheLabelicons(inputOption, prefect)
-      })
+      changeTheLabelicons(inputOption, prefect)
+      console.log(inputOption);
+      prefectsArr.forEach(e => console.log(e))
+
     }
 
     document.querySelector(".prefectOptions").appendChild(prefectItem);
@@ -359,10 +372,12 @@ function appedPrefectsOptions(prefectsArr) {
 }
 
 
-function changeTheLabelicons(inputOption, prefect) {
-  console.log("object");
-  console.log(prefect);
+
+
+const changeTheLabelicons = (inputOption, prefect) => {
+
   inputOption.dataset.status = prefect.isPrefect ? "checked" : "none";
+
 }
 
 function addRemoveStudentInquisitionalSquad(student, modal) {
