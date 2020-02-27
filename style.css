@@ -257,6 +257,15 @@ h3 {
   box-shadow: 1px 1px 1px 1px grey;
 }
 
+
+.student[data-show="noshow"] {
+  display: none;
+}
+
+.student[data-show="show"] {
+  display: grid;
+}
+
 .search {
   font-size: 1.5vw;
   /* border-radius: 15px; */

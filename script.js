@@ -74,8 +74,10 @@ function searchStudent(element, array) {
     const displayedStudents = document.querySelectorAll(".student");
     displayedStudents.forEach(student => {
       if (student.textContent.toLowerCase().includes(event.target.value.toLowerCase())) {
+        console.log("show");
         student.dataset.show = "show"
       } else {
+        console.log("noshow");
         student.dataset.show = "noshow"
       }
     });
@@ -261,13 +263,10 @@ function showModal(student) {
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
-    removeStudentfromInquisitionalSquad(student, modal)
-    // checkIfStudentEligibleForISquad(student, modal);
-
+    addRemoveStudentInquisitionalSquad(student, modal)
   }
   modal.querySelector(".expell").onclick = function () {
-    expellStudent(student);
-    showIfExpelled(student, modal)
+    expellStudent(student, modal)
   }
   showInquistionalSquadStatus(student, modal);
   showIfExpelled(student, modal)
@@ -275,7 +274,7 @@ function showModal(student) {
 }
 
 
-function removeStudentfromInquisitionalSquad(student, modal) {
+function addRemoveStudentInquisitionalSquad(student, modal) {
   if (student.isInInquisitionalSquad === true) {
     student.isInInquisitionalSquad = false;
     showInquistionalSquadStatus(student, modal);
@@ -327,8 +326,9 @@ function updatedExpelledStudentNumber() {
   document.querySelector(".isExpelled").textContent = `Number of expelled: ${expelledStudentCount}`;
 }
 
-function expellStudent(student) {
+function expellStudent(student, modal) {
   student.isExpelled = true;
+  showIfExpelled(student, modal)
   updatedExpelledStudentNumber()
 }
 
@@ -344,29 +344,15 @@ function showIfExpelled(student, modal) {
 
 
 
-
-
-// function addToiquisitionalSquad(student) {
-//   if (student.isExpelled === true) {
-//     modal.querySelector(".modalImage").dataset.expelled = "expelled";
-//     modal.querySelector(".expell").dataset.clicked = "true";
-//   } else {
-//     modal.querySelector(".modalImage").dataset.expelled = "none";
-//     modal.querySelector(".expell").dataset.clicked = "none";
-//   }
-// }
-
 function hideModal(event) {
   event.target.dataset.crest = "none";
 
 }
 
 function setstudentAsAperfect(modalStyle, student) {
-  // console.log(modalStyle.getPropertyValue('--perfect-bg-image'));
   if (!student.isPerfect) {
     modalStyle.style.setProperty('--perfect-bg-image', "none");
   } else {
-
     return true;
   }
 }
