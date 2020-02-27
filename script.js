@@ -260,8 +260,10 @@ function showModal(student) {
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
-  modal.querySelector(".inquisitionaSquad").onclick = function () {
-    checkIfStudentEligibleForISquad(student, modal);
+  modal.querySelector(".addToinquisitionaSquad").onclick = function () {
+    removeStudentfromInquisitionalSquad(student, modal)
+    // checkIfStudentEligibleForISquad(student, modal);
+
   }
   modal.querySelector(".expell").onclick = function () {
     expellStudent(student);
@@ -272,6 +274,15 @@ function showModal(student) {
   setstudentAsAperfect(modal, student)
 }
 
+
+function removeStudentfromInquisitionalSquad(student, modal) {
+  if (student.isInInquisitionalSquad === true) {
+    student.isInInquisitionalSquad = false;
+    showInquistionalSquadStatus(student, modal);
+  } else {
+    checkIfStudentEligibleForISquad(student, modal)
+  }
+}
 
 
 function addToiquisitionalSquad(student) {
@@ -304,6 +315,7 @@ function showHideMessage(modal) {
 
 function showInquistionalSquadStatus(student, modal) {
   modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
+  modal.querySelector(".addToinquisitionaSquad").textContent = student.isInInquisitionalSquad ? "Remove from inquisitional squad" : "Add to inquisitional squad";
 }
 
 
