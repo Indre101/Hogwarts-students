@@ -262,15 +262,12 @@ function showModal(student) {
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
   modal.querySelector(".inquisitionaSquad").onclick = function () {
     checkIfStudentEligibleForISquad(student, modal);
-
   }
-  modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
   modal.querySelector(".expell").onclick = function () {
-    updatedExpelledStudentNumber()
     expellStudent(student);
     showIfExpelled(student, modal)
   }
-  checkIfStudentEligibleForISquad(student, modal);
+  showInquistionalSquadStatus(student, modal);
   showIfExpelled(student, modal)
   setstudentAsAperfect(modal, student)
 }
@@ -285,25 +282,42 @@ function addToiquisitionalSquad(student) {
 function checkIfStudentEligibleForISquad(student, modal) {
   if (student.bloodStatus === "pure" || student.house === "Slytherin") {
     student.isInInquisitionalSquad = true;
-    console.log("can");
+    modal.querySelector(".messagecontainer").dataset.show = "none";
 
   } else {
     student.isInInquisitionalSquad = false;
-    console.log("cant");
-  }
-  modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
+    showHideMessage(modal)
 
+  }
+  showInquistionalSquadStatus(student, modal)
 }
+
+
+function showHideMessage(modal) {
+  const messageContainer = modal.querySelector(".messagecontainer");
+  messageContainer.dataset.show = "show";
+  modal.querySelector(".okBtn").addEventListener("click", () => {
+    messageContainer.dataset.show = "none";
+  })
+}
+
+
+function showInquistionalSquadStatus(student, modal) {
+  modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
+}
+
+
+
 let expelledStudentCount = 0;
 
 function updatedExpelledStudentNumber() {
   expelledStudentCount += 1
-  console.log(expelledStudentCount);
   document.querySelector(".isExpelled").textContent = `Number of expelled: ${expelledStudentCount}`;
 }
 
 function expellStudent(student) {
   student.isExpelled = true;
+  updatedExpelledStudentNumber()
 }
 
 function showIfExpelled(student, modal) {

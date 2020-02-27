@@ -556,6 +556,43 @@ ul {
   flex-wrap: wrap;
 }
 
+.messagecontainer {
+  position: absolute;
+  display: none;
+
+}
+
+.message {
+  width: 50vw;
+  background-color: white;
+  flex-direction: column;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.messagecontainer[data-show="show"] {
+  display: block;
+}
+
+.message h3 {
+  padding: 3vw;
+}
+
+.okBtn {
+  margin: 3vw;
+  background-color: green;
+  color: white;
+  height: 5vh;
+  width: 12vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 1px 1px lightgrey;
+}
+
 /* 
 .d-none {
   display: none;
