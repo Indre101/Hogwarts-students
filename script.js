@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", init)
 
 const Student = {
+  id: "",
   firstName: "",
   lastName: "",
   middleName: undefined,
@@ -75,10 +76,8 @@ function searchStudent(element, array) {
     const displayedStudents = document.querySelectorAll(".student");
     displayedStudents.forEach(student => {
       if (student.textContent.toLowerCase().includes(event.target.value.toLowerCase())) {
-        console.log("show");
         student.dataset.show = "show"
       } else {
-        console.log("noshow");
         student.dataset.show = "noshow"
       }
     });
@@ -214,16 +213,20 @@ function assignBlodStatus(bloodStatuses, students) {
 
 
 function assignValuesToStudentObject(student, studentsArr) {
+
   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
   const studentCard = Object.create(Student);
+  studentCard.id = studentsArr.length;
+
   studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
   studentCard.lastName = lastName(fullNameWithoutWhitespaces);
   studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
-  studentCard.image = `${studentCard.firstName.toLowerCase()}_${studentCard.lastName[0].toLowerCase()}.png`;
+  studentCard.image = `${studentCard.id}.png`;
   studentCard.gender = student.gender;
   setHouseValue(studentCard);
+  console.log(studentCard);
   studentsArr.push(studentCard)
 }
 
@@ -312,34 +315,10 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
   const sameGender = prefectSamehouse.filter(prefect => prefect.gender === student.gender);
 
   if (sameGender.length === 2) {
-    console.log(sameGender);
+    console.log("object");
+    shoWprefects(prefectSamehouse)
 
-    console.log("prefectSamehouse", prefectSamehouse);
   }
-
-  // for (let index = 0; index < prefects.length - 1; index++) {
-  //   if (prefects[index].house === student.house && prefects[index].gender !== student.gender) {
-  //     console.log("can be studne");
-  //   } else if (prefects[index].house === student.house && prefects[index].gender === student.gender) {
-  //     console.log("can*t");
-  //   }
-
-  // }
-
-  // const prefectsSameHouse = prefects.filter(prefect => prefect.house === student.house);
-  // const boys = prefectsSameHouse.filter(prefect => prefect.gender === "boy");
-  // const girls = prefectsSameHouse.filter(prefect => prefect.gender === "girl");
-  // console.log(girls);
-  // console.log(boys);
-
-  // // console.log(prefectsSameHouse);
-  // if (prefectsSameHouse.length === 2) {
-  //   console.log("object");
-
-  //   if (boys.length === 2 || girls.length === 2) {
-  //     console.log("samehouse gender");
-  //   }
-  // }
 
 }
 
@@ -348,10 +327,12 @@ function changePrefectIfSameGender(student) {
 
 }
 
-function prefects(prefectsArr) {
+function shoWprefects(prefectsArr) {
+  console.log("klæ");
+  document.querySelector(".prefectOptions").innerHTML = " ";
   prefectsArr.forEach(prefect => {
     const prefectItem = document.createElement("h3")
-    prefectItem.textContent = prefect.name + prefect.lastName
+    prefectItem.textContent = prefect.firstName + prefect.lastName
     document.querySelector(".prefectOptions").appendChild(prefectItem);
   })
 }

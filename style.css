@@ -368,6 +368,7 @@ label:hover:before {
 }
 
 
+
 .modalContainer {
   position: fixed;
   height: 100vh;
@@ -590,6 +591,11 @@ ul {
 
 .message h3 {
   padding: 3vw;
+}
+
+
+.studentImg {
+  width: 100%;
 }
 
 .okBtn {
