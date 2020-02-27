@@ -104,7 +104,6 @@ function changeLabelsImages(inputLabels, studentsArr) {
 
   inputLabels.forEach(label => label.addEventListener("click", () => {
     const studentList = selectHTMLelements().students;
-    console.log(studentList);
     studentList.innerHTML = " ";
     label = event.target;
     inputLabels.forEach(label => label.dataset.status = " ");
@@ -130,7 +129,8 @@ function doFilterOrSort(label, studentsArr) {
     studentsArr = filterArr;
   }
   studentsArr.forEach(stud => {
-    displayStudentListItems(stud)
+    displayStudentListItems(stud, studentsArr)
+
   });
 
 }
@@ -186,7 +186,9 @@ function getStudentData(studentsArr) {
     .then(res => res.json())
     .then(data => data).then((data) => {
       data.forEach((student) => assignValuesToStudentObject(student, studentsArr));
-      studentsArr.forEach(displayStudentListItems)
+      studentsArr.forEach(student => {
+        displayStudentListItems(student, studentsArr)
+      })
     })
 }
 
@@ -238,22 +240,18 @@ function addStudentProperties(element, student) {
 
 }
 
-function displayStudentListItems(student) {
+function displayStudentListItems(student, studentsArr) {
   const cln = selectHTMLelements().studentTemplate.cloneNode(true);
-
   addStudentProperties(cln, student)
-
   cln.querySelector(".student").onclick = function () {
-    showModal(student)
+    showModal(student, studentsArr)
   }
-
   selectHTMLelements().students.appendChild(cln);
-
 }
 
 
 
-function showModal(student) {
+function showModal(student, studentsArr) {
   const modal = selectHTMLelements().modalContainer;
   modal.addEventListener("click", hideModal)
   modal.dataset.crest = student.house.toLowerCase();
@@ -264,9 +262,10 @@ function showModal(student) {
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
-
   modal.querySelector(".setAsPrefect").onclick = function () {
+
     setAsPrefect(student, modal)
+    checkIfEligibleForPrefect(student, studentsArr)
   }
 
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
@@ -284,18 +283,30 @@ function showModal(student) {
 
 
 function setAsPrefect(student, modal) {
-  student.isPrefect = true;
+
+  if (student.isPrefect === true) {
+    student.isPrefect = false;
+  } else if (student.isPrefect === false) {
+    student.isPrefect = true;
+  }
+
   showAsAPrefect(student, modal)
 }
 
 function showAsAPrefect(student, modal) {
   modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
+  modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
 
 }
 
+
+
 function checkIfEligibleForPrefect(student, studentsArr) {
   const prefects = studentsArr.filter(student => student.isPrefect === true);
-
+  console.log(prefects);
+  if (prefects.some(perfect => perfect.house === student.house)) {
+    console.log("true");
+  }
 
 }
 
@@ -354,7 +365,9 @@ function updatedExpelledStudentNumber() {
 
 function expellStudent(student, modal) {
   student.isExpelled = true;
+  student.isPrefect = false;
   showIfExpelled(student, modal)
+  showAsAPrefect(student, modal)
   updatedExpelledStudentNumber()
 }
 
