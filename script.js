@@ -32,9 +32,11 @@ function selectHTMLelements() {
   HTML.searchFieldInput = document.querySelector(".search");
   HTML.overlay = document.querySelector(".overlay");
   HTML.startBtn = document.querySelector(".startBtn");
-  HTML.filterBtn = document.querySelector(".filterBtn");
+  HTML.filterBtnIcon = document.querySelector(".filterBtn");
   HTML.modalContainer = document.querySelector(".modalContainer");
   HTML.expellBtn = document.querySelector(".expell");
+  HTML.prefectInput = document.querySelector(".prefectInput").content;
+  HTML.prefectsMessageContainer = document.querySelector(".prefectsMessageContainer");
   return HTML;
 }
 
@@ -94,7 +96,7 @@ function init() {
   fetchBloodData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
-  showFilterSortOptions(HTMLelements.filterBtn)
+  showFilterSortOptions(HTMLelements.filterBtnIcon)
 
 }
 
@@ -217,7 +219,6 @@ function assignValuesToStudentObject(student, studentsArr) {
   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
   const studentCard = Object.create(Student);
   studentCard.id = studentsArr.length;
-
   studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
   studentCard.lastName = lastName(fullNameWithoutWhitespaces);
   studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
@@ -226,8 +227,7 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.image = `${studentCard.id}.png`;
   studentCard.gender = student.gender;
   setHouseValue(studentCard);
-  console.log(studentCard);
-  studentsArr.push(studentCard)
+  studentsArr.push(studentCard);
 }
 
 
@@ -280,7 +280,7 @@ function showModal(student, studentsArr) {
     expellStudent(student, modal)
   }
 
-  showAsAPrefect(student, modal)
+  givePerfectPin(student, modal)
   showInquistionalSquadStatus(student, modal);
   showIfExpelled(student, modal)
   setstudentAsAperfect(modal, student)
@@ -295,10 +295,10 @@ function setAsPrefect(student, modal) {
     student.isPrefect = true;
   }
 
-  showAsAPrefect(student, modal)
+  givePerfectPin(student, modal)
 }
 
-function showAsAPrefect(student, modal) {
+function givePerfectPin(student, modal) {
   modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
   modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
 
@@ -311,32 +311,56 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
 
 
   const prefects = studentsArr.filter(prefect => prefect.isPrefect === true);
-  const prefectSamehouse = prefects.filter(prefect => prefect.house === student.house);
-  const sameGender = prefectSamehouse.filter(prefect => prefect.gender === student.gender);
+  const sameHousePrefects = prefects.filter(prefect => prefect.house === student.house);
+  const sameGender = sameHousePrefects.filter(prefect => prefect.gender === student.gender);
 
   if (sameGender.length === 2) {
-    console.log("object");
-    shoWprefects(prefectSamehouse)
+    showPrefectMessage(selectHTMLelements(), sameHousePrefects);
 
   }
 
 }
 
-function changePrefectIfSameGender(student) {
 
-
+function showPrefectMessage(HTML, sameHousePrefects) {
+  HTML.prefectsMessageContainer.dataset.show = "show";
+  appedPrefectsOptions(sameHousePrefects)
 }
 
-function shoWprefects(prefectsArr) {
-  console.log("klæ");
+
+function appedPrefectsOptions(prefectsArr) {
   document.querySelector(".prefectOptions").innerHTML = " ";
+  const prefectInput = selectHTMLelements().prefectInput;
   prefectsArr.forEach(prefect => {
-    const prefectItem = document.createElement("h3")
-    prefectItem.textContent = prefect.firstName + prefect.lastName
+    const prefectItem = prefectInput.cloneNode(true);
+    const inputOption = prefectItem.querySelector(".prefectInputContainer");
+    prefectItem.querySelector(".prefectLabel").textContent = `${prefect.firstName} ${prefect.lastName}`
+
+
+    prefectItem.querySelector(".prefectInputContainer").onclick = function () {
+      document.querySelectorAll(".prefectInputContainer").forEach(a => a.dataset.status = "none");
+
+      prefectsArr.forEach(prefect => {
+        prefect.isPrefect = false;
+      })
+
+      prefect.isPrefect = true;
+      setInputitcon(inputOption, prefect)
+
+      prefectsArr.forEach(prefect => {
+        console.log(prefect);
+
+      })
+    }
+
     document.querySelector(".prefectOptions").appendChild(prefectItem);
   })
 }
 
+
+function setInputitcon(inputOption, prefect) {
+  inputOption.dataset.status = prefect.isPrefect ? "checked" : "none";
+}
 
 function addRemoveStudentInquisitionalSquad(student, modal) {
   if (student.isInInquisitionalSquad === true) {
@@ -394,7 +418,7 @@ function expellStudent(student, modal) {
   student.isExpelled = true;
   student.isPrefect = false;
   showIfExpelled(student, modal)
-  showAsAPrefect(student, modal)
+  givePerfectPin(student, modal)
   updatedExpelledStudentNumber()
 }
 

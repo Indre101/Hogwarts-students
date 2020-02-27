@@ -276,9 +276,11 @@ input[type="radio"] {
   display: none;
 }
 
-.inputContainer label[data-status="checked"]:before {
+.inputContainer label[data-status="checked"]:before,
+.prefectInputContainer[data-status="checked"] label:before {
   background-image: url(./icons/borders-2.svg);
 }
+
 
 label:before {
   /*styles outer circle*/
@@ -326,6 +328,8 @@ label:hover:before {
 .mainContainer .filterBtn[data-active="active"] {
   background-image: url(./icons/selective.svg);
 }
+
+
 
 .smallContainer {
   display: none;
@@ -568,11 +572,14 @@ ul {
   flex-wrap: wrap;
 }
 
-.messagecontainer {
+.messagecontainer,
+.prefectsMessageContainer {
   position: absolute;
   display: none;
 
 }
+
+
 
 .message {
   width: 50vw;
@@ -585,20 +592,29 @@ ul {
 }
 
 
-.messagecontainer[data-show="show"] {
+.messagecontainer[data-show="show"],
+.prefectsMessageContainer[data-show="show"] {
   display: block;
 }
+
+
+
 
 .message h3 {
   padding: 3vw;
 }
 
+.message h4 {
+  margin: 0.5vw;
+
+}
 
 .studentImg {
   width: 100%;
 }
 
-.okBtn {
+.okBtn,
+.confirmChoice {
   margin: 3vw;
   background-color: green;
   color: white;
