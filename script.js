@@ -37,6 +37,7 @@ function selectHTMLelements() {
   HTML.expellBtn = document.querySelector(".expell");
   HTML.prefectInput = document.querySelector(".prefectInput").content;
   HTML.prefectsMessageContainer = document.querySelector(".prefectsMessageContainer");
+  HTML.confirmPrefectChoice = document.querySelector(".confirmChoice");
   return HTML;
 }
 
@@ -268,9 +269,8 @@ function showModal(student, studentsArr) {
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
   modal.querySelector(".setAsPrefect").onclick = function () {
+    // givePerfectPin(student, modal, studentsArr)
     checkIfEligibleForPrefect(student, studentsArr, modal)
-
-    // setAsPrefect(student, modal)
   }
 
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
@@ -280,7 +280,7 @@ function showModal(student, studentsArr) {
     expellStudent(student, modal)
   }
 
-  givePerfectPin(student, modal)
+  givePerfectPin(student, modal, studentsArr)
   showInquistionalSquadStatus(student, modal);
   showIfExpelled(student, modal)
   setstudentAsAperfect(modal, student)
@@ -294,11 +294,11 @@ function setAsPrefect(student, modal) {
   } else if (student.isPrefect === false) {
     student.isPrefect = true;
   }
-
   givePerfectPin(student, modal)
 }
 
 function givePerfectPin(student, modal) {
+
   modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
   modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
 
@@ -308,15 +308,12 @@ function givePerfectPin(student, modal) {
 
 function checkIfEligibleForPrefect(student, studentsArr, modal) {
   setAsPrefect(student, modal)
-
-
   const prefects = studentsArr.filter(prefect => prefect.isPrefect === true);
   const sameHousePrefects = prefects.filter(prefect => prefect.house === student.house);
   const sameGender = sameHousePrefects.filter(prefect => prefect.gender === student.gender);
 
-  if (sameGender.length === 2) {
-    showPrefectMessage(selectHTMLelements(), sameHousePrefects);
-
+  if (sameGender.length === 2 || sameHousePrefects.length > 2) {
+    showPrefectMessage(selectHTMLelements(), sameGender);
   }
 
 }
@@ -324,32 +321,36 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
 
 function showPrefectMessage(HTML, sameHousePrefects) {
   HTML.prefectsMessageContainer.dataset.show = "show";
+  hidePrefectChoiceMessage(HTML);
   appedPrefectsOptions(sameHousePrefects)
+}
+
+function hidePrefectChoiceMessage(HTML) {
+  HTML.confirmPrefectChoice.onclick = function () {
+    HTML.prefectsMessageContainer.dataset.show = "none";
+  }
 }
 
 
 function appedPrefectsOptions(prefectsArr) {
   document.querySelector(".prefectOptions").innerHTML = " ";
   const prefectInput = selectHTMLelements().prefectInput;
+
   prefectsArr.forEach(prefect => {
     const prefectItem = prefectInput.cloneNode(true);
     const inputOption = prefectItem.querySelector(".prefectInputContainer");
     prefectItem.querySelector(".prefectLabel").textContent = `${prefect.firstName} ${prefect.lastName}`
-
-
     prefectItem.querySelector(".prefectInputContainer").onclick = function () {
       document.querySelectorAll(".prefectInputContainer").forEach(a => a.dataset.status = "none");
 
       prefectsArr.forEach(prefect => {
         prefect.isPrefect = false;
+        changeTheLabelicons(inputOption, prefect)
       })
 
       prefect.isPrefect = true;
-      setInputitcon(inputOption, prefect)
-
       prefectsArr.forEach(prefect => {
-        console.log(prefect);
-
+        changeTheLabelicons(inputOption, prefect)
       })
     }
 
@@ -358,7 +359,9 @@ function appedPrefectsOptions(prefectsArr) {
 }
 
 
-function setInputitcon(inputOption, prefect) {
+function changeTheLabelicons(inputOption, prefect) {
+  console.log("object");
+  console.log(prefect);
   inputOption.dataset.status = prefect.isPrefect ? "checked" : "none";
 }
 
