@@ -59,8 +59,8 @@ function showFilterSortOptions(btn) {
 }
 
 // 
-function setSchoolStatistics(element, studentsArr) {
-  element.forEach(fact => {
+function setSchoolStatistics(statisticsFacts, studentsArr) {
+  statisticsFacts.forEach(fact => {
     let filtereedNumberResult = studentsArr.filter(student => student[fact.dataset.value])
     document.querySelector(`[data-value="${fact.dataset.value}"]`).textContent += filtereedNumberResult.length
   })
@@ -217,19 +217,6 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
   studentCard.image = `${studentCard.lastName.toLowerCase()}_${studentCard.firstName[0].toLowerCase()}.png`;
-
-  if (studentCard.firstName.includes("t")) {
-    studentCard.isPerfect = true;
-  } else {
-    studentCard.isPerfect = false;
-  }
-
-  if (studentCard.firstName.includes("h")) {
-    studentCard.isInInquisitionalSquad = true;
-  } else {
-    studentCard.isInInquisitionalSquad = false;
-
-  }
   setHouseValue(studentCard);
   studentsArr.push(studentCard)
 }
@@ -272,15 +259,48 @@ function showModal(student) {
   modal.querySelector(".nickName").textContent = `Nick name: ${student.nickName ? student.nickName : "none"}`;
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
   modal.querySelector(".house").textContent = `House: ${student.house}`;
+  modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
+  modal.querySelector(".inquisitionaSquad").onclick = function () {
+    checkIfStudentEligibleForISquad(student, modal);
+
+  }
   modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
   modal.querySelector(".expell").onclick = function () {
+    updatedExpelledStudentNumber()
     expellStudent(student);
     showIfExpelled(student, modal)
   }
+  checkIfStudentEligibleForISquad(student, modal);
   showIfExpelled(student, modal)
   setstudentAsAperfect(modal, student)
 }
 
+
+
+function addToiquisitionalSquad(student) {
+  student.isInInquisitionalSquad = true;
+
+}
+
+function checkIfStudentEligibleForISquad(student, modal) {
+  if (student.bloodStatus === "pure" || student.house === "Slytherin") {
+    student.isInInquisitionalSquad = true;
+    console.log("can");
+
+  } else {
+    student.isInInquisitionalSquad = false;
+    console.log("cant");
+  }
+  modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
+
+}
+let expelledStudentCount = 0;
+
+function updatedExpelledStudentNumber() {
+  expelledStudentCount += 1
+  console.log(expelledStudentCount);
+  document.querySelector(".isExpelled").textContent = `Number of expelled: ${expelledStudentCount}`;
+}
 
 function expellStudent(student) {
   student.isExpelled = true;
@@ -293,9 +313,22 @@ function showIfExpelled(student, modal) {
   } else {
     modal.querySelector(".modalImage").dataset.expelled = "none";
     modal.querySelector(".expell").dataset.clicked = "none";
-
   }
 }
+
+
+
+
+
+// function addToiquisitionalSquad(student) {
+//   if (student.isExpelled === true) {
+//     modal.querySelector(".modalImage").dataset.expelled = "expelled";
+//     modal.querySelector(".expell").dataset.clicked = "true";
+//   } else {
+//     modal.querySelector(".modalImage").dataset.expelled = "none";
+//     modal.querySelector(".expell").dataset.clicked = "none";
+//   }
+// }
 
 function hideModal(event) {
   event.target.dataset.crest = "none";
