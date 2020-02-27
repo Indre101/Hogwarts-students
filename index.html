@@ -55,8 +55,8 @@
       <div class="filtering part">
         <h4>Filter by</h4>
         <div class="inputContainer">
-          <input type="radio" name="filter" value="Perfects" data-property="isPerfect" />
-          <label data-action="filter">Perfects</label>
+          <input type="radio" name="filter" value="Prefect" data-property="isPrefect" />
+          <label data-action="filter">Prefect</label>
         </div>
         <div class="inputContainer">
           <input type="radio" name="filter" value="Inquisitional squad" data-property="isInInquisitionalSquad" />
@@ -96,7 +96,7 @@
         <input class="search" type="text" placeholder="Search...">
       </div>
       <div class="studentsList innerContainer">
-     
+
       </div>
       <!-- <h4>Page next</h4> -->
     </div>
@@ -118,22 +118,22 @@
 
 
 
-   <template class="studentItem">
-          <div class="student">
-            <h3 class="listNumber">number</h3>
-            <h3 class="studentName">Name</h3>
-            <h3 class="studentLastName">Last Name</h3>
-            <h3 class="studentHouse">House</h3>
-          </div>
-        </template>
+  <template class="studentItem">
+    <div class="student">
+      <h3 class="listNumber">number</h3>
+      <h3 class="studentName">Name</h3>
+      <h3 class="studentLastName">Last Name</h3>
+      <h3 class="studentHouse">House</h3>
+    </div>
+  </template>
   <div class="modalContainer " data-crest="">
     <div class="bgStudentModal">
-    
+
       <div class="modal">
         <div class="modalImage">
           <div class="badges">
             <div class="badge crest"></div>
-            <div class="badge perfect"></div>
+            <div class="badge prefect"></div>
           </div>
           <img class="studentImg" src="./img/studentImages/abbott_h.png" alt="Student image">
 
@@ -150,21 +150,47 @@
         </div>
         <div class="actions">
           <h3 class="actionBtn expell">Expell</h3>
-          <h3 class="actionBtn setAsPerfect">Set as perfect</h3>
+          <h3 class="actionBtn setAsPrefect">Set as prefect</h3>
           <h3 class="actionBtn addToinquisitionaSquad">Add to inquisitional squad</h3>
         </div>
       </div>
     </div>
-    <div class="messagecontainer">
-    <div class="message">
-    <h3>Student, can't be added to inquisitional squad, since student is not of pure blood parentage or not a part of Slytherin house</h3>
-    <div class="okBtn">OK</div>
-    </div>
-    </div>
-  </div>
 
-  <script src="script.js"></script>
-  <script src="stringMethods.js"></script>
+
+
+
+    <div class="prefectsMessageContainer">
+      <div class="message">
+        <h3>Both of these students can't be prefect, choose one</h3>
+        <h4>Make a prefect:</h4>
+        <div class="prefectOptions">
+        </div>
+
+        <div class="confirmChoice">Confirm </div>
+        <h4>If you confirm without choosing the exisiting prefects will stay as is</h4>
+      </div>
+      <template class="prefectInput">
+        <div class="prefectInputContainer">
+          <input type="radio" />
+          <label class="fullName prefectLabel">Last name</label>
+        </div>
+      </template>
+
+
+
+
+
+      <div class="messagecontainer">
+        <div class="message">
+          <h3>Student, can't be added to inquisitional squad, since student is not of pure blood parentage or not a part
+            of Slytherin house</h3>
+          <div class="okBtn">OK</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="stringMethods.js"></script>
 </body>
 
 </html>

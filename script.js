@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", init)
 
 const Student = {
+  id: "",
   firstName: "",
   lastName: "",
   middleName: undefined,
@@ -8,7 +9,8 @@ const Student = {
   image: "",
   house: "",
   bloodStatus: "",
-  isPerfect: false,
+  gender: "",
+  isPrefect: false,
   isInInquisitionalSquad: false,
   isExpelled: false,
   isSlytherin: false,
@@ -30,9 +32,12 @@ function selectHTMLelements() {
   HTML.searchFieldInput = document.querySelector(".search");
   HTML.overlay = document.querySelector(".overlay");
   HTML.startBtn = document.querySelector(".startBtn");
-  HTML.filterBtn = document.querySelector(".filterBtn");
+  HTML.filterBtnIcon = document.querySelector(".filterBtn");
   HTML.modalContainer = document.querySelector(".modalContainer");
   HTML.expellBtn = document.querySelector(".expell");
+  HTML.prefectInput = document.querySelector(".prefectInput").content;
+  HTML.prefectsMessageContainer = document.querySelector(".prefectsMessageContainer");
+  HTML.confirmPrefectChoice = document.querySelector(".confirmChoice");
   return HTML;
 }
 
@@ -74,10 +79,8 @@ function searchStudent(element, array) {
     const displayedStudents = document.querySelectorAll(".student");
     displayedStudents.forEach(student => {
       if (student.textContent.toLowerCase().includes(event.target.value.toLowerCase())) {
-        console.log("show");
         student.dataset.show = "show"
       } else {
-        console.log("noshow");
         student.dataset.show = "noshow"
       }
     });
@@ -94,7 +97,7 @@ function init() {
   fetchBloodData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
-  showFilterSortOptions(HTMLelements.filterBtn)
+  showFilterSortOptions(HTMLelements.filterBtnIcon)
 
 }
 
@@ -104,7 +107,6 @@ function changeLabelsImages(inputLabels, studentsArr) {
 
   inputLabels.forEach(label => label.addEventListener("click", () => {
     const studentList = selectHTMLelements().students;
-    console.log(studentList);
     studentList.innerHTML = " ";
     label = event.target;
     inputLabels.forEach(label => label.dataset.status = " ");
@@ -130,7 +132,8 @@ function doFilterOrSort(label, studentsArr) {
     studentsArr = filterArr;
   }
   studentsArr.forEach(stud => {
-    displayStudentListItems(stud)
+    displayStudentListItems(stud, studentsArr)
+
   });
 
 }
@@ -186,7 +189,9 @@ function getStudentData(studentsArr) {
     .then(res => res.json())
     .then(data => data).then((data) => {
       data.forEach((student) => assignValuesToStudentObject(student, studentsArr));
-      studentsArr.forEach(displayStudentListItems)
+      studentsArr.forEach(student => {
+        displayStudentListItems(student, studentsArr)
+      })
     })
 }
 
@@ -211,17 +216,22 @@ function assignBlodStatus(bloodStatuses, students) {
 
 
 function assignValuesToStudentObject(student, studentsArr) {
+
   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
   const studentCard = Object.create(Student);
+  studentCard.id = studentsArr.length;
   studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
   studentCard.lastName = lastName(fullNameWithoutWhitespaces);
   studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
-  studentCard.image = `${studentCard.firstName.toLowerCase()}_${studentCard.lastName[0].toLowerCase()}.png`;
+  studentCard.image = `${studentCard.id}.png`;
+  studentCard.gender = student.gender;
   setHouseValue(studentCard);
-  studentsArr.push(studentCard)
+  studentsArr.push(studentCard);
 }
+
+
 
 
 function setHouseValue(studentCard) {
@@ -236,22 +246,18 @@ function addStudentProperties(element, student) {
 
 }
 
-function displayStudentListItems(student) {
+function displayStudentListItems(student, studentsArr) {
   const cln = selectHTMLelements().studentTemplate.cloneNode(true);
-
   addStudentProperties(cln, student)
-
   cln.querySelector(".student").onclick = function () {
-    showModal(student)
+    showModal(student, studentsArr)
   }
-
   selectHTMLelements().students.appendChild(cln);
-
 }
 
 
 
-function showModal(student) {
+function showModal(student, studentsArr) {
   const modal = selectHTMLelements().modalContainer;
   modal.addEventListener("click", hideModal)
   modal.dataset.crest = student.house.toLowerCase();
@@ -262,17 +268,102 @@ function showModal(student) {
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
+  modal.querySelector(".setAsPrefect").onclick = function () {
+    // givePerfectPin(student, modal, studentsArr)
+    checkIfEligibleForPrefect(student, studentsArr, modal)
+  }
+
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
     addRemoveStudentInquisitionalSquad(student, modal)
   }
   modal.querySelector(".expell").onclick = function () {
     expellStudent(student, modal)
   }
+
+  givePerfectPin(student, modal, studentsArr)
   showInquistionalSquadStatus(student, modal);
   showIfExpelled(student, modal)
   setstudentAsAperfect(modal, student)
 }
 
+
+function setAsPrefect(student, modal) {
+
+  if (student.isPrefect === true) {
+    student.isPrefect = false;
+  } else if (student.isPrefect === false) {
+    student.isPrefect = true;
+  }
+  givePerfectPin(student, modal)
+}
+
+function givePerfectPin(student, modal) {
+
+  modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
+  modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
+
+}
+
+
+
+function checkIfEligibleForPrefect(student, studentsArr, modal) {
+  setAsPrefect(student, modal)
+  const prefects = studentsArr.filter(prefect => prefect.isPrefect === true);
+  const sameHousePrefects = prefects.filter(prefect => prefect.house === student.house);
+  const sameGender = sameHousePrefects.filter(prefect => prefect.gender === student.gender);
+
+  if (sameGender.length === 2 || sameHousePrefects.length > 2) {
+    showPrefectMessage(selectHTMLelements(), sameGender);
+  }
+
+}
+
+
+function showPrefectMessage(HTML, sameHousePrefects) {
+  HTML.prefectsMessageContainer.dataset.show = "show";
+  hidePrefectChoiceMessage(HTML);
+  appedPrefectsOptions(sameHousePrefects)
+}
+
+function hidePrefectChoiceMessage(HTML) {
+  HTML.confirmPrefectChoice.onclick = function () {
+    HTML.prefectsMessageContainer.dataset.show = "none";
+  }
+}
+
+
+function appedPrefectsOptions(prefectsArr) {
+  document.querySelector(".prefectOptions").innerHTML = " ";
+  const prefectInput = selectHTMLelements().prefectInput;
+
+  prefectsArr.forEach(prefect => {
+    const prefectItem = prefectInput.cloneNode(true);
+    const inputOption = prefectItem.querySelector(".prefectInputContainer");
+    prefectItem.querySelector(".prefectLabel").textContent = `${prefect.firstName} ${prefect.lastName}`
+    prefectItem.querySelector(".prefectInputContainer").onclick = function () {
+      document.querySelectorAll(".prefectInputContainer").forEach(a => a.dataset.status = "none");
+
+      prefectsArr.forEach(prefect => {
+        prefect.isPrefect = false;
+        changeTheLabelicons(inputOption, prefect)
+      })
+
+      prefect.isPrefect = true;
+      prefectsArr.forEach(prefect => {
+        changeTheLabelicons(inputOption, prefect)
+      })
+    }
+
+    document.querySelector(".prefectOptions").appendChild(prefectItem);
+  })
+}
+
+
+function changeTheLabelicons(inputOption, prefect) {
+  console.log("object");
+  console.log(prefect);
+  inputOption.dataset.status = prefect.isPrefect ? "checked" : "none";
+}
 
 function addRemoveStudentInquisitionalSquad(student, modal) {
   if (student.isInInquisitionalSquad === true) {
@@ -328,7 +419,9 @@ function updatedExpelledStudentNumber() {
 
 function expellStudent(student, modal) {
   student.isExpelled = true;
+  student.isPrefect = false;
   showIfExpelled(student, modal)
+  givePerfectPin(student, modal)
   updatedExpelledStudentNumber()
 }
 
@@ -350,7 +443,7 @@ function hideModal(event) {
 }
 
 function setstudentAsAperfect(modalStyle, student) {
-  if (!student.isPerfect) {
+  if (!student.isPrefect) {
     modalStyle.style.setProperty('--perfect-bg-image', "none");
   } else {
     return true;
