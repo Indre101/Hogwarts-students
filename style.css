@@ -386,8 +386,9 @@ label:hover:before {
   background-image: var(--crest-bg-image);
 }
 
-.perfect {
-  background-image: var(--perfect-bg-image);
+.prefect {
+  background-image: var(--prefect-bg-image);
+  display: none;
 }
 
 .modalContainer[data-crest="slytherin"] {
@@ -395,7 +396,7 @@ label:hover:before {
   --modal-color: #5d5d5d;
   --secondary-text-color: #1a472a;
   --crest-bg-image: url(./img/crests/sly.png);
-  --perfect-bg-image: url(./img/perfects/perfects-sly.png);
+  --prefect-bg-image: url(./img/perfects/perfects-sly.png);
 }
 
 .modalContainer[data-crest="gryffindor"] {
@@ -403,7 +404,7 @@ label:hover:before {
   --modal-color: #d3a625f6;
   --secondary-text-color: #740001;
   --crest-bg-image: url(./img/crests/griff.png);
-  --perfect-bg-image: url(./img/perfects/perfects-gryff.png);
+  --prefect-bg-image: url(./img/perfects/perfects-gryff.png);
 }
 
 .modalContainer[data-crest="ravenclaw"] {
@@ -411,7 +412,7 @@ label:hover:before {
   --modal-color: #222f5bf6;
   --secondary-text-color: #946b2d;
   --crest-bg-image: url(./img/crests/rav.png);
-  --perfect-bg-image: url(./img/perfects/perfects-rave.png);
+  --prefect-bg-image: url(./img/perfects/perfects-rave.png);
 
 }
 
@@ -421,7 +422,7 @@ label:hover:before {
   --modal-color: #372e29f6;
   --secondary-text-color: #ecb939;
   --crest-bg-image: url(./img/crests/huff.png);
-  --perfect-bg-image: url(./img/perfects/perfetcs-huff.png);
+  --prefect-bg-image: url(./img/perfects/perfetcs-huff.png);
 }
 
 

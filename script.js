@@ -8,7 +8,7 @@ const Student = {
   image: "",
   house: "",
   bloodStatus: "",
-  isPerfect: false,
+  isPrefect: false,
   isInInquisitionalSquad: false,
   isExpelled: false,
   isSlytherin: false,
@@ -224,6 +224,8 @@ function assignValuesToStudentObject(student, studentsArr) {
 }
 
 
+
+
 function setHouseValue(studentCard) {
   studentCard["is" + studentCard.house] = true;
 }
@@ -262,15 +264,39 @@ function showModal(student) {
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
   modal.querySelector(".house").textContent = `House: ${student.house}`;
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
+
+  modal.querySelector(".setAsPrefect").onclick = function () {
+    setAsPrefect(student, modal)
+  }
+
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
     addRemoveStudentInquisitionalSquad(student, modal)
   }
   modal.querySelector(".expell").onclick = function () {
     expellStudent(student, modal)
   }
+
+  showAsAPrefect(student, modal)
   showInquistionalSquadStatus(student, modal);
   showIfExpelled(student, modal)
   setstudentAsAperfect(modal, student)
+}
+
+
+function setAsPrefect(student, modal) {
+  student.isPrefect = true;
+  showAsAPrefect(student, modal)
+}
+
+function showAsAPrefect(student, modal) {
+  modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
+
+}
+
+function checkIfEligibleForPrefect(student, studentsArr) {
+  const prefects = studentsArr.filter(student => student.isPrefect === true);
+
+
 }
 
 
@@ -350,7 +376,7 @@ function hideModal(event) {
 }
 
 function setstudentAsAperfect(modalStyle, student) {
-  if (!student.isPerfect) {
+  if (!student.isPrefect) {
     modalStyle.style.setProperty('--perfect-bg-image', "none");
   } else {
     return true;
