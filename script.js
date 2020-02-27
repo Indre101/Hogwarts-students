@@ -310,6 +310,8 @@ function givePerfectPin(student, modal) {
 
 
 function checkIfEligibleForPrefect(student, studentsArr, modal) {
+  const HTML = selectHTMLelements();
+
   setAsPrefect(student, modal)
   const prefects = studentsArr.filter(prefect => prefect.isPrefect === true);
   const sameHousePrefects = prefects.filter(prefect => prefect.house === student.house);
@@ -317,11 +319,9 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
 
   if (sameGender.length === 2 || sameHousePrefects.length > 2) {
     sameGender[sameGender.length - 1].isPrefect = false;
-    showPrefectMessage(selectHTMLelements(), sameGender);
-    // prefects.pop();
+    showPrefectMessage(HTML, sameGender);
   }
 
-  HTML = selectHTMLelements()
   hidePrefectChoiceMessage(HTML, studentsArr, modal)
 
 }
@@ -332,8 +332,7 @@ function showPrefectMessage(HTML, sameHousePrefects) {
   appedPrefectsOptions(sameHousePrefects)
 }
 
-function hidePrefectChoiceMessage(btn, studentsArr, modal) {
-
+function hidePrefectChoiceMessage(HTML, studentsArr, modal) {
   HTML.confirmPrefectChoice.onclick = function () {
     HTML.prefectsMessageContainer.dataset.show = "none";
     studentsArr.forEach(student => {
