@@ -218,7 +218,7 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
-  studentCard.image = `${studentCard.lastName.toLowerCase()}_${studentCard.firstName[0].toLowerCase()}.png`;
+  studentCard.image = `${studentCard.firstName.toLowerCase()}_${studentCard.lastName[0].toLowerCase()}.png`;
   setHouseValue(studentCard);
   studentsArr.push(studentCard)
 }
@@ -335,10 +335,10 @@ function expellStudent(student, modal) {
 function showIfExpelled(student, modal) {
   if (student.isExpelled === true) {
     modal.querySelector(".modalImage").dataset.expelled = "expelled";
-    modal.querySelector(".expell").dataset.clicked = "true";
+    modal.querySelector(".actions").dataset.expelled = "expelled";
   } else {
     modal.querySelector(".modalImage").dataset.expelled = "none";
-    modal.querySelector(".expell").dataset.clicked = "none";
+    modal.querySelector(".actions").dataset.expelled = "none";
   }
 }
 

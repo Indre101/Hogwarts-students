@@ -490,10 +490,11 @@ img {
   }
 }
 
-.expell[data-clicked="true"] {
-  pointer-events: none;
+.actions[data-expelled="expelled"] .actionBtn {
   opacity: 0.3;
   color: grey;
+  pointer-events: none;
+
 }
 
 
