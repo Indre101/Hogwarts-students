@@ -275,8 +275,9 @@ function showModal(student) {
   modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
   modal.querySelector(".expell").onclick = function () {
     expellStudent(student);
+    showIfExpelled(student, modal)
   }
-
+  showIfExpelled(student, modal)
   setstudentAsAperfect(modal, student)
 }
 
@@ -285,6 +286,16 @@ function expellStudent(student) {
   student.isExpelled = true;
 }
 
+function showIfExpelled(student, modal) {
+  if (student.isExpelled === true) {
+    modal.querySelector(".modalImage").dataset.expelled = "expelled";
+    modal.querySelector(".expell").dataset.clicked = "true";
+  } else {
+    modal.querySelector(".modalImage").dataset.expelled = "none";
+    modal.querySelector(".expell").dataset.clicked = "none";
+
+  }
+}
 
 function hideModal(event) {
   event.target.dataset.crest = "none";

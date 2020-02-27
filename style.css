@@ -465,7 +465,27 @@ img {
 }
 
 
+.modalImage[data-expelled="expelled"]:after {
+  content: "Expelled";
+  position: absolute;
+  transform: rotate(-49deg);
+  font-size: 5vw;
+  color: red;
+  animation: expell 1s ease-in forwards 1;
+}
 
+
+@keyframes expell {
+  0% {
+    transform: scale(5);
+  }
+}
+
+.expell[data-clicked="true"] {
+  pointer-events: none;
+  opacity: 0.3;
+  color: grey;
+}
 
 
 .detailedInfo {
