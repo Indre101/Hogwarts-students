@@ -72,7 +72,7 @@ function searchStudent(element, array) {
   element.addEventListener("input", (event) => {
     const displayedStudents = document.querySelectorAll(".student");
     displayedStudents.forEach(student => {
-      if (student.textContent.includes(event.target.value)) {
+      if (student.textContent.toLowerCase().includes(event.target.value.toLowerCase())) {
         student.dataset.show = "show"
       } else {
         student.dataset.show = "noshow"
