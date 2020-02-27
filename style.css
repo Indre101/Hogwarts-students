@@ -1,10 +1,19 @@
+@font-face {
+  font-family: 'Yeon Sung';
+  src: url(./YeonSung-Regular.ttf);
+}
+
 :root {
   --modal-color: rgba(255, 255, 255, 0.9);
   --modal-color-1: rgba(255, 255, 255, 1);
   --primary-text-color: white;
   --secondary-text-color: black;
+  --width: 80vw;
+  --accent-color: none;
 
 }
+
+
 
 * {
   margin: 0;
@@ -12,46 +21,194 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
-  /* border-radius: 15px; */
+  font-family: 'Yeon Sung';
+
+
 }
 
 body {
   height: 100vh;
-  background-color: #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-image: url(./img/crests/hogwarts-school-1.png); */
+  background-image: linear-gradient(to bottom, #ffffffb8, rgb(41, 39, 39)), url(./img/crests/hogwarts-school-1.png);
+
+  background-position: center;
+  background-repeat: no-repeat;
+
 }
 
-.mainContainer {
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100%;
   display: grid;
-  grid-template-columns: 30vw 70vw;
+  grid-template-columns: repeat(2, 1fr);
+  z-index: 20;
+
+}
+
+.bg {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  align-self: center;
+  height: 100%;
+}
+
+.bg-container {
+  padding: 2vw;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: white;
+}
+
+.bg-container-1-2 {
+  grid-area: 1/1/span 1/ span 1;
+}
+
+.overlay[data-opened="open"] .bg-container-1-2 {
+  animation: moveLeft 1.5s ease-in-out forwards 1;
+}
+
+.overlay[data-opened="open"] .bg-container-4-5 {
+  animation: moveright 1.5s ease-in-out forwards 1;
+}
+
+
+.overlay[data-opened="open"] .bg-3 {
+  animation: moveDown 1.5s 0.5s ease-in-out forwards 1;
+}
+
+.overlay[data-closed="close"] {
+  display: none;
+}
+
+
+@keyframes moveLeft {
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+.bg-1 {
+  /* grid-area: 1/1/ span 1/ span 1; */
+
+  background-image: url(./img/crests/griff-1.png);
+}
+
+.bg-2 {
+  /* grid-area: 2/1/ span 1/ span 1; */
+  background-image: url(./img/crests/huff-1.png);
+
+}
+
+.maincrestContainer {
+  background-color: white;
+  box-shadow: 1px 1px 1px 1px lightgrey;
+
+  z-index: 1;
+  padding: 1vw;
+  /* border-radius: 30px; */
+  cursor: pointer;
+  animation: pulse 0.5s ease-in-out infinite alternate;
+}
+
+
+@keyframes pulse {
+  100% {
+    box-shadow: 1px 1px 5px 5px lightgrey;
+
+  }
+
+}
+
+.mainCrest {
+  height: 15vw;
+  object-fit: contain;
+
+}
+
+
+.bg-3 {
+  grid-area: 1/1/ span 1/ span 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffffa1;
+  z-index: 3;
+}
+
+
+@keyframes moveDown {
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+
+.bg-container-4-5 {
+  grid-area: 1/2/span 1/ span 1;
+
+}
+
+@keyframes moveright {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.bg-4 {
+  /* grid-area: 1/2/ span 1/ span 1; */
+  background-image: url(./img/crests/rav-1.png);
+
+}
+
+.bg-5 {
+  /* grid-area: 2/2/ span 1/ span 1; */
+  background-image: url(./img/crests/sly-1.png);
+
+}
+
+
+.mainContainer {
+  width: var(--width);
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  height: 100%;
 }
 
 header {
+  width: 100%;
+  height: 10vh;
   display: flex;
   align-items: center;
-
+  font-family: 'Yeon Sung', sans-serif;
+  color: white;
+  background-color: var(--accent-color);
+  box-shadow: 1px 1px 1px 2px grey;
+  color: black;
 }
 
 h1 {
-  font-size: 2vw;
+  font-size: 1vw;
 }
 
 .schoolLogo {
-  height: 6vw;
+  height: 2vw;
   margin: 1vw;
 }
 
 
-.student {
-  width: 80%;
-  --modal-color: #372e29f6;
-  --modal-color-1: #372e29;
-  transform: skew(25deg) rotate(2deg);
-  background: #FC354C;
-  background: -webkit-linear-gradient(to right, var(--modal-color), yellow);
-  background: linear-gradient(to right, var(--modal-color), yellow);
-  margin: 1.5vw 0;
-  height: 5.5vw;
-}
+
 
 h3 {
   height: 5vw;
@@ -59,29 +216,60 @@ h3 {
   align-items: center;
 }
 
+.mediumContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.searchFieldContainer {
+  width: 64%;
+}
+
 .studentsList {
   color: white;
   margin: 1rem 0;
-  /* width: 80%; */
+  width: 80%;
   height: 60vh;
   overflow: scroll;
   display: flex;
   flex-direction: column;
   align-items: center;
+
 }
 
-.student .before {
-  transform: skew(-25deg) rotate(-2deg);
-  background-color: black;
+
+.student {
+  width: 80%;
+  --modal-color: #372e29f6;
+  --modal-color-1: #372e29;
+  margin: 1vw 0;
+  height: 5vw;
+  background-color: white;
   display: grid;
   grid-template-columns: 10% repeat(3, 1fr);
+  /* border-radius: 10px; */
   grid-gap: 1vw;
   align-items: center;
+  color: black;
+  box-shadow: 1px 1px 1px 1px grey;
+}
+
+
+.student[data-show="noshow"] {
+  display: none;
+}
+
+.student[data-show="show"] {
+  display: grid;
 }
 
 .search {
   font-size: 1.5vw;
-  border-radius: 15px;
+  /* border-radius: 15px; */
+  padding: 0 1vw;
 }
 
 input[type="radio"] {
@@ -103,7 +291,7 @@ label:before {
   height: 20px;
   background-image: url(./icons/non-color.svg);
   background-size: contain;
-  border-radius: 11px;
+  /* border-radius: 11px; */
   transition: background-image 0.5s linear;
 }
 
@@ -117,15 +305,303 @@ label:hover:before {
 
 }
 
-.smallContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: end;
-  width: 50%;
-  justify-self: flex-end;
+.filterBtn {
+  background-image: url(./icons/filter.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 5vh;
+  width: 5vh;
+  position: fixed;
+  left: 1vw;
+  margin: 2vw;
+  transition: background-image 0.3s ease-in-out;
+  z-index: 10;
 }
 
+.filterBtn:hover {
+  background-image: url(./icons/selective.svg);
+}
+
+
+.mainContainer .filterBtn[data-active="active"] {
+  background-image: url(./icons/selective.svg);
+}
+
+.smallContainer {
+  display: none;
+  padding: 8vh 3vw;
+  height: 83vh;
+  justify-self: flex-end;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: fixed;
+  left: 0;
+  box-shadow: 1px 0px 0px 0px lightgrey;
+}
+
+.mainContainer .filterBtn[data-active="active"]+.smallContainer {
+  display: flex;
+  animation: slideFromLeft .5s ease-in-out forwards 1;
+}
+
+@keyframes slideFromLeft {
+  0% {
+    transform: translateX(-100vw);
+  }
+}
+
+.part {
+  margin: 1.5vw 0;
+}
+
+.part div {
+  margin: 1vw 0;
+}
+
+
+
+.bgStudentModal {
+  padding: 0.5vw;
+  transform: skew(10deg, 10deg);
+  background: linear-gradient(0.45turn, var(--modal-color), var(--secondary-text-color));
+
+}
+
+
+.modalContainer {
+  position: fixed;
+  height: 100vh;
+  /* transform: translate(10px, 10px); */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  background-color: #c3c3c3d1;
+  display: none;
+  z-index: 100;
+}
+
+.crest {
+  background-image: var(--crest-bg-image);
+}
+
+.perfect {
+  background-image: var(--perfect-bg-image);
+}
+
+.modalContainer[data-crest="slytherin"] {
+  display: flex;
+  --modal-color: #5d5d5d;
+  --secondary-text-color: #1a472a;
+  --crest-bg-image: url(./img/crests/sly.png);
+  --perfect-bg-image: url(./img/perfects/perfects-sly.png);
+}
+
+.modalContainer[data-crest="gryffindor"] {
+  display: flex;
+  --modal-color: #d3a625f6;
+  --secondary-text-color: #740001;
+  --crest-bg-image: url(./img/crests/griff.png);
+  --perfect-bg-image: url(./img/perfects/perfects-gryff.png);
+}
+
+.modalContainer[data-crest="ravenclaw"] {
+  display: flex;
+  --modal-color: #222f5bf6;
+  --secondary-text-color: #946b2d;
+  --crest-bg-image: url(./img/crests/rav.png);
+  --perfect-bg-image: url(./img/perfects/perfects-rave.png);
+
+}
+
+
+.modalContainer[data-crest="hufflepuff"] {
+  display: flex;
+  --modal-color: #372e29f6;
+  --secondary-text-color: #ecb939;
+  --crest-bg-image: url(./img/crests/huff.png);
+  --perfect-bg-image: url(./img/perfects/perfetcs-huff.png);
+}
+
+
+.modal {
+  transform: skew(-10deg, -10deg);
+  display: grid;
+  grid-template-columns: 20% 40% 40%;
+  grid-gap: 2vw;
+  background-color: white;
+  color: black;
+  padding: 3vw;
+  padding: 1vw 3vw 3vw 3vw;
+}
+
+img {
+  object-fit: contain;
+}
+
+.modalImage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  align-self: flex-end;
+}
+
+
+.student[data-show="show"] {
+  display: grid;
+}
+
+
+.student[data-show="show"] {
+  display: grid;
+}
+
+
+.badges {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3vw;
+}
+
+.badge {
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 6vh;
+  height: 6vw;
+}
+
+
+.modalImage[data-expelled="expelled"]:after {
+  content: "Expelled";
+  position: absolute;
+  transform: rotate(-49deg);
+  font-size: 5vw;
+  color: red;
+  animation: expell 1s ease-in forwards 1;
+}
+
+
+@keyframes expell {
+  0% {
+    transform: scale(5);
+  }
+}
+
+.actions[data-expelled="expelled"] .actionBtn {
+  opacity: 0.3;
+  color: grey;
+  pointer-events: none;
+
+}
+
+
+.detailedInfo {
+  align-self: flex-end;
+}
+
+.detailedInfo h3 {
+  font-size: 1vw;
+  height: fit-content;
+  margin: 1vw 0;
+  border-bottom: 1px solid black;
+}
+
+
+.actions {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-around;
+}
+
+
+.actions .actionBtn {
+  width: 75%;
+  height: 5vw;
+  text-align: center;
+  font-size: 1.5vw;
+  box-shadow: 1px 1px 1px 1px grey;
+  display: flex;
+  justify-content: center;
+}
+
+.expell {
+  color: #7b0505;
+}
+
+.setAsPerfect {
+  color: #024e47;
+}
+
+
+
+.addToinquisitionaSquad {
+  color: #5a195a;
+
+}
+
+
+footer {
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background-color: var(--accent-color);
+  color: white;
+  box-shadow: 1px 1px 5px 1px lightgrey;
+}
+
+ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.messagecontainer {
+  position: absolute;
+  display: none;
+
+}
+
+.message {
+  width: 50vw;
+  background-color: white;
+  flex-direction: column;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.messagecontainer[data-show="show"] {
+  display: block;
+}
+
+.message h3 {
+  padding: 3vw;
+}
+
+.okBtn {
+  margin: 3vw;
+  background-color: green;
+  color: white;
+  height: 5vh;
+  width: 12vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 1px 1px lightgrey;
+}
 
 /* 
 .d-none {

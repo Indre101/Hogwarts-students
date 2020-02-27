@@ -14,27 +14,73 @@ const Student = {
   isSlytherin: false,
   isHufflepuff: false,
   isGryffindor: false,
-  isRavenclaw: false
+  isRavenclaw: false,
+  isStudent: true
 }
 
 
 function selectHTMLelements() {
   const HTML = {}
+  HTML.allStatistics = document.querySelectorAll(".li");
   HTML.labelsForSorting = document.querySelectorAll(".sorting label");
   HTML.labelsForFiltering = document.querySelectorAll(".filtering label");
   HTML.studentTemplate = document.querySelector(".studentItem").content;
   HTML.students = document.querySelector(".studentsList");
   HTML.totalStudents = document.querySelector(".totalStudents");
   HTML.searchFieldInput = document.querySelector(".search");
+  HTML.overlay = document.querySelector(".overlay");
+  HTML.startBtn = document.querySelector(".startBtn");
+  HTML.filterBtn = document.querySelector(".filterBtn");
+  HTML.modalContainer = document.querySelector(".modalContainer");
+  HTML.expellBtn = document.querySelector(".expell");
   return HTML;
+}
+
+// Starting the website
+function openHogwarts(startBtn, overlay, statisticsFacts, studentsArr) {
+  startBtn.addEventListener("click", () => {
+    setSchoolStatistics(statisticsFacts, studentsArr)
+    overlay.dataset.opened = "open"
+    setTimeout(() => {
+      overlay.dataset.closed = "close"
+    }, 2000);
+  });
+}
+
+
+function showFilterSortOptions(btn) {
+  btn.addEventListener("click", (event) => {
+    if ((event.target).dataset.active === "active") {
+      (event.target).dataset.active = "none";
+    } else {
+      (event.target).dataset.active = "active";
+    }
+  })
+}
+
+// 
+function setSchoolStatistics(statisticsFacts, studentsArr) {
+  statisticsFacts.forEach(fact => {
+    let filtereedNumberResult = studentsArr.filter(student => student[fact.dataset.value])
+    document.querySelector(`[data-value="${fact.dataset.value}"]`).textContent += filtereedNumberResult.length
+  })
+
 }
 
 
 
 function searchStudent(element, array) {
   element.addEventListener("input", (event) => {
-    const searchResult = array.filter(element => (element.firstName + element.lastName).toLowerCase().includes(event.target.value))
-    displayNewOrder(searchResult);
+    const displayedStudents = document.querySelectorAll(".student");
+    displayedStudents.forEach(student => {
+      if (student.textContent.toLowerCase().includes(event.target.value.toLowerCase())) {
+        console.log("show");
+        student.dataset.show = "show"
+      } else {
+        console.log("noshow");
+        student.dataset.show = "noshow"
+      }
+    });
   })
 }
 
@@ -42,19 +88,30 @@ function searchStudent(element, array) {
 function init() {
   const studentsArr = [];
   const HTMLelements = selectHTMLelements();
+  openHogwarts(HTMLelements.startBtn, HTMLelements.overlay, HTMLelements.allStatistics, studentsArr)
   searchStudent(HTMLelements.searchFieldInput, studentsArr)
   getStudentData(studentsArr);
   fetchBloodData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
+  showFilterSortOptions(HTMLelements.filterBtn)
+
 }
 
+
+
 function changeLabelsImages(inputLabels, studentsArr) {
+
   inputLabels.forEach(label => label.addEventListener("click", () => {
+    const studentList = selectHTMLelements().students;
+    console.log(studentList);
+    studentList.innerHTML = " ";
     label = event.target;
     inputLabels.forEach(label => label.dataset.status = " ");
+
     label.dataset.status = "checked";
     doFilterOrSort(label, studentsArr)
+
   }))
 }
 
@@ -65,15 +122,19 @@ function doFilterOrSort(label, studentsArr) {
   const ceckedInput = getCheckedInputValue(label);
   if (filterArr && label.dataset.action === "sort") {
     studentsArr = sortStudents(filterArr, ceckedInput)
-  } else if (label.dataset.action === "sort") {
+  } else
+  if (label.dataset.action === "sort") {
     studentsArr = sortStudents(studentsArr, ceckedInput)
   } else if (label.dataset.action === "filter") {
     filterArr = filterStudent(studentsArr, ceckedInput)
     studentsArr = filterArr;
   }
-  displayNewOrder(studentsArr);
+  studentsArr.forEach(stud => {
+    displayStudentListItems(stud)
+  });
 
 }
+
 
 
 
@@ -119,29 +180,6 @@ function setSortingDirection(inputField) {
 }
 
 
-function displayNewOrder(array) {
-  const allStudentsHTML = document.querySelectorAll(".student");
-  if (allStudentsHTML.length === array.length) {
-    for (let index = 0; index < allStudentsHTML.length; index++) {
-      addStudentProperties(allStudentsHTML[index], array[index]);
-      allStudentsHTML[index].style.display = "block";
-    }
-  } else if (allStudentsHTML.length > array.length) {
-    let difference = allStudentsHTML.length - array.length - 1;
-    while (difference >= 0) {
-      const elementIndex = array.length + difference
-      allStudentsHTML[elementIndex].style.display = "none";
-      difference--
-    }
-
-
-    for (let index = 0; index < array.length; index++) {
-      addStudentProperties(allStudentsHTML[index], array[index]);
-    }
-  }
-
-}
-
 
 function getStudentData(studentsArr) {
   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
@@ -180,17 +218,7 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
-  studentCard.image = `${studentCard.lastName.toLowerCase()}_${studentCard.firstName[0].toLowerCase()}.png`;
-  if (studentCard.firstName.includes("t")) {
-    studentCard.isPerfect = true;
-  }
-
-  if (studentCard.firstName.includes("h")) {
-    studentCard.isInInquisitionalSquad = true;
-  } else {
-    studentCard.isInInquisitionalSquad = false;
-
-  }
+  studentCard.image = `${studentCard.firstName.toLowerCase()}_${studentCard.lastName[0].toLowerCase()}.png`;
   setHouseValue(studentCard);
   studentsArr.push(studentCard)
 }
@@ -210,121 +238,127 @@ function addStudentProperties(element, student) {
 
 function displayStudentListItems(student) {
   const cln = selectHTMLelements().studentTemplate.cloneNode(true);
+
   addStudentProperties(cln, student)
+
+  cln.querySelector(".student").onclick = function () {
+    showModal(student)
+  }
+
   selectHTMLelements().students.appendChild(cln);
+
 }
 
 
-// const studentTemplate = document.querySelector(".studentTemplate").content;
-// const students = document.querySelector(".students");
+
+function showModal(student) {
+  const modal = selectHTMLelements().modalContainer;
+  modal.addEventListener("click", hideModal)
+  modal.dataset.crest = student.house.toLowerCase();
+  modal.querySelector(".studentImg").src = `./img/studentImages/${student.image}`;
+  modal.querySelector(".studentName").textContent = student.firstName;
+  modal.querySelector(".middleName").textContent = `Middle name: ${student.middleName ? student.middleName : "none"}`;
+  modal.querySelector(".nickName").textContent = `Nick name: ${student.nickName ? student.nickName : "none"}`;
+  modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
+  modal.querySelector(".house").textContent = `House: ${student.house}`;
+  modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
+  modal.querySelector(".addToinquisitionaSquad").onclick = function () {
+    addRemoveStudentInquisitionalSquad(student, modal)
+  }
+  modal.querySelector(".expell").onclick = function () {
+    expellStudent(student, modal)
+  }
+  showInquistionalSquadStatus(student, modal);
+  showIfExpelled(student, modal)
+  setstudentAsAperfect(modal, student)
+}
 
 
-// window.addEventListener("DOMContentLoaded", init);
-
-// const Student = {
-//   firstName: "",
-//   lastName: "",
-//   middleName: undefined,
-//   nickName: undefined,
-//   image: "",
-//   house: ""
-// }
-// const studentsArr = [];
+function addRemoveStudentInquisitionalSquad(student, modal) {
+  if (student.isInInquisitionalSquad === true) {
+    student.isInInquisitionalSquad = false;
+    showInquistionalSquadStatus(student, modal);
+  } else {
+    checkIfStudentEligibleForISquad(student, modal)
+  }
+}
 
 
-// function init() {
-//   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
-//     .then(res => res.json())
-//     .then(data =>
-//       data.forEach(createStudentInfoCard)
-//     ).then(() => {
-//       studentsArr.forEach(student => {
-//         createStudentCards(student, studentsArr);
-//       });
-//     })
-//     .then(() => {
-//       const themeOptions = document.querySelectorAll(".theme");
-//       const themeOptionsArr = Array.from(themeOptions);
-//       themeOptions.forEach(option => {
-//         option.addEventListener("change", () => {
-//           studentsArr[themeOptionsArr.indexOf(option)].house = selectedHouse();
-//           const selectedStudentCard = document.querySelectorAll(".student")[
-//             themeOptionsArr.indexOf(option)
-//           ];
-//           const selectedStudentObject = studentsArr[themeOptionsArr.indexOf(option)];
-//           showStudentHouseAndModal(selectedStudentCard, selectedStudentObject);
-//         });
-//       });
-//     })
+function addToiquisitionalSquad(student) {
+  student.isInInquisitionalSquad = true;
 
-// };
+}
+
+function checkIfStudentEligibleForISquad(student, modal) {
+  if (student.bloodStatus === "pure" || student.house === "Slytherin") {
+    student.isInInquisitionalSquad = true;
+    modal.querySelector(".messagecontainer").dataset.show = "none";
+
+  } else {
+    student.isInInquisitionalSquad = false;
+    showHideMessage(modal)
+
+  }
+  showInquistionalSquadStatus(student, modal)
+}
 
 
-
-// function createStudentInfoCard(student) {
-//   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
-//   const studentCard = Object.create(Student);
-//   studentCard.firstName = findFirstName(fullNameWithoutWhitespaces);
-//   studentCard.lastName = lastName(fullNameWithoutWhitespaces);
-//   studentCard.middleName = getMiddleName(fullNameWithoutWhitespaces);
-//   studentCard.nickName = capitalise(getNickname(fullNameWithoutWhitespaces))
-//   studentCard.house = capitalise(removeWhiteSpaces(student.house).toLowerCase());
-//   studentsArr.push(studentCard)
-// }
+function showHideMessage(modal) {
+  const messageContainer = modal.querySelector(".messagecontainer");
+  messageContainer.dataset.show = "show";
+  modal.querySelector(".okBtn").addEventListener("click", () => {
+    messageContainer.dataset.show = "none";
+  })
+}
 
 
-// function selectedHouse() {
-//   const selectedTheme = event.target;
-//   return selectedTheme.value;
-// }
+function showInquistionalSquadStatus(student, modal) {
+  modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
+  modal.querySelector(".addToinquisitionaSquad").textContent = student.isInInquisitionalSquad ? "Remove from inquisitional squad" : "Add to inquisitional squad";
+}
 
-// function getNames(student) {
-//   let fullName;
-//   if (student.nickName && student.middleName) {
-//     fullName = `${student.firstName} Middle name ${student.middleName} Nick name ${student.nickName} ${student.lastName}`
-//   } else if (student.nickName) {
-//     fullName = `${student.firstName} Nick name ${student.nickName} ${student.lastName}`
-//   } else if (student.middleName) {
-//     fullName = `${student.firstName} Middle name ${student.middleName} ${student.lastName}`
-//   } else {
-//     fullName = `${student.firstName} ${student.lastName}`
-//   }
-//   return fullName;
 
-// }
 
-// function createStudentCards(student, data) {
-//   const clnStudent = studentTemplate.cloneNode(true);
-//   clnStudent.querySelector(".nameOftheStudent").textContent = `${student.firstName} ${student.lastName}`;
-//   clnStudent.querySelector(".textStudentName").textContent = getNames(student);
-//   clnStudent.querySelector(".number").textContent = data.indexOf(student) + 1;
+let expelledStudentCount = 0;
 
-//   showStudentHouseAndModal(clnStudent, student);
-//   clnStudent.querySelectorAll(".theme option").forEach(option => {
-//     if (option.value == student.house.toLowerCase()) {
-//       option.selected = true;
-//     }
-//   });
+function updatedExpelledStudentNumber() {
+  expelledStudentCount += 1
+  document.querySelector(".isExpelled").textContent = `Number of expelled: ${expelledStudentCount}`;
+}
 
-//   students.appendChild(clnStudent);
-// }
+function expellStudent(student, modal) {
+  student.isExpelled = true;
+  showIfExpelled(student, modal)
+  updatedExpelledStudentNumber()
+}
 
-// function showHideElement(element, classToAdd, classtoRemove) {
-//   element.classList.toggle(`${classToAdd}`);
-//   element.classList.toggle(`${classtoRemove}`);
-// }
+function showIfExpelled(student, modal) {
+  if (student.isExpelled === true) {
+    modal.querySelector(".modalImage").dataset.expelled = "expelled";
+    modal.querySelector(".actions").dataset.expelled = "expelled";
+  } else {
+    modal.querySelector(".modalImage").dataset.expelled = "none";
+    modal.querySelector(".actions").dataset.expelled = "none";
+  }
+}
 
-// function showStudentHouseAndModal(clnStudent, student) {
-//   clnStudent.querySelector(".house").textContent = student.house;
-//   const modal = clnStudent.querySelector(".modal");
-//   modal.dataset.crest = student.house.toLowerCase();
-//   clnStudent.querySelector(".textStudentHouse").textContent = student.house;
 
-//   clnStudent.querySelector(".mainStudentInfo").onclick = function () {
-//     showHideElement(modal, "d-flex", "d-none");
-//   };
 
-//   clnStudent.querySelector(".close").onclick = function () {
-//     showHideElement(modal, "d-flex", "d-none");
-//   };
-// }
+function hideModal(event) {
+  event.target.dataset.crest = "none";
+
+}
+
+function setstudentAsAperfect(modalStyle, student) {
+  if (!student.isPerfect) {
+    modalStyle.style.setProperty('--perfect-bg-image', "none");
+  } else {
+    return true;
+  }
+}
+
+
+
+function assignValuesToModal(student, modal) {
+  modal.dataset.crest = student.house.toLowerCase();
+}
