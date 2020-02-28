@@ -302,7 +302,7 @@ function setAsPrefect(student, modal) {
 }
 
 function givePerfectPin(student, modal) {
-  console.log(student);
+  console.log("object");
   modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
   modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
 }
@@ -318,12 +318,12 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
   const sameGender = sameHousePrefects.filter(prefect => prefect.gender === student.gender);
 
   if (sameGender.length === 2 || sameHousePrefects.length > 2) {
-    sameGender[sameGender.length - 1].isPrefect = false;
+    student.isPrefect = false;
+    sameGender.forEach(student => givePerfectPin(student, modal));
     showPrefectMessage(HTML, sameGender);
   }
 
   hidePrefectChoiceMessage(HTML, studentsArr, modal)
-
 }
 
 
@@ -336,6 +336,7 @@ function hidePrefectChoiceMessage(HTML, studentsArr, modal) {
   HTML.confirmPrefectChoice.onclick = function () {
     HTML.prefectsMessageContainer.dataset.show = "none";
     studentsArr.forEach(student => {
+      // console.log(student);
       givePerfectPin(student, modal)
     })
   }
@@ -346,10 +347,11 @@ function appedPrefectsOptions(prefectsArr) {
   document.querySelector(".prefectOptions").innerHTML = " ";
   const prefectInput = selectHTMLelements().prefectInput;
   prefectsArr.forEach(prefect => {
+    console.log(prefect);
     const prefectItem = prefectInput.cloneNode(true);
     const inputOption = prefectItem.querySelector(".prefectInputContainer");
-    prefectItem.querySelector(".prefectLabel").textContent = `${prefect.firstName} ${prefect.lastName}`
     changeTheLabelicons(inputOption, prefect)
+    prefectItem.querySelector(".prefectLabel").textContent = `${prefect.firstName} ${prefect.lastName}`
     inputOption.onclick = function () {
       const prefectInputs = document.querySelectorAll(".prefectInputContainer");
 
@@ -360,9 +362,10 @@ function appedPrefectsOptions(prefectsArr) {
 
 
       prefect.isPrefect = true;
-      changeTheLabelicons(inputOption, prefect)
-      console.log(inputOption);
       prefectsArr.forEach(e => console.log(e))
+      // givePerfectPin(student, modal)
+      changeTheLabelicons(inputOption, prefect)
+
 
     }
 
