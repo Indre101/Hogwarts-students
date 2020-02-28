@@ -42,9 +42,8 @@ function selectHTMLelements() {
 }
 
 // Starting the website
-function openHogwarts(startBtn, overlay, statisticsFacts, studentsArr) {
+function openHogwarts(startBtn, overlay) {
   startBtn.addEventListener("click", () => {
-    setSchoolStatistics(statisticsFacts, studentsArr)
     overlay.dataset.opened = "open"
     setTimeout(() => {
       overlay.dataset.closed = "close"
@@ -66,14 +65,6 @@ function showFilterSortOptions(btn) {
 
 
 
-// 
-function setSchoolStatistics(statisticsFacts, studentsArr) {
-  statisticsFacts.forEach(fact => {
-    let filtereedNumberResult = studentsArr.filter(student => student[fact.dataset.value])
-    document.querySelector(`[data-value="${fact.dataset.value}"]`).textContent += filtereedNumberResult.length
-  })
-
-}
 
 
 
@@ -94,7 +85,7 @@ function searchStudent(element, array) {
 function init() {
   const studentsArr = [];
   const HTMLelements = selectHTMLelements();
-  openHogwarts(HTMLelements.startBtn, HTMLelements.overlay, HTMLelements.allStatistics, studentsArr)
+  openHogwarts(HTMLelements.startBtn, HTMLelements.overlay)
   searchStudent(HTMLelements.searchFieldInput, studentsArr)
   getStudentData(studentsArr);
   fetchBloodData(studentsArr);
@@ -202,7 +193,24 @@ function getStudentData(studentsArr) {
       studentsArr.forEach(student => {
         displayStudentListItems(student, studentsArr)
       })
+    }).then(data => {
+      setSchoolStatistics(studentsArr);
     })
+}
+
+// 
+function setSchoolStatistics(studentsArr) {
+  let stats = selectHTMLelements().allStatistics;
+  // console.log(studentsArr);
+  stats.forEach(fact => {
+    let filtereedNumberResult = studentsArr.filter(student => student[fact.dataset.value]).filter(student => student.isExpelled === false);
+    document.querySelector(`[data-value="${fact.dataset.value}"] span`).textContent = filtereedNumberResult.length
+    if (fact.dataset.value === "isExpelled") {
+      const expelled = studentsArr.filter(student => student.isExpelled === true);
+      document.querySelector(`[data-value="${fact.dataset.value}"] span`).textContent = expelled.length;
+    }
+  })
+
 }
 
 
@@ -289,9 +297,8 @@ function showModal(student, studentsArr) {
 
   modal.querySelector(".expell").onclick = function () {
     // studentsArr.splice(studentsArr.indexOf(student), 1);
-    console.log(studentsArr.indexOf(student));
     expellStudent(student, modal);
-    console.log(studentsArr);
+    setSchoolStatistics(studentsArr);
 
   }
 
@@ -434,19 +441,21 @@ function showInquistionalSquadStatus(student, modal) {
 
 
 
-let expelledStudentCount = 0;
+// let expelledStudentCount = 0;
 
-function updatedExpelledStudentNumber() {
-  expelledStudentCount += 1
-  document.querySelector(".isExpelled").textContent = `Number of expelled: ${expelledStudentCount}`;
-}
+// function updatedExpelledStudentNumber() {
+//   expelledStudentCount += 1
+//   document.querySelector(".isExpelled").textContent = `Number of expelled: ${expelledStudentCount}`;
+
+// }
 
 function expellStudent(student, modal) {
   student.isExpelled = true;
   student.isPrefect = false;
   showIfExpelled(student, modal)
   givePerfectPin(student, modal)
-  updatedExpelledStudentNumber()
+
+  // updatedExpelledStudentNumber()
 }
 
 function showIfExpelled(student, modal) {
