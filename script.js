@@ -302,6 +302,8 @@ function setAsPrefect(student, modal) {
 }
 
 function givePerfectPin(student, modal) {
+  console.log(student);
+
   modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
   modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
 }
@@ -317,7 +319,9 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
 
   if (sameGender.length === 2 || sameHousePrefects.length > 2) {
     student.isPrefect = false;
-    sameGender.forEach(student => givePerfectPin(student, modal));
+    givePerfectPin(student, modal)
+    console.log(student);
+    // sameGender.forEach(student => givePerfectPin(student, modal));
     showPrefectMessage(HTML, sameGender, modal);
   }
 
@@ -351,20 +355,20 @@ function appedPrefectsOptions(prefectsArr, modal) {
 
       prefectsArr.forEach(prefect => {
         prefect.isPrefect = false;
-        prefectInputs.forEach(o => o.dataset.status = "none");
+        prefectInputs.forEach(prefectNames => prefectNames.dataset.status = "none");
+
       })
 
 
       prefect.isPrefect = true;
       prefectsArr.forEach(e => console.log(e))
-      givePerfectPin(prefect, modal)
+      givePerfectPin(prefect, modal);
       changeTheLabelicons(inputOption, prefect)
 
-
     }
-    givePerfectPin(prefect, modal)
 
     document.querySelector(".prefectOptions").appendChild(prefectItem);
+
   })
 }
 
