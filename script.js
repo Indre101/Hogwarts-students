@@ -302,7 +302,6 @@ function setAsPrefect(student, modal) {
 }
 
 function givePerfectPin(student, modal) {
-  // console.log(student.isPrefect);
   modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
   modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
 }
@@ -319,33 +318,27 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
   if (sameGender.length === 2 || sameHousePrefects.length > 2) {
     student.isPrefect = false;
     sameGender.forEach(student => givePerfectPin(student, modal));
-    showPrefectMessage(HTML, sameGender);
+    showPrefectMessage(HTML, sameGender, modal);
   }
 
   hidePrefectChoiceMessage(HTML, studentsArr, modal)
 }
 
 
-function showPrefectMessage(HTML, sameHousePrefects) {
+function showPrefectMessage(HTML, sameHousePrefects, modal) {
   HTML.prefectsMessageContainer.dataset.show = "show";
-  appedPrefectsOptions(sameHousePrefects)
+  appedPrefectsOptions(sameHousePrefects, modal)
 }
 
 function hidePrefectChoiceMessage(HTML, studentsArr, modal) {
   HTML.confirmPrefectChoice.onclick = function () {
     HTML.prefectsMessageContainer.dataset.show = "none";
-    // studentsArr.forEach(student => {
-    //   // console.log(student);
-    //   // givePerfectPin(student, modal)
-    //   console.log(modal);
 
-    //   // console.log(modal);
-    // })
   }
 }
 
 
-function appedPrefectsOptions(prefectsArr) {
+function appedPrefectsOptions(prefectsArr, modal) {
   document.querySelector(".prefectOptions").innerHTML = " ";
   const prefectInput = selectHTMLelements().prefectInput;
   prefectsArr.forEach(prefect => {
@@ -364,11 +357,12 @@ function appedPrefectsOptions(prefectsArr) {
 
       prefect.isPrefect = true;
       prefectsArr.forEach(e => console.log(e))
-      // givePerfectPin(student, modal)
+      givePerfectPin(prefect, modal)
       changeTheLabelicons(inputOption, prefect)
 
 
     }
+    givePerfectPin(prefect, modal)
 
     document.querySelector(".prefectOptions").appendChild(prefectItem);
   })
