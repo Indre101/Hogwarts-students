@@ -162,13 +162,20 @@ function sortStudents(studentsArray, ceckedInput) {
 }
 
 
+
 function filterStudent(studentsArray, ceckedInput) {
-  let filteredStudent = studentsArray;
-  if (ceckedInput.property === "all") {
-    filteredStudent = studentsArray;
+
+  let filteredStudent;
+
+  if (ceckedInput.property === "isExpelled") {
+    filteredStudent = studentsArray.filter(student => student.isExpelled === true);
+
+  } else if (ceckedInput.property === "all") {
+    filteredStudent = studentsArray.filter(student => student.isExpelled === false)
   } else {
-    filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true);
+    filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true).filter(student => student.isExpelled === false)
   }
+  console.log(filteredStudent);
   return filteredStudent;
 }
 
@@ -246,7 +253,6 @@ function addStudentProperties(element, student) {
   element.querySelector(".studentName").textContent = student.firstName;
   element.querySelector(".studentLastName").textContent = student.lastName;
   element.querySelector(".studentHouse").textContent = student.house;
-
 }
 
 function displayStudentListItems(student, studentsArr) {
@@ -280,14 +286,19 @@ function showModal(student, studentsArr) {
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
     addRemoveStudentInquisitionalSquad(student, modal)
   }
+
   modal.querySelector(".expell").onclick = function () {
-    expellStudent(student, modal)
+    // studentsArr.splice(studentsArr.indexOf(student), 1);
+    console.log(studentsArr.indexOf(student));
+    expellStudent(student, modal);
+    console.log(studentsArr);
+
   }
 
-  givePerfectPin(student, modal, studentsArr)
+  givePerfectPin(student, modal, studentsArr);
   showInquistionalSquadStatus(student, modal);
-  showIfExpelled(student, modal)
-  setstudentAsAperfect(modal, student)
+  showIfExpelled(student, modal);
+  setstudentAsAperfect(modal, student);
 }
 
 
@@ -303,7 +314,6 @@ function setAsPrefect(student, modal) {
 
 function givePerfectPin(student, modal) {
   console.log(student);
-
   modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
   modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
 }
@@ -352,7 +362,6 @@ function appedPrefectsOptions(prefectsArr, modal) {
     prefectItem.querySelector(".prefectLabel").textContent = `${prefect.firstName} ${prefect.lastName}`
     inputOption.onclick = function () {
       const prefectInputs = document.querySelectorAll(".prefectInputContainer");
-
       prefectsArr.forEach(prefect => {
         prefect.isPrefect = false;
         prefectInputs.forEach(prefectNames => prefectNames.dataset.status = "none");
@@ -361,10 +370,9 @@ function appedPrefectsOptions(prefectsArr, modal) {
 
 
       prefect.isPrefect = true;
-      prefectsArr.forEach(e => console.log(e))
+      // prefectsArr.forEach(e => console.log(e))
       givePerfectPin(prefect, modal);
       changeTheLabelicons(inputOption, prefect)
-
     }
 
     document.querySelector(".prefectOptions").appendChild(prefectItem);
