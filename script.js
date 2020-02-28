@@ -64,10 +64,6 @@ function showFilterSortOptions(btn) {
 
 
 
-
-
-
-
 function searchStudent(element, array) {
   element.addEventListener("input", (event) => {
     const displayedStudents = document.querySelectorAll(".student");
@@ -166,7 +162,6 @@ function filterStudent(studentsArray, ceckedInput) {
   } else {
     filteredStudent = studentsArray.filter(student => student[ceckedInput.property] === true).filter(student => student.isExpelled === false)
   }
-  console.log(filteredStudent);
   return filteredStudent;
 }
 
@@ -189,10 +184,17 @@ function getStudentData(studentsArr) {
   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
     .then(res => res.json())
     .then(data => data).then((data) => {
+
       data.forEach((student) => assignValuesToStudentObject(student, studentsArr));
+      hackTheSystem(studentsArr)
+
       studentsArr.forEach(student => {
         displayStudentListItems(student, studentsArr)
+        console.log(studentsArr);
       })
+
+
+
     }).then(data => {
       setSchoolStatistics(studentsArr);
     })
@@ -234,7 +236,6 @@ function assignBlodStatus(bloodStatuses, students) {
 
 
 function assignValuesToStudentObject(student, studentsArr) {
-
   const fullNameWithoutWhitespaces = capitaliseAfterGapsHyphen(removeWhiteSpaces(student.fullname).toLowerCase())
   const studentCard = Object.create(Student);
   studentCard.id = studentsArr.length;
@@ -249,6 +250,17 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentsArr.push(studentCard);
 }
 
+
+function hackTheSystem(studentsArr) {
+  const Indre = {
+    fullname: 'Indre "Hackerman" Natalija Zygaityte',
+    house: "Ravenclaw",
+    gender: "girl"
+  }
+
+
+  assignValuesToStudentObject(Indre, studentsArr)
+}
 
 
 
@@ -440,22 +452,12 @@ function showInquistionalSquadStatus(student, modal) {
 }
 
 
-
-// let expelledStudentCount = 0;
-
-// function updatedExpelledStudentNumber() {
-//   expelledStudentCount += 1
-//   document.querySelector(".isExpelled").textContent = `Number of expelled: ${expelledStudentCount}`;
-
-// }
-
 function expellStudent(student, modal) {
   student.isExpelled = true;
   student.isPrefect = false;
   showIfExpelled(student, modal)
   givePerfectPin(student, modal)
 
-  // updatedExpelledStudentNumber()
 }
 
 function showIfExpelled(student, modal) {
