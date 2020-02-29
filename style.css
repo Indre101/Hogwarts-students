@@ -391,10 +391,16 @@ label:hover:before {
   background-image: var(--crest-bg-image);
 }
 
-.prefect {
+/* .prefect {
   background-image: var(--prefect-bg-image);
-  display: none;
+  /* display: none; */
+/* } */
+
+.prefect[data-prefect="true"] {
+  background-image: var(--prefect-bg-image);
+
 }
+
 
 .modalContainer[data-crest="slytherin"] {
   display: flex;
@@ -434,7 +440,8 @@ label:hover:before {
 .modal {
   transform: skew(-10deg, -10deg);
   display: grid;
-  grid-template-columns: 20% 40% 40%;
+  grid-template-columns: 30% 70%;
+  /* grid-template-columns: 20% 40% 40%; */
   grid-gap: 2vw;
   background-color: white;
   color: black;
@@ -475,8 +482,8 @@ img {
 .badge {
   background-size: contain;
   background-repeat: no-repeat;
-  width: 6vh;
-  height: 6vw;
+  width: 60px;
+  height: 60px;
 }
 
 
@@ -517,16 +524,15 @@ img {
 
 
 .actions {
-  align-self: flex-end;
+  grid-area: 2/1/ span 1/ span 2;
+  width: 100%;
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-around;
 }
 
 
 .actions .actionBtn {
-  width: 75%;
+  width: 110px;
   height: 5vw;
   text-align: center;
   font-size: 1.5vw;

@@ -212,12 +212,14 @@ function addMyselfTotheStudents(studentsArr) {
   const studentList = selectHTMLelements().students;
   studentList.innerHTML = " ";
   const Indre = {
-    "fullname": 'Indre Zygaityte',
+    "fullname": 'Indre "Hackerman" Natalija Zygaityte',
     "house": "Ravenclaw",
-    "gender": "girl"
+    "gender": "girl",
+    hackerman: true
   }
   assignValuesToStudentObject(Indre, studentsArr);
   studentsArr.forEach(student => displayStudentListItems(student, studentsArr))
+  console.log(studentsArr);
 }
 
 function messStudentBlooddata(studentsArr) {
@@ -277,11 +279,9 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.image = `${studentCard.id}.png`;
   studentCard.gender = student.gender;
   setHouseValue(studentCard);
-  if (student.fullname === "Indre Zygaityte") {
+  if (student.hackerman === true) {
     console.log("object");
     studentsArr.unshift(studentCard);
-    console.log(studentsArr);
-
   } else {
     studentsArr.push(studentCard);
   }
@@ -293,8 +293,8 @@ function setHouseValue(studentCard) {
   studentCard["is" + studentCard.house] = true;
 }
 
-function addStudentProperties(element, student) {
-  element.querySelector(".listNumber").textContent = 32;
+function addStudentProperties(element, student, studentsArr) {
+  element.querySelector(".listNumber").textContent = studentsArr.indexOf(student) + 1;
   element.querySelector(".studentName").textContent = student.firstName;
   element.querySelector(".studentLastName").textContent = student.lastName;
   element.querySelector(".studentHouse").textContent = student.house;
@@ -302,7 +302,7 @@ function addStudentProperties(element, student) {
 
 function displayStudentListItems(student, studentsArr) {
   const cln = selectHTMLelements().studentTemplate.cloneNode(true);
-  addStudentProperties(cln, student)
+  addStudentProperties(cln, student, studentsArr)
   cln.querySelector(".student").onclick = function () {
     showModal(student, studentsArr)
   }
@@ -317,7 +317,7 @@ function showModal(student, studentsArr) {
   modal.addEventListener("click", hideModal)
   modal.dataset.crest = student.house.toLowerCase();
   modal.querySelector(".studentImg").src = `./img/studentImages/${student.image}`;
-  modal.querySelector(".studentName").textContent = student.firstName;
+  modal.querySelector(".studentName").textContent = `Name: ${student.firstName}`;
   modal.querySelector(".middleName").textContent = `Middle name: ${student.middleName ? student.middleName : "none"}`;
   modal.querySelector(".nickName").textContent = `Nick name: ${student.nickName ? student.nickName : "none"}`;
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
@@ -375,9 +375,8 @@ function setAsPrefect(student, modal) {
 }
 
 function givePerfectPin(student, modal) {
-  console.log(student, student.isPrefect);
-  modal.querySelector(".prefect").style.display = student.isPrefect ? "block" : "none";
-  modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? "Remove from prefect status" : "Set as a prefect";
+  modal.querySelector(".prefect").dataset.prefect = student.isPrefect ? "true" : "none";
+  modal.querySelector(".setAsPrefect").textContent = student.isPrefect ? " prefect status" : "Add as prefect";
 }
 
 
