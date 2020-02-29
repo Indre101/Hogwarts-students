@@ -423,6 +423,7 @@ function hidePrefectChoiceMessage(HTML) {
 function appedPrefectsOptions(prefectsArr, modal) {
   document.querySelector(".prefectOptions").innerHTML = " ";
   const prefectInput = selectHTMLelements().prefectInput;
+
   prefectsArr.forEach(prefect => {
     const prefectItem = prefectInput.cloneNode(true);
     const inputOption = prefectItem.querySelector(".prefectInputContainer");
@@ -430,19 +431,41 @@ function appedPrefectsOptions(prefectsArr, modal) {
     prefectItem.querySelector(
       ".prefectLabel"
     ).textContent = `${prefect.firstName} ${prefect.lastName}`;
-
     inputOption.onclick = function() {
       const prefectInputs = selectHTMLelements().prefectInputs;
       prefectsArr.forEach(prefect => {
         prefect.isPrefect = false;
-        prefectInputs.forEach(
-          prefectNames => (prefectNames.dataset.status = "none")
-        );
+        console.log(prefect);
+        // modal.querySelector(".prefectPin").style.display = "none";
+        // modal.querySelector(".prefectStatus span").textContent = "no";
+        // modal.querySelector(".setAsPrefect").textContent = "Add as prefect";
+
       });
 
+      prefectInputs.forEach(
+        prefectNames => (prefectNames.dataset.status = "none")
+      );
+
       prefect.isPrefect = true;
-      givePerfectPin(prefect, modal);
       changeTheLabelicons(inputOption, prefect);
+      givePerfectPin(prefect, modal);
+
+      // prefectsArr.forEach(prefect => {
+      //   prefect.isPrefect = false;
+      //   modal.querySelector(".prefectPin").style.display = "none";
+      //   modal.querySelector(".prefectStatus span").textContent = "no";
+      //   modal.querySelector(".setAsPrefect").textContent = "Add as prefect";
+      //   givePerfectPin(prefect, modal);
+      //   console.log(prefect);
+      //
+      // });
+
+      // modal.querySelector(".prefectPin").style.display = "block";
+      // modal.querySelector(".prefectStatus span").textContent = "yes";
+      // modal.querySelector(".setAsPrefect").textContent =
+      //   "Remove prefect status";
+
+      // // givePerfectPin(prefect, modal);
     };
 
     document.querySelector(".prefectOptions").appendChild(prefectItem);

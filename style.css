@@ -652,3 +652,15 @@ ul {
   align-items: center;
   box-shadow: 1px 1px 1px 1px lightgrey;
 }
+
+
+.hack {
+  border: navajowhite;
+  background: none;
+  margin: 0 2vh;
+}
+
+.hack img {
+  height: 5vh;
+  background-color: red;
+}
