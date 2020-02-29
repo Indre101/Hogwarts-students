@@ -38,6 +38,7 @@ function selectHTMLelements() {
   HTML.prefectInput = document.querySelector(".prefectInput").content;
   HTML.prefectsMessageContainer = document.querySelector(".prefectsMessageContainer");
   HTML.confirmPrefectChoice = document.querySelector(".confirmChoice");
+  HTML.prefectInputs = document.querySelectorAll(".prefectInputContainer");
   return HTML;
 }
 
@@ -77,6 +78,8 @@ function searchStudent(element, array) {
   })
 }
 
+let isHackHappening = false;
+let addedMyself = false;
 
 function init() {
   const studentsArr = [];
@@ -84,14 +87,10 @@ function init() {
   openHogwarts(HTMLelements.startBtn, HTMLelements.overlay)
   searchStudent(HTMLelements.searchFieldInput, studentsArr)
   getStudentData(studentsArr);
-  fetchBloodData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
   showFilterSortOptions(HTMLelements.filterBtnIcon)
-
 }
-
-
 
 function changeLabelsImages(inputLabels, studentsArr) {
 
@@ -127,9 +126,6 @@ function doFilterOrSort(label, studentsArr) {
   });
 
 }
-
-
-
 
 
 function getCheckedInputValue(label) {
@@ -184,20 +180,56 @@ function getStudentData(studentsArr) {
   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
     .then(res => res.json())
     .then(data => data).then((data) => {
-
       data.forEach((student) => assignValuesToStudentObject(student, studentsArr));
-      hackTheSystem(studentsArr)
-
       studentsArr.forEach(student => {
         displayStudentListItems(student, studentsArr)
       })
-
-
-
+    }).then(data => {
+      fetchBloodData(studentsArr)
     }).then(data => {
       setSchoolStatistics(studentsArr);
+      students = studentsArr;
     })
+
 }
+
+let students;
+
+const hackTheSystem = () => {
+  isHackHappening = true;
+  if (addedMyself === false) {
+    addMyselfTotheStudents(students);
+    setSchoolStatistics(students);
+    addedMyself = true;
+  }
+}
+
+document.querySelector(".hack").onclick = function () {
+  hackTheSystem()
+}
+
+function addMyselfTotheStudents(studentsArr) {
+  const studentList = selectHTMLelements().students;
+  studentList.innerHTML = " ";
+  const Indre = {
+    "fullname": 'Indre Zygaityte',
+    "house": "Ravenclaw",
+    "gender": "girl"
+  }
+  assignValuesToStudentObject(Indre, studentsArr);
+  studentsArr.forEach(student => displayStudentListItems(student, studentsArr))
+}
+
+function messStudentBlooddata(studentsArr) {
+  if (isHackHappening) {
+    studentsArr.forEach(student => {
+      const bloodStatus = ["pure", "half"];
+      student.bloodStatus = bloodStatus[Math.floor(Math.random() * 2)];
+    })
+  }
+}
+
+
 
 // 
 function setSchoolStatistics(studentsArr) {
@@ -219,7 +251,6 @@ function fetchBloodData(studentsArr) {
   fetch("https://petlatkea.dk/2020/hogwarts/families.json").then(res =>
     res.json()).then(data => {
     assignBlodStatus(data.half, studentsArr)
-
   })
 }
 
@@ -246,23 +277,14 @@ function assignValuesToStudentObject(student, studentsArr) {
   studentCard.image = `${studentCard.id}.png`;
   studentCard.gender = student.gender;
   setHouseValue(studentCard);
-  studentsArr.push(studentCard);
-}
+  if (student.fullname === "Indre Zygaityte") {
+    console.log("object");
+    studentsArr.unshift(studentCard);
+    console.log(studentsArr);
 
-let isHackHappening = false;
-
-function hackTheSystem(studentsArr) {
-  const Indre = {
-    fullname: 'Indre "Hackerman" Natalija Zygaityte',
-    house: "Ravenclaw",
-    gender: "girl"
+  } else {
+    studentsArr.push(studentCard);
   }
-  assignValuesToStudentObject(Indre, studentsArr)
-  studentsArr.forEach(student => {
-    const bloodStatus = ["pure", "half"];
-    student.bloodStatus = bloodStatus[Math.floor(Math.random() * 2)];
-  })
-
 }
 
 
@@ -284,6 +306,7 @@ function displayStudentListItems(student, studentsArr) {
   cln.querySelector(".student").onclick = function () {
     showModal(student, studentsArr)
   }
+
   selectHTMLelements().students.appendChild(cln);
 }
 
@@ -299,29 +322,47 @@ function showModal(student, studentsArr) {
   modal.querySelector(".nickName").textContent = `Nick name: ${student.nickName ? student.nickName : "none"}`;
   modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
   modal.querySelector(".house").textContent = `House: ${student.house}`;
+  messStudentBlooddata(studentsArr);
   modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
+  const expellBtn = modal.querySelector(".expell");
   modal.querySelector(".setAsPrefect").onclick = function () {
-    // givePerfectPin(student, modal, studentsArr)
     checkIfEligibleForPrefect(student, studentsArr, modal)
 
   }
 
   modal.querySelector(".addToinquisitionaSquad").onclick = function () {
+    if (isHackHappening) {
+      setTimeout(() => {
+        addRemoveStudentInquisitionalSquad(student, modal)
+      }, 1000);
+    }
     addRemoveStudentInquisitionalSquad(student, modal)
   }
 
-  modal.querySelector(".expell").onclick = function () {
-    // studentsArr.splice(studentsArr.indexOf(student), 1);
-    expellStudent(student, modal);
-    setSchoolStatistics(studentsArr);
 
+  expellBtn.onclick = function () {
+    if (student.firstName === "Indre") {
+      document.querySelector("html").dataset.indre = "true";
+      setTimeout(() => {
+        document.querySelector("html").dataset.indre = "none";
+      }, 2000);
+    } else {
+      expellStudent(student, modal);
+      setSchoolStatistics(studentsArr);
+    }
   }
+
+
 
   givePerfectPin(student, modal, studentsArr);
   showInquistionalSquadStatus(student, modal);
   showIfExpelled(student, modal);
 }
 
+
+function hackBloodStatus(params) {
+
+}
 
 function setAsPrefect(student, modal) {
 
@@ -381,7 +422,8 @@ function appedPrefectsOptions(prefectsArr, modal) {
     prefectItem.querySelector(".prefectLabel").textContent = `${prefect.firstName} ${prefect.lastName}`;
 
     inputOption.onclick = function () {
-      const prefectInputs = document.querySelectorAll(".prefectInputContainer");
+      const prefectInputs = selectHTMLelements().prefectInputs
+
       prefectsArr.forEach(prefect => {
         prefect.isPrefect = false;
         prefectInputs.forEach(prefectNames => prefectNames.dataset.status = "none");
@@ -389,7 +431,6 @@ function appedPrefectsOptions(prefectsArr, modal) {
 
 
       prefect.isPrefect = true;
-      prefectsArr.forEach(e => console.log(e))
       prefectsArr.forEach(prefect => givePerfectPin(prefect, modal))
       changeTheLabelicons(inputOption, prefect)
     }
@@ -451,10 +492,11 @@ function showInquistionalSquadStatus(student, modal) {
 
 
 function expellStudent(student, modal) {
+
   student.isExpelled = true;
   student.isPrefect = false;
-  showIfExpelled(student, modal)
-  givePerfectPin(student, modal)
+  showIfExpelled(student, modal);
+  givePerfectPin(student, modal);
 
 }
 

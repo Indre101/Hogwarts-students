@@ -537,6 +537,12 @@ img {
 
 .expell {
   color: #7b0505;
+  transition: cursor 0.1s;
+}
+
+html[data-indre="true"] {
+  cursor: none;
+  pointer-events: none;
 }
 
 .setAsPerfect {
