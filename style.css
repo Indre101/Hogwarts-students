@@ -453,7 +453,7 @@ label:hover:before {
 .modal {
   transform: skew(-10deg, -10deg);
   display: grid;
-  grid-template-columns: 20% 40% 40%;
+  grid-template-columns: 20% 37% 37%;
   grid-gap: 3%;
   background-color: white;
   color: black;
