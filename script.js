@@ -376,7 +376,6 @@ function setAsPrefect(student, modal) {
 }
 
 function givePerfectPin(student, modal) {
-  console.log(student, student.isPrefect);
   modal.querySelector(".prefectPin").style.display = student.isPrefect
     ? "block"
     : "none";
@@ -392,7 +391,7 @@ function givePerfectPin(student, modal) {
 function checkIfEligibleForPrefect(student, studentsArr, modal) {
   const HTML = selectHTMLelements();
   setAsPrefect(student, modal);
-  const prefects = studentsArr.filter(prefect => prefect.isPrefect === true);
+  const prefects = studentsArr.filter(prefect => prefect.isPrefect);
   const sameHousePrefects = prefects.filter(
     prefect => prefect.house === student.house
   );
@@ -402,7 +401,6 @@ function checkIfEligibleForPrefect(student, studentsArr, modal) {
 
   if (sameGender.length === 2 || sameHousePrefects.length > 2) {
     student.isPrefect = false;
-    givePerfectPin(student, modal);
     showPrefectMessage(HTML, sameGender, modal);
   }
 
@@ -431,43 +429,24 @@ function appedPrefectsOptions(prefectsArr, modal) {
     prefectItem.querySelector(
       ".prefectLabel"
     ).textContent = `${prefect.firstName} ${prefect.lastName}`;
+
     inputOption.onclick = function() {
       const prefectInputs = selectHTMLelements().prefectInputs;
-      prefectsArr.forEach(prefect => {
-        prefect.isPrefect = false;
-        console.log(prefect);
-        // modal.querySelector(".prefectPin").style.display = "none";
-        // modal.querySelector(".prefectStatus span").textContent = "no";
-        // modal.querySelector(".setAsPrefect").textContent = "Add as prefect";
-
-      });
-
       prefectInputs.forEach(
         prefectNames => (prefectNames.dataset.status = "none")
       );
 
+      prefectsArr.forEach(prefectItem => {
+        prefectItem.isPrefect = false;
+        givePerfectPin(prefectItem, modal);
+      });
+
       prefect.isPrefect = true;
-      changeTheLabelicons(inputOption, prefect);
       givePerfectPin(prefect, modal);
-
-      // prefectsArr.forEach(prefect => {
-      //   prefect.isPrefect = false;
-      //   modal.querySelector(".prefectPin").style.display = "none";
-      //   modal.querySelector(".prefectStatus span").textContent = "no";
-      //   modal.querySelector(".setAsPrefect").textContent = "Add as prefect";
-      //   givePerfectPin(prefect, modal);
-      //   console.log(prefect);
-      //
-      // });
-
-      // modal.querySelector(".prefectPin").style.display = "block";
-      // modal.querySelector(".prefectStatus span").textContent = "yes";
-      // modal.querySelector(".setAsPrefect").textContent =
-      //   "Remove prefect status";
-
-      // // givePerfectPin(prefect, modal);
+      inputOption.dataset.status = "checked";
     };
 
+    givePerfectPin(prefect, modal);
     document.querySelector(".prefectOptions").appendChild(prefectItem);
   });
 }
