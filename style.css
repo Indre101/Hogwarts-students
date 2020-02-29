@@ -10,6 +10,7 @@
   --secondary-text-color: black;
   --width: 80vw;
   --accent-color: none;
+  --width-message: 700px;
 
 }
 
@@ -341,7 +342,19 @@ label:hover:before {
   text-decoration: none;
 }
 
+
+
+.detailedInfo h3 {
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  /* margin: 1vh 0; */
+
+}
+
 .detailedInfo .studentFact span {
+  font-size: 1.5vw;
   border-bottom: 1px solid black;
   width: -webkit-fill-available;
 }
@@ -396,11 +409,11 @@ label:hover:before {
 }
 
 
-.prefect[data-prefect="true"] {
+.prefectPin {
+  display: none;
   background-image: var(--prefect-bg-image);
 
 }
-
 
 .modalContainer[data-crest="slytherin"] {
   display: flex;
@@ -440,13 +453,12 @@ label:hover:before {
 .modal {
   transform: skew(-10deg, -10deg);
   display: grid;
-  /* grid-template-columns: 30% 70%; */
   grid-template-columns: 20% 40% 40%;
-  grid-gap: 2vw;
+  grid-gap: 3%;
   background-color: white;
   color: black;
-  padding: 3vw;
-  padding: 1vw 3vw 3vw 3vw;
+  width: var(--width-message);
+  padding: 5vh;
 }
 
 img {
@@ -479,7 +491,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3vw;
+  margin-bottom: 1vw;
 }
 
 .badge {
@@ -515,17 +527,13 @@ img {
 
 
 .detailedInfo {
-  align-self: flex-end;
-}
-
-.detailedInfo h3 {
-  font-size: 1.5vw;
   display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  /* margin: 1vh 0; */
-
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+
+
 
 
 .actions {
@@ -533,22 +541,24 @@ img {
   width: 100%;
   justify-content: space-between;
   display: flex;
+  margin-top: 3vh;
 }
 
 
 .actions .actionBtn {
-  width: 110px;
+  width: 150px;
   height: 5vw;
   text-align: center;
   font-size: 1.5vw;
   box-shadow: 1px 1px 1px 1px grey;
   display: flex;
   justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .expell {
-  color: #7b0505;
-  transition: cursor 0.1s;
+  color: #ff0000;
 }
 
 html[data-indre="true"] {
@@ -557,13 +567,13 @@ html[data-indre="true"] {
 }
 
 .setAsPerfect {
-  color: #024e47;
+  color: green;
 }
 
 
 
 .addToinquisitionaSquad {
-  color: #5a195a;
+  color: purple;
 
 }
 
@@ -599,10 +609,10 @@ ul {
 
 
 .message {
-  width: 50vw;
+  width: var(--width-message);
   background-color: white;
   flex-direction: column;
-  height: 30vh;
+  height: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;
