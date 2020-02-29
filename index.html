@@ -54,6 +54,10 @@
       <div class="filtering part">
         <h4>Filter by</h4>
         <div class="inputContainer">
+          <input type="radio" name="filter" value="Expelled" data-property="all" />
+          <label data-action="filter">All</label>
+        </div>
+        <div class="inputContainer">
           <input type="radio" name="filter" value="Prefect" data-property="isPrefect" />
           <label data-action="filter">Prefect</label>
         </div>
@@ -83,10 +87,7 @@
           <input type="radio" name="filter" value="House" data-property="isRavenclaw" />
           <label data-action="filter">Ravenclaw</label>
         </div>
-        <div class="inputContainer">
-          <input type="radio" name="filter" value="Expelled" data-property="all" />
-          <label data-action="filter">All</label>
-        </div>
+
       </div>
     </div>
 
@@ -141,13 +142,16 @@
         </div>
 
         <div class="detailedInfo">
-          <h3 class="studentName">First name: </h3>
-          <h3 class="middleName">Middle name:</h3>
-          <h3 class="nickName">Nick name: </h3>
-          <h3 class="studentLastName">Last name: </h3>
-          <h3 class="house">House: </h3>
-          <h3 class="parentage">Parentage: </h3>
-          <h3 class="inquisitionalSquad">Member of inquisitional squad: </h3>
+          <h3 class="studentFact studentName">First name<span></span></h3>
+          <h3 class="studentFact middleName">Middle name/Nick name<span></span></h3>
+          <h3 class="studentFact studentLastName">Last name<span></span></h3>
+        </div>
+        <div class="detailedInfo">
+          <!-- <h3 class="studentFact nickName">Nick name<span></span></h3> -->
+
+          <h3 class="studentFact house">House<span></span></h3>
+          <h3 class="studentFact parentage">Parentage<span></span> </h3>
+          <h3 class="studentFact inquisitionalSquad">Member of inquisitional squad<span></span></h3>
         </div>
         <div class="actions">
           <h3 class="actionBtn expell">Expell</h3>

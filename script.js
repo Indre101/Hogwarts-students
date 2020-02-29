@@ -317,13 +317,14 @@ function showModal(student, studentsArr) {
   modal.addEventListener("click", hideModal)
   modal.dataset.crest = student.house.toLowerCase();
   modal.querySelector(".studentImg").src = `./img/studentImages/${student.image}`;
-  modal.querySelector(".studentName").textContent = `Name: ${student.firstName}`;
-  modal.querySelector(".middleName").textContent = `Middle name: ${student.middleName ? student.middleName : "none"}`;
-  modal.querySelector(".nickName").textContent = `Nick name: ${student.nickName ? student.nickName : "none"}`;
-  modal.querySelector(".studentLastName").textContent = `Last name: ${student.lastName}`;
-  modal.querySelector(".house").textContent = `House: ${student.house}`;
+  modal.querySelector(".studentName span").textContent = student.firstName;
+
+  modal.querySelector(".middleName span").textContent = `${student.middleName ? student.middleName : "none"} / ${student.nickName ? student.nickName : "none"} `
+  // modal.querySelector(".nickName span").textContent = student.nickName ? student.nickName : "none";
+  modal.querySelector(".studentLastName span").textContent = student.lastName;
+  modal.querySelector(".house span").textContent = student.house;
   messStudentBlooddata(studentsArr);
-  modal.querySelector(".parentage").textContent = `Parentage: ${student.bloodStatus}`;
+  modal.querySelector(".parentage span").textContent = student.bloodStatus;
   const expellBtn = modal.querySelector(".expell");
   modal.querySelector(".setAsPrefect").onclick = function () {
     checkIfEligibleForPrefect(student, studentsArr, modal)
@@ -485,7 +486,7 @@ function showHideMessage(modal) {
 
 
 function showInquistionalSquadStatus(student, modal) {
-  modal.querySelector(".inquisitionalSquad").textContent = `Member of inquisitional squad: ${student.isInInquisitionalSquad ? "yes" : "no"}`;
+  modal.querySelector(".inquisitionalSquad span").textContent = student.isInInquisitionalSquad ? "yes" : "no";
   modal.querySelector(".addToinquisitionaSquad").textContent = student.isInInquisitionalSquad ? "Remove from inquisitional squad" : "Add to inquisitional squad";
 }
 
