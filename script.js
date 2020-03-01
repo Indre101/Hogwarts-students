@@ -1,3 +1,5 @@
+"use strict";
+
 window.addEventListener("DOMContentLoaded", init);
 
 const Student = {
@@ -350,7 +352,7 @@ function showModal(student, studentsArr) {
   };
 
   expellBtn.onclick = function() {
-    if (student.firstName === "Indre") {
+    if (student.id === 34) {
       document.querySelector("html").dataset.indre = "true";
       setTimeout(() => {
         document.querySelector("html").dataset.indre = "none";
