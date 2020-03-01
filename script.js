@@ -55,7 +55,7 @@ function openHogwarts(startBtn, overlay) {
   });
 }
 
-function showFilterSortOptions(btn) {
+function showFilterSortMenu(btn) {
   btn.addEventListener("click", event => {
     if (event.target.dataset.active === "active") {
       event.target.dataset.active = "none";
@@ -93,7 +93,7 @@ function init() {
   getStudentData(studentsArr);
   changeLabelsImages(HTMLelements.labelsForSorting, studentsArr);
   changeLabelsImages(HTMLelements.labelsForFiltering, studentsArr);
-  showFilterSortOptions(HTMLelements.filterBtnIcon);
+  showFilterSortMenu(HTMLelements.filterBtnIcon);
 }
 
 function changeLabelsImages(inputLabels, studentsArr) {
@@ -150,11 +150,7 @@ function filterStudent(studentsArray, ceckedInput) {
     filteredStudent = studentsArray.filter(
       student => student.isExpelled === true
     );
-  } else if (ceckedInput.property === "all") {
-    filteredStudent = studentsArray.filter(
-      student => student.isExpelled === false
-    );
-  } else {
+  }else {
     filteredStudent = studentsArray
       .filter(student => student[ceckedInput.property] === true)
       .filter(student => student.isExpelled === false);
@@ -466,9 +462,9 @@ function addRemoveStudentInquisitionalSquad(student, modal) {
   }
 }
 
-function addToiquisitionalSquad(student) {
-  student.isInInquisitionalSquad = true;
-}
+// function addToiquisitionalSquad(student) {
+//   student.isInInquisitionalSquad = true;
+// }
 
 function checkIfStudentEligibleForISquad(student, modal) {
   if (student.bloodStatus === "pure" || student.house === "Slytherin") {
