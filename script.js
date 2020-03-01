@@ -354,7 +354,8 @@ function showModal(student, studentsArr) {
 
       setTimeout(() => {
         document.querySelector("html").dataset.indre = "none";
-      }, 2000);
+        selectHTMLelements().memeContainer.dataset.active = "none";
+      }, 5000);
     } else {
       expellStudent(student, modal);
       setSchoolStatistics(studentsArr);
@@ -368,6 +369,8 @@ function showModal(student, studentsArr) {
 
 function showHackedImg() {
   const HTMLElements = selectHTMLelements();
+  HTMLElements.memeContainer.innerHTML = " ";
+
   const memeImages = [
     "meme1.jpg",
     "meme2.jpg",
@@ -377,13 +380,17 @@ function showHackedImg() {
     "meme5.jpg",
     "meme6.jpg",
     "meme7.jpg",
-    "meme8.jpg"
+    "meme8.jpg",
+    "meme9.jpg",
+    "meme10.jpg",
+    "meme11.jpg",
+    "meme12.jpg"
   ];
 
   memeImages.forEach(meme => {
     const cln = HTMLElements.imageTemplate.cloneNode(true);
-    const randomDelay = Math.floor(Math.random() * 4);
-    const randomPosition = Math.floor(Math.random() * 55);
+    const randomDelay = Math.floor(Math.random() * 4 + 1);
+    const randomPosition = Math.floor(Math.random() * 45 - 20);
     cln.querySelector(".memeImg").src = `./img/memes/${meme}`;
     cln
       .querySelector(".memeImg")

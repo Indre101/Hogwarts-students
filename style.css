@@ -682,7 +682,7 @@ ul {
   --x-position: 30;
   --y-position: 60;
   --animation-timing: 1s;
-  height: 20vh;
+  height: 30vh;
   animation: moveImage calc(var(--animation-timing) * 1s) ease-in-out alternate-reverse infinite;
   opacity: 0;
   transform: translate(calc(var(--x-position) * 1vw), calc(var(--y-position) * 1vh));
