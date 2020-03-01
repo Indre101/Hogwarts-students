@@ -196,6 +196,9 @@ function getStudentData(studentsArr) {
 let students;
 
 const hackTheSystem = () => {
+  document
+    .querySelectorAll("label")
+    .forEach(label => (label.dataset.status = " "));
   isHackHappening = true;
   if (addedMyself === false) {
     addMyselfTotheStudents(students);
