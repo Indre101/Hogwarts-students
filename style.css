@@ -524,6 +524,15 @@ img {
   animation: expell 1s ease-in forwards 1;
 }
 
+.modalImage[data-expelled="true"]:after {
+  content: "Expelled";
+  position: absolute;
+  transform: rotate(-49deg);
+  font-size: 5vw;
+  color: red;
+}
+
+
 
 @keyframes expell {
   0% {

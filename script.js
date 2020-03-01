@@ -318,6 +318,7 @@ function showModal(student, studentsArr) {
   const modal = selectHTMLelements().modalContainer;
   modal.addEventListener("click", hideModal);
   modal.dataset.crest = student.house.toLowerCase();
+
   modal.querySelector(
     ".studentImg"
   ).src = `./img/studentImages/${student.image}`;
@@ -544,9 +545,17 @@ function expellStudent(student, modal) {
 }
 
 function showIfExpelled(student, modal) {
-  if (student.isExpelled === true) {
+  if (
+    student.isExpelled === true &&
+    modal.querySelector(".modalImage").dataset.expelled === "true"
+  ) {
+    return true;
+  } else if (student.isExpelled === true) {
     modal.querySelector(".modalImage").dataset.expelled = "expelled";
     modal.querySelector(".actions").dataset.expelled = "expelled";
+    setTimeout(() => {
+      modal.querySelector(".modalImage").dataset.expelled = "true";
+    }, 2000);
   } else {
     modal.querySelector(".modalImage").dataset.expelled = "none";
     modal.querySelector(".actions").dataset.expelled = "none";
