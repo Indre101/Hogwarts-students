@@ -664,3 +664,35 @@ ul {
   height: 5vh;
   background-color: red;
 }
+
+.memeContainer {
+  display: none;
+}
+
+.memeContainer[data-active="true"] {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  display: block;
+  z-index: 300;
+}
+
+.memeImg {
+  --x-position: 30;
+  --y-position: 60;
+  --animation-timing: 1s;
+  height: 20vh;
+  animation: moveImage calc(var(--animation-timing) * 1s) ease-in-out alternate-reverse infinite;
+  opacity: 0;
+  transform: translate(calc(var(--x-position) * 1vw), calc(var(--y-position) * 1vh));
+}
+
+
+@keyframes moveImage {
+
+  100% {
+    opacity: 1;
+
+  }
+}

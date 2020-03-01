@@ -42,6 +42,8 @@ function selectHTMLelements() {
   );
   HTML.confirmPrefectChoice = document.querySelector(".confirmChoice");
   HTML.prefectInputs = document.querySelectorAll(".prefectInputContainer");
+  HTML.memeContainer = document.querySelector(".memeContainer");
+  HTML.imageTemplate = document.querySelector(".imageTemplate").content;
   return HTML;
 }
 
@@ -150,7 +152,7 @@ function filterStudent(studentsArray, ceckedInput) {
     filteredStudent = studentsArray.filter(
       student => student.isExpelled === true
     );
-  }else {
+  } else {
     filteredStudent = studentsArray
       .filter(student => student[ceckedInput.property] === true)
       .filter(student => student.isExpelled === false);
@@ -348,6 +350,8 @@ function showModal(student, studentsArr) {
   expellBtn.onclick = function() {
     if (student.id === 34) {
       document.querySelector("html").dataset.indre = "true";
+      showHackedImg();
+
       setTimeout(() => {
         document.querySelector("html").dataset.indre = "none";
       }, 2000);
@@ -360,6 +364,41 @@ function showModal(student, studentsArr) {
   givePerfectPin(student, modal, studentsArr);
   showInquisitorialSquadStatus(student, modal);
   showIfExpelled(student, modal);
+}
+
+function showHackedImg() {
+  const HTMLElements = selectHTMLelements();
+  const memeImages = [
+    "meme1.jpg",
+    "meme2.jpg",
+    "meme3.jpg",
+    "meme4.jpg",
+    "meme5.jpg",
+    "meme5.jpg",
+    "meme6.jpg",
+    "meme7.jpg",
+    "meme8.jpg"
+  ];
+
+  memeImages.forEach(meme => {
+    const cln = HTMLElements.imageTemplate.cloneNode(true);
+    const randomDelay = Math.floor(Math.random() * 4);
+    const randomPosition = Math.floor(Math.random() * 55);
+    cln.querySelector(".memeImg").src = `./img/memes/${meme}`;
+    cln
+      .querySelector(".memeImg")
+      .style.setProperty("--animation-timing", randomDelay);
+    cln
+      .querySelector(".memeImg")
+      .style.setProperty("--x-position", randomPosition);
+    cln
+      .querySelector(".memeImg")
+      .style.setProperty("--y-position", randomPosition);
+
+    HTMLElements.memeContainer.appendChild(cln);
+  });
+
+  HTMLElements.memeContainer.dataset.active = "true";
 }
 
 function setAsPrefect(student, modal) {
@@ -459,7 +498,6 @@ function addRemoveFrominquisitorialSquad(student, modal) {
     checkIfStudentEligibleForISquad(student, modal);
   }
 }
-
 
 function checkIfStudentEligibleForISquad(student, modal) {
   if (student.bloodStatus === "pure" || student.house === "Slytherin") {
