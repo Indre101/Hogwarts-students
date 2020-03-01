@@ -718,3 +718,69 @@ ul {
 
   }
 }
+
+
+@media only screen and (max-width: 800px) {
+  :root {
+    --width-message: 600px;
+
+  }
+
+  .modal {
+    padding: 3vh;
+  }
+
+  .detailedInfo .studentFact span {
+    font-size: 2vw;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  :root {
+    --width-message: 450px;
+
+  }
+
+  .modal {
+    padding: 2vh;
+  }
+
+  .mainContainer {
+    width: 100vw;
+  }
+
+}
+
+
+
+@media only screen and (max-width: 550px) {
+  :root {
+    --width-message: 400px;
+
+  }
+
+  .modal {
+    padding: 2vh;
+  }
+
+  .mainContainer {
+    width: 100vw;
+  }
+
+  .detailedInfo .studentFact span {
+    font-size: 3vw;
+  }
+
+  .detailedInfo h3 {
+    font-size: 2vw;
+  }
+
+
+  .student h3 {
+    font-size: 1vh;
+  }
+
+  .li {
+    font-size: 2vw;
+  }
+}
