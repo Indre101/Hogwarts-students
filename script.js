@@ -460,9 +460,6 @@ function addRemoveFrominquisitorialSquad(student, modal) {
   }
 }
 
-// function addToiquisitionalSquad(student) {
-//   student.isInInquisitorialSquad = true;
-// }
 
 function checkIfStudentEligibleForISquad(student, modal) {
   if (student.bloodStatus === "pure" || student.house === "Slytherin") {
