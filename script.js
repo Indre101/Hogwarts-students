@@ -540,6 +540,8 @@ function showInquisitorialSquadStatus(student, modal) {
 function expellStudent(student, modal) {
   student.isExpelled = true;
   student.isPrefect = false;
+  student.isInInquisitorialSquad = false;
+  showInquisitorialSquadStatus(student, modal);
   showIfExpelled(student, modal);
   givePerfectPin(student, modal);
 }
