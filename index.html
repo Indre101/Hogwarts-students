@@ -10,8 +10,7 @@
 </head>
 
 <body>
-
-  <div class="overlay" data-opened="none" data-closed="close">
+  <div class="overlay" data-opened="none" data-closed="none">
     <div class="bg-container bg-container-1-2">
       <div class="bg bg-1"></div>
       <div class="bg bg-2"></div>
@@ -55,6 +54,10 @@
       <div class="filtering part">
         <h4>Filter by</h4>
         <div class="inputContainer">
+          <input type="radio" name="filter" value="Expelled" data-property="all" />
+          <label data-action="filter">All</label>
+        </div>
+        <div class="inputContainer">
           <input type="radio" name="filter" value="Prefect" data-property="isPrefect" />
           <label data-action="filter">Prefect</label>
         </div>
@@ -84,10 +87,7 @@
           <input type="radio" name="filter" value="House" data-property="isRavenclaw" />
           <label data-action="filter">Ravenclaw</label>
         </div>
-        <div class="inputContainer">
-          <input type="radio" name="filter" value="Expelled" data-property="all" />
-          <label data-action="filter">All</label>
-        </div>
+
       </div>
     </div>
 
@@ -104,18 +104,6 @@
 
 
   </div>
-  <footer>
-    <ul>
-      <li class="li " data-value="isStudent">Number of students total: </li>
-      <li class="li isExpelled" data-value="isExpelled">Number of expelled </li>
-      <li class="li " data-value="isGryffindor">Grifindor: student count </li>
-      <li class="li " data-value="isRavenclaw"> Ravenclaw: student count </li>
-      <li class="li " data-value="isHufflepuff">Hufflepuff: student count </li>
-      <li class="li " data-value="isSlytherin">Slytherin: student count </li>
-    </ul>
-  </footer>
-
-
 
 
   <template class="studentItem">
@@ -126,6 +114,8 @@
       <h3 class="studentHouse">House</h3>
     </div>
   </template>
+
+
   <div class="modalContainer " data-crest="">
     <div class="bgStudentModal">
 
@@ -133,20 +123,24 @@
         <div class="modalImage">
           <div class="badges">
             <div class="badge crest"></div>
-            <div class="badge prefect"></div>
+            <div class="badge prefectPin"></div>
           </div>
           <img class="studentImg" src="./img/studentImages/abbott_h.png" alt="Student image">
 
         </div>
 
         <div class="detailedInfo">
-          <h3 class="studentName">First name: </h3>
-          <h3 class="middleName">Middle name:</h3>
-          <h3 class="nickName">Nick name: </h3>
-          <h3 class="studentLastName">Last name: </h3>
-          <h3 class="house">House: </h3>
-          <h3 class="parentage">Parentage: </h3>
-          <h3 class="inquisitionalSquad">Member of inquisitional squad: </h3>
+          <h3 class="studentFact studentName">First name<span></span></h3>
+          <h3 class="studentFact nickName">Nick name<span></span></h3>
+          <h3 class="studentFact middleName">Middle name<span></span></h3>
+          <h3 class="studentFact studentLastName">Last name<span></span></h3>
+        </div>
+        <div class="detailedInfo">
+
+          <h3 class="studentFact house">House<span></span></h3>
+          <h3 class="studentFact parentage">Parentage<span></span> </h3>
+          <h3 class="studentFact prefectStatus">Prefect<span></span> </h3>
+          <h3 class="studentFact inquisitionalSquad">Member of inquisitional squad<span></span></h3>
         </div>
         <div class="actions">
           <h3 class="actionBtn expell">Expell</h3>
@@ -158,39 +152,45 @@
 
 
 
-
     <div class="prefectsMessageContainer">
       <div class="message">
         <h3>Both of these students can't be prefect, choose one</h3>
         <h4>Make a prefect:</h4>
         <div class="prefectOptions">
         </div>
-
         <div class="confirmChoice">Confirm </div>
-        <h4>If you confirm without choosing the exisiting prefects will stay as is</h4>
       </div>
       <template class="prefectInput">
         <div class="prefectInputContainer">
-          <input type="radio" />
+          <input type="radio" name="prefects" value="name" />
           <label class="fullName prefectLabel">Last name</label>
         </div>
       </template>
-
-
-
-
-
-      <div class="messagecontainer">
-        <div class="message">
-          <h3>Student, can't be added to inquisitional squad, since student is not of pure blood parentage or not a part
-            of Slytherin house</h3>
-          <div class="okBtn">OK</div>
-        </div>
+    </div>
+    <div class="messagecontainer">
+      <div class="message">
+        <h3>Student, can't be added to inquisitional squad, since student is not of pure blood parentage or not a part
+          of Slytherin house</h3>
+        <div class="okBtn">OK</div>
       </div>
     </div>
+  </div>
 
-    <script src="script.js"></script>
-    <script src="stringMethods.js"></script>
+
+  <footer>
+    <ul>
+      <li class="li isStudent" data-value="isStudent">Number of students total: <span></span> </li>
+      <li class="li isExpelled" data-value="isExpelled">Number of expelled <span></span></li>
+      <li class="li " data-value="isGryffindor">Grifindor: student count <span></span></li>
+      <li class="li " data-value="isRavenclaw"> Ravenclaw: student count <span></span></li>
+      <li class="li " data-value="isHufflepuff">Hufflepuff: student count <span></span></li>
+      <li class="li " data-value="isSlytherin">Slytherin: student count <span></span> </li>
+    </ul>
+    <button class="hack"><img src="./icons/hacker.svg" alt="Hacker"></button>
+
+  </footer>
+  <script src="script.js"></script>
+  <script src="stringMethods.js"></script>
 </body>
 
 </html>

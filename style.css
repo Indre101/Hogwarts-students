@@ -10,6 +10,7 @@
   --secondary-text-color: black;
   --width: 80vw;
   --accent-color: none;
+  --width-message: 700px;
 
 }
 
@@ -208,14 +209,6 @@ h1 {
 }
 
 
-
-
-h3 {
-  height: 5vw;
-  display: flex;
-  align-items: center;
-}
-
 .mediumContainer {
   display: flex;
   justify-content: center;
@@ -341,7 +334,31 @@ label:hover:before {
   position: fixed;
   left: 0;
   box-shadow: 1px 0px 0px 0px lightgrey;
+  /* animation:
+    displayNone 0.3s 1.5s ease-in forwards 1; */
 }
+
+.studentFact {
+  text-decoration: none;
+}
+
+
+
+.detailedInfo h3 {
+  font-size: 1vw;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  /* margin: 1vh 0; */
+
+}
+
+.detailedInfo .studentFact span {
+  font-size: 1.5vw;
+  border-bottom: 1px solid black;
+  width: -webkit-fill-available;
+}
+
 
 .mainContainer .filterBtn[data-active="active"]+.smallContainer {
   display: flex;
@@ -391,9 +408,11 @@ label:hover:before {
   background-image: var(--crest-bg-image);
 }
 
-.prefect {
-  background-image: var(--prefect-bg-image);
+
+.prefectPin {
   display: none;
+  background-image: var(--prefect-bg-image);
+
 }
 
 .modalContainer[data-crest="slytherin"] {
@@ -434,12 +453,12 @@ label:hover:before {
 .modal {
   transform: skew(-10deg, -10deg);
   display: grid;
-  grid-template-columns: 20% 40% 40%;
-  grid-gap: 2vw;
+  grid-template-columns: 20% 37% 37%;
+  grid-gap: 3%;
   background-color: white;
   color: black;
-  padding: 3vw;
-  padding: 1vw 3vw 3vw 3vw;
+  width: var(--width-message);
+  padding: 5vh;
 }
 
 img {
@@ -454,6 +473,9 @@ img {
   align-self: flex-end;
 }
 
+.student h3 {
+  font-size: 2vh;
+}
 
 .student[data-show="show"] {
   display: grid;
@@ -469,14 +491,14 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3vw;
+  margin-bottom: 1vw;
 }
 
 .badge {
   background-size: contain;
   background-repeat: no-repeat;
-  width: 6vh;
-  height: 6vw;
+  width: 60px;
+  height: 60px;
 }
 
 
@@ -505,48 +527,53 @@ img {
 
 
 .detailedInfo {
-  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.detailedInfo h3 {
-  font-size: 1vw;
-  height: fit-content;
-  margin: 1vw 0;
-  border-bottom: 1px solid black;
-}
+
+
 
 
 .actions {
-  align-self: flex-end;
+  grid-area: 2/1/ span 1/ span 3;
+  width: 100%;
+  justify-content: space-between;
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-around;
+  margin-top: 3vh;
 }
 
 
 .actions .actionBtn {
-  width: 75%;
+  width: 150px;
   height: 5vw;
   text-align: center;
   font-size: 1.5vw;
   box-shadow: 1px 1px 1px 1px grey;
   display: flex;
   justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .expell {
-  color: #7b0505;
+  color: #ff0000;
+}
+
+html[data-indre="true"] {
+  cursor: none;
+  pointer-events: none;
 }
 
 .setAsPerfect {
-  color: #024e47;
+  color: green;
 }
 
 
 
 .addToinquisitionaSquad {
-  color: #5a195a;
+  color: purple;
 
 }
 
@@ -582,10 +609,10 @@ ul {
 
 
 .message {
-  width: 50vw;
+  width: var(--width-message);
   background-color: white;
   flex-direction: column;
-  height: 30vh;
+  height: 40vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -626,240 +653,14 @@ ul {
   box-shadow: 1px 1px 1px 1px lightgrey;
 }
 
-/* 
-.d-none {
-  display: none;
+
+.hack {
+  border: navajowhite;
+  background: none;
+  margin: 0 2vh;
 }
 
-.imageOfAStudent {
-  height: 310px;
-  object-fit: cover;
-  width: 100%;
+.hack img {
+  height: 5vh;
+  background-color: red;
 }
-
-div.students {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, auto));
-  grid-gap: 2vw;
-  padding: 4vw 0;
-  background-color: #ccc;
-  border-radius: unset;
-}
-
-.justify-align-center {
-  justify-content: center;
-  align-items: center;
-}
-
-.j-self-center {
-  justify-self: center;
-}
-
-
-.justify-align-self-centered {
-  align-self: center;
-  justify-self: center;
-}
-
-.student {
-  width: 300px;
-  background-color: black;
-  color: white;
-  height: 55vh;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s ease-in, box-shadow 0.2s ease-in-out;
-  transform-origin: bottom;
-}
-
-
-.student:hover {
-  box-shadow: 2px 3px 5px darkgrey;
-  transform: translateY(-5px) scale(1.02);
-}
-
-.mainStudentInfo {
-  display: grid;
-  grid-template-rows: auto 10%;
-  height: 100%;
-  padding: 1.5vw;
-}
-
-
-
-.d-flex {
-  display: flex;
-}
-
-
-
-
-@keyframes fullWidth {
-  0% {
-    height: 0;
-  }
-}
-
-
-.numbers {
-  display: flex;
-  align-self: flex-end;
-  width: 30px;
-  height: 30px;
-  background-color: white;
-  border-radius: 50%;
-  color: black;
-}
-
-h4.house {
-  color: #cccc;
-  text-transform: capitalize;
-}
-
-
-button {
-  border: none;
-  transition: transform 0.5s;
-
-}
-
-button h4 {
-  padding: 3vh;
-  background-color: black;
-  color: var(--primary-text-color);
-  font-size: 1rem;
-
-}
-
-button:hover {
-  transform: skew(-20deg);
-
-}
-
-
-
-@keyframes widthToZero {
-  100% {
-    height: 0;
-  }
-}
-
-
-.modalConent {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 30% 30% 10% 30%;
-}
-
-.d-flex-centered {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-
-
-h4.message {
-  color: var(--primary-text-color);
-  width: 70%;
-  justify-self: center;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.crest {
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 100px;
-  height: 100px;
-}
-
-
-.modal[data-crest="slytherin"] {
-  --modal-color: #5d5d5df6;
-  --modal-color-1: #5d5d5d;
-  --secondary-text-color: #1a472a;
-}
-
-
-.modal[data-crest="slytherin"] .crest {
-  background-image: url(./img/sly.png);
-}
-
-
-
-.modal[data-crest="hufflepuff"] {
-  --modal-color: #372e29f6;
-  --modal-color-1: #372e29;
-  --secondary-text-color: #ecb939;
-}
-
-
-.modal[data-crest="hufflepuff"] .crest {
-  background-image: url(./img/huff.png);
-
-}
-
-.modal[data-crest="gryffindor"] {
-  --modal-color: #d3a625f6;
-  --modal-color-1: #d3a625;
-  --secondary-text-color: #740001;
-
-}
-
-
-.modal[data-crest="gryffindor"] .crest {
-  background-image: url(./img/griff.png);
-
-}
-
-
-.modal[data-crest="ravenclaw"] {
-  --modal-color: #222f5bf6;
-  --modal-color-1: #222f5b;
-  --secondary-text-color: #946b2d;
-
-}
-
-
-.modal[data-crest="ravenclaw"] .crest {
-  background-image: url(./img/raven.png);
-
-
-}
-
-
-.modal {
-  position: absolute;
-  width: 300px;
-  height: 45vh;
-  height: inherit;
-  animation: fullWidth 0.5s linear forwards 1;
-  align-self: flex-start;
-  background-color: var(--modal-color);
-}
-
-
-
-.textStudentHouse {
-  color: var(--secondary-text-color);
-  text-transform: capitalize;
-}
-
-
-.slider {
-  height: inherit;
-  position: absolute;
-  width: -webkit-fill-available;
-  width: -moz-available;
-  transform-origin: top;
-  align-self: flex-end;
-  animation: widthToZero 0.5s linear forwards 1;
-  background-color: var(--modal-color-1);
-}
-
-.theme {
-  height: 2rem;
-} */
