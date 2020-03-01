@@ -217,7 +217,6 @@ function addMyselfTotheStudents(studentsArr) {
   };
   assignValuesToStudentObject(Indre, studentsArr);
   studentsArr.forEach(student => displayStudentListItems(student, studentsArr));
-  console.log(studentsArr);
 }
 
 function messStudentBlooddata(studentsArr) {
@@ -232,7 +231,6 @@ function messStudentBlooddata(studentsArr) {
 //
 function setSchoolStatistics(studentsArr) {
   let stats = selectHTMLelements().allStatistics;
-  // console.log(studentsArr);
   stats.forEach(fact => {
     let filtereedNumberResult = studentsArr
       .filter(student => student[fact.dataset.value])
