@@ -53,7 +53,7 @@ function openHogwarts(startBtn, overlay) {
     overlay.dataset.opened = "open";
     setTimeout(() => {
       overlay.dataset.closed = "close";
-    }, 2000);
+    }, 1500);
   });
 }
 
