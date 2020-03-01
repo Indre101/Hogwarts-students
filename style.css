@@ -24,9 +24,10 @@
   font-weight: lighter;
   font-family: 'Yeon Sung';
   scroll-behavior: smooth;
-
-
 }
+
+
+
 
 body {
   height: 100vh;
@@ -233,6 +234,17 @@ h1 {
   align-items: center;
 
 }
+
+
+.studentsList::-webkit-scrollbar {
+  width: 1vw;
+}
+
+.studentsList::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 10px;
+}
+
 
 
 .student {
