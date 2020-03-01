@@ -13,7 +13,7 @@ const Student = {
   bloodStatus: "",
   gender: "",
   isPrefect: false,
-  isInInquisitionalSquad: false,
+  isInInquisitorialSquad: false,
   isExpelled: false,
   isSlytherin: false,
   isHufflepuff: false,
@@ -336,13 +336,13 @@ function showModal(student, studentsArr) {
     checkIfEligibleForPrefect(student, studentsArr, modal);
   };
 
-  modal.querySelector(".addToinquisitionaSquad").onclick = function() {
+  modal.querySelector(".addToInquisitorialSquad").onclick = function() {
     if (isHackHappening) {
       setTimeout(() => {
-        addRemoveStudentInquisitionalSquad(student, modal);
+        addRemoveFrominquisitorialSquad(student, modal);
       }, 1000);
     }
-    addRemoveStudentInquisitionalSquad(student, modal);
+    addRemoveFrominquisitorialSquad(student, modal);
   };
 
   expellBtn.onclick = function() {
@@ -358,7 +358,7 @@ function showModal(student, studentsArr) {
   };
 
   givePerfectPin(student, modal, studentsArr);
-  showInquistionalSquadStatus(student, modal);
+  showInquisitorialSquadStatus(student, modal);
   showIfExpelled(student, modal);
 }
 
@@ -451,28 +451,28 @@ const changeTheLabelicons = (inputOption, prefect) => {
   inputOption.dataset.status = prefect.isPrefect ? "checked" : "none";
 };
 
-function addRemoveStudentInquisitionalSquad(student, modal) {
-  if (student.isInInquisitionalSquad === true) {
-    student.isInInquisitionalSquad = false;
-    showInquistionalSquadStatus(student, modal);
+function addRemoveFrominquisitorialSquad(student, modal) {
+  if (student.isInInquisitorialSquad === true) {
+    student.isInInquisitorialSquad = false;
+    showInquisitorialSquadStatus(student, modal);
   } else {
     checkIfStudentEligibleForISquad(student, modal);
   }
 }
 
 // function addToiquisitionalSquad(student) {
-//   student.isInInquisitionalSquad = true;
+//   student.isInInquisitorialSquad = true;
 // }
 
 function checkIfStudentEligibleForISquad(student, modal) {
   if (student.bloodStatus === "pure" || student.house === "Slytherin") {
-    student.isInInquisitionalSquad = true;
+    student.isInInquisitorialSquad = true;
     modal.querySelector(".messagecontainer").dataset.show = "none";
   } else {
-    student.isInInquisitionalSquad = false;
+    student.isInInquisitorialSquad = false;
     showHideMessage(modal);
   }
-  showInquistionalSquadStatus(student, modal);
+  showInquisitorialSquadStatus(student, modal);
 }
 
 function showHideMessage(modal) {
@@ -483,15 +483,15 @@ function showHideMessage(modal) {
   });
 }
 
-function showInquistionalSquadStatus(student, modal) {
+function showInquisitorialSquadStatus(student, modal) {
   modal.querySelector(
-    ".inquisitionalSquad span"
-  ).textContent = student.isInInquisitionalSquad ? "yes" : "no";
+    ".inquisitorialSquad span"
+  ).textContent = student.isInInquisitorialSquad ? "yes" : "no";
   modal.querySelector(
-    ".addToinquisitionaSquad"
-  ).textContent = student.isInInquisitionalSquad
-    ? "Remove from inquisitional squad"
-    : "Add to inquisitional squad";
+    ".addToInquisitorialSquad"
+  ).textContent = student.isInInquisitorialSquad
+    ? "Remove from inquisitorial squad"
+    : "Add to inquisitorial squad";
 }
 
 function expellStudent(student, modal) {
